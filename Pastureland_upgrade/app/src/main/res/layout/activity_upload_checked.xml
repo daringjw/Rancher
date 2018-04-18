@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RadioButton
+            android:id="@+id/rb_black_sheep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="黑头羊"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView3"
+            app:layout_constraintRight_toRightOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"/>
+
+        <RadioButton
+            android:id="@+id/rb_sheep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="山羊"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView2"
+            app:layout_constraintRight_toRightOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"/>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/check_sheep"
+            app:layout_constraintLeft_toRightOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3"
+            app:layout_constraintRight_toLeftOf="@+id/imageView4"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/check_horse"
+            app:layout_constraintLeft_toRightOf="@+id/imageView4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView4"/>
+
+        <RadioButton
+            android:id="@+id/rb_horse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="马"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView"
+            app:layout_constraintRight_toRightOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+
+        <RadioButton
+            android:id="@+id/rb_bull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="牛"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView4"
+            app:layout_constraintRight_toRightOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4"/>
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/imageView2"
+            app:srcCompat="@drawable/check_bull"
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            app:layout_constraintRight_toLeftOf="@+id/imageView"/>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/check_black_sheep"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintRight_toLeftOf="@+id/imageView2"/>
+
+        <ImageView
+            android:id="@+id/img_upload"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toTopOf="@+id/btn_submit"
+            app:layout_constraintLeft_toLeftOf="@+id/btn_submit"
+            app:layout_constraintRight_toRightOf="@+id/btn_submit"
+            app:layout_constraintTop_toBottomOf="@+id/rb_sheep"
+            app:layout_constraintVertical_bias="0.0"
+            />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/submit_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="@+id/img_upload"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/img_upload"
+            app:layout_constraintTop_toTopOf="@+id/img_upload"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_upload"
+            android:layout_marginBottom="8dp"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</LinearLayout>

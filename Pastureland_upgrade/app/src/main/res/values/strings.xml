@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">智慧牧场</string>
+    <string name="checked_Item">checkItem</string>
+    <string name="img_Url">imgUrl</string>
+    <string name="scan_Message">scanMessage</string>
+</resources>

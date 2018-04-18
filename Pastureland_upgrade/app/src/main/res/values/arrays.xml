@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AmountView">
+        <!-- 左右2边+-按钮的宽度 -->
+        <attr name="btnWidth" format="dimension"/>
+        <!-- 中间TextView的宽度 -->
+        <attr name="tvWidth" format="dimension"/>
+        <!--<attr name="tvColor" format="color"/>-->
+        <attr name="tvTextSize" format="dimension"/>
+        <attr name="btnTextSize" format="dimension"/>
+    </declare-styleable>
+
+    <string-array name="type">
+        <item>羊</item>
+        <item>牛</item>
+        <item>马</item>
+        <item>猪</item>
+        <item>骆驼</item>
+    </string-array>
+
+    <string-array name="type1">
+        <item>羊</item>
+    </string-array>
+
+    <string-array name="variety">
+        <item>乌珠穆沁黑头羊</item>
+        <item>山羊</item>
+        <item>西门塔尔牛</item>
+        <item>蒙古马</item>
+        <item>草原黑毛猪</item>
+    </string-array>
+
+    <string-array name="weight">
+        <item>10kg</item>
+        <item>20kg</item>
+        <item>30kg</item>
+        <item>40kg</item>
+        <item>50kg</item>
+    </string-array>
+
+    <string-array name="age">
+        <item>2个月</item>
+        <item>5个月</item>
+        <item>8个月+</item>
+    </string-array>
+
+    <string-array name="claim">
+        <item>全部</item>
+        <item>未认领</item>
+        <item>已认领</item>
+
+    </string-array>
+
+    <string-array name="tool_type">
+        <item>割草机</item>
+        <item>播种机</item>
+    </string-array>
+
+    <string-array name="tool_sum">
+        <item>1台</item>
+        <item>2台</item>
+        <item>3台</item>
+        <item>4台</item>
+        <item>5台</item>
+    </string-array>
+
+
+    <string-array name="grass_type">
+        <item>干草</item>
+        <item>秸秆</item>
+    </string-array>
+
+    <string-array name="grass_weight">
+        <item>50千克</item>
+        <item>100千克</item>
+        <item>150千克</item>
+        <item>200千克</item>
+        <item>250千克</item>
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jinkun_innovation.pastureland.ui.MainActivity">
+
+    <include layout="@layout/toolbar"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/ibtn_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/transparent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/main_birthday"/>
+
+        <ImageButton
+            android:id="@+id/ibtn_crop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/transparent"
+            app:layout_constraintLeft_toLeftOf="@+id/ibtn_birthday"
+            app:layout_constraintRight_toRightOf="@+id/ibtn_birthday"
+            app:layout_constraintTop_toBottomOf="@+id/ibtn_birthday"
+            app:srcCompat="@drawable/main_crop"/>
+
+        <ImageButton
+            android:id="@+id/ibtn_life"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/transparent"
+            app:layout_constraintLeft_toLeftOf="@+id/ibtn_crop"
+            app:layout_constraintRight_toRightOf="@+id/ibtn_crop"
+            app:layout_constraintTop_toBottomOf="@+id/ibtn_crop"
+            app:srcCompat="@drawable/main_life"/>
+
+        <ImageButton
+            android:id="@+id/ibtn_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/transparent"
+            app:layout_constraintLeft_toLeftOf="@+id/ibtn_life"
+            app:layout_constraintRight_toRightOf="@+id/ibtn_life"
+            app:layout_constraintTop_toBottomOf="@+id/ibtn_life"
+            app:srcCompat="@drawable/main_private"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="版本"/>
+
+        <Button
+            android:id="@+id/btnInterface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="接口"/>
+
+
+
+    </LinearLayout>
+</LinearLayout>
