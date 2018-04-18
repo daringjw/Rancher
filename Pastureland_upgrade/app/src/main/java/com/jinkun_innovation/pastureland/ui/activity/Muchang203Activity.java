@@ -130,6 +130,8 @@ public class Muchang203Activity extends Activity {
 
                 startActivity(new Intent(getApplicationContext(), EditMuchangActivity.class));
 
+                PrefUtils.setString(getApplicationContext(),"key","value");
+
                 break;
 
         }

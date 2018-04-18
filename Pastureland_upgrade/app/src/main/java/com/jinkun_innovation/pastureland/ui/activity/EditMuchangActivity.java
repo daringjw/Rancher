@@ -44,12 +44,9 @@ public class EditMuchangActivity extends Activity {
     EditText mTvMianji;
     @BindView(R.id.tvRiverNearby)
     EditText mTvRiverNearby;
-    @BindView(R.id.tvNum)
-    EditText mTvNum;
-    @BindView(R.id.tvVariety)
-    EditText mTvVariety;
-    @BindView(R.id.tvWeilan)
-    EditText mTvWeilan;
+
+
+
     @BindView(R.id.tvDetail)
     EditText mTvDetail;
     private LoginSuccess mLoginSuccess;
@@ -59,6 +56,7 @@ public class EditMuchangActivity extends Activity {
     private String mImgUrl;
     private String mRanchurl;
     private String mName;
+    private String mIntroduceAnimalCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,6 +95,15 @@ public class EditMuchangActivity extends Activity {
 
                             mName = muqunDetail.getRanch().getName();
 
+                            etMuChangName.setText(muqunDetail.getRanch().getName());
+                            mTvMianji.setText(muqunDetail.getRanch().getAcreage());
+                            mTvRiverNearby.setText(muqunDetail.getRanch().getIntroduceRiver());
+
+                            mTvDetail.setText(muqunDetail.getRanch().getIntroduce());
+
+                            mIntroduceAnimalCount = muqunDetail.getRanch().getIntroduceAnimalCount();
+
+
 
                         } else {
 
@@ -128,9 +135,9 @@ public class EditMuchangActivity extends Activity {
                         .params("imgUrl", mImgUrl)
                         .params("name", etMuChangName.getText().toString())    //牧场名称
                         .params("acreage", mTvMianji.getText().toString())      //面积
-                        .params("introduceAnimalCount", mTvNum.getText().toString())    //数量
+                        .params("introduceAnimalCount", mIntroduceAnimalCount)    //数量
                         .params("introduceRiver", mTvRiverNearby.getText().toString())   // 河流  0：无，1有
-                        .params("isFenceClose", mTvWeilan.getText().toString())     // 围栏封闭  0：封闭，1开放
+                        .params("isFenceClose", "")     // 围栏封闭  0：封闭，1开放
                         .params("introduce", mTvDetail.getText().toString())      //介绍
                         .params("longtitudeBaidu", 117.6039815171)
                         .params("lantitudeBaidu", 43.7456692790)
