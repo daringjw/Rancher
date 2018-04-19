@@ -289,7 +289,7 @@ public class GeRenXinxiActivity extends AppCompatActivity {
             public void onClick(View view) {
                 new SweetAlertDialog(GeRenXinxiActivity.this)
                         .setTitleText("修改性别?")
-                        .setContentText("你是女人还是男人?")
+                        .setContentText("")
                         .setCancelText("女")
                         .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
