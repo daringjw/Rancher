@@ -12,7 +12,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:background="#127c39">
 
             <ImageView
@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="个人信息"
+                android:textSize="20sp"
                 android:textColor="#fff"/>
 
 

@@ -57,10 +57,10 @@ public class HomeActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
 
-        mTabLayout.getTabAt(0).setIcon(R.drawable.manage_selector);
-        mTabLayout.getTabAt(1).setIcon(R.drawable.muqun_selector);
-        mTabLayout.getTabAt(2).setIcon(R.drawable.claim_selector);
-        mTabLayout.getTabAt(3).setIcon(R.drawable.my_selector);
+        mTabLayout.getTabAt(0).setCustomView(R.layout.tab_manage);
+        mTabLayout.getTabAt(1).setCustomView(R.layout.tab_muqun);
+        mTabLayout.getTabAt(2).setCustomView(R.layout.tab_renling);
+        mTabLayout.getTabAt(3).setCustomView(R.layout.tab_mine);
 
 //        tabLayout.getTabAt(0).getCustomView().setSelected(true);
 
@@ -70,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
         public final int COUNT = 4;
-        private String[] titles = new String[]{"管理", "牧群", "认领", "我的"};
+        private String[] titles = new String[]{"", "", "", ""};
         private SparseArray<Fragment> fragmentMap;
 
         private Context context;

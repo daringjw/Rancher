@@ -172,7 +172,7 @@ public class ManagerFragment extends Fragment {
         mSliderShow.addSlider(textSliderView1);
         mSliderShow.addSlider(textSliderView2);
 
-        mSliderShow.setPresetTransformer(SliderLayout.Transformer.RotateUp);
+        mSliderShow.setPresetTransformer(SliderLayout.Transformer.Default);
 
         LinearLayout llMyMuChang = (LinearLayout) view.findViewById(R.id.llMyMuChang);
         llMyMuChang.setOnClickListener(new View.OnClickListener() {
@@ -192,8 +192,10 @@ public class ManagerFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+
         super.onDestroyView();
         unbinder.unbind();
+
     }
 
     @OnClick({R.id.llRegister, R.id.llJianMao, R.id.llLifePhoto,
@@ -221,8 +223,8 @@ public class ManagerFragment extends Fragment {
 
                 startActivity(new Intent(getActivity(), ToolsActivity.class));
 
-
                 break;
+
             case R.id.llGrass:
 
                 startActivity(new Intent(getActivity(), GrassActivity.class));

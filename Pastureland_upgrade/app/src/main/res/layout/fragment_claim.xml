@@ -7,7 +7,7 @@
     <RelativeLayout
         android:background="#127c39"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="50dp">
 
         <ImageView
             android:visibility="gone"
@@ -20,6 +20,7 @@
 
         <TextView
             android:textColor="#fff"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

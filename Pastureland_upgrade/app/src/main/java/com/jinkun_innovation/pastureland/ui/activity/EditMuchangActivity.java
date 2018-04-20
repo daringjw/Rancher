@@ -139,8 +139,8 @@ public class EditMuchangActivity extends Activity {
                         .params("introduceRiver", mTvRiverNearby.getText().toString())   // 河流  0：无，1有
                         .params("isFenceClose", "")     // 围栏封闭  0：封闭，1开放
                         .params("introduce", mTvDetail.getText().toString())      //介绍
-                        .params("longtitudeBaidu", 117.6039815171)
-                        .params("lantitudeBaidu", 43.7456692790)
+//                        .params("longtitudeBaidu", "")
+//                        .params("lantitudeBaidu", "")
                         .params("ranchImgUrl", mRanchurl)
                         .params("videoUrl", "")
                         .execute(new StringCallback() {

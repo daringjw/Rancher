@@ -64,4 +64,6 @@ public class IpSettingActivity extends BaseActivity {
     public void onClick() {
         settingIp();
     }
+
+
 }
