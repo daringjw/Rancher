@@ -101,10 +101,9 @@ public class GeRenXinxiActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        setResult(RESULT_OK);
         super.onBackPressed();
-
-        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-
 
     }
 
@@ -144,7 +143,7 @@ public class GeRenXinxiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                setResult(RESULT_OK);
                 finish();
 
             }
