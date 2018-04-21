@@ -38,7 +38,7 @@
             android:id="@+id/tieNewPwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="密码必须是由8-16位数字和字母的组合"
+            android:hint="密码"
             android:inputType="textPassword"/>
 
     </android.support.design.widget.TextInputLayout>

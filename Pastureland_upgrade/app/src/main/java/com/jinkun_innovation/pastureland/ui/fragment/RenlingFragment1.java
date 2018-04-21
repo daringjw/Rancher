@@ -1198,9 +1198,9 @@ public class RenlingFragment1 extends Fragment {
                 viewHolder.tvDel.setText("");
 
                 String claimTime = datas.get(position).getClaimTime();
-                claimTime = claimTime.substring(0, 10);
+                claimTime = claimTime.substring(0, 7);
                 String finishTime = datas.get(position).getFinishTime();
-                finishTime = finishTime.substring(0, 10);
+                finishTime = finishTime.substring(0, 7);
                 //已认领
                 viewHolder.tvClaimTime.setText("认领时间：" + claimTime + "至" + finishTime);
 

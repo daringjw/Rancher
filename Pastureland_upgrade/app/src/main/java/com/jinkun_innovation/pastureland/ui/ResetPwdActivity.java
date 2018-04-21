@@ -5,18 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.common.Constants;
+import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -47,7 +45,6 @@ public class ResetPwdActivity extends Activity {
     private String mVerifyCode;
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +53,7 @@ public class ResetPwdActivity extends Activity {
 
         ButterKnife.bind(this);
 
-        mTieNewPwd.addTextChangedListener(new TextWatcher() {
+        /*mTieNewPwd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
 
@@ -76,7 +73,6 @@ public class ResetPwdActivity extends Activity {
 
                 } else {
 
-//                    ToastUtils.showShort("密码必须是由8-16位数字和字母的组合");
                     tvTips.setVisibility(View.VISIBLE);
                     tvTips.setText("密码必须是由8-16位数字和字母的组合");
 
@@ -89,7 +85,7 @@ public class ResetPwdActivity extends Activity {
             public void afterTextChanged(Editable editable) {
 
             }
-        });
+        });*/
 
 
     }
@@ -139,6 +135,13 @@ public class ResetPwdActivity extends Activity {
                                             startActivity(new Intent(getApplicationContext(),
                                                     LoginActivity1.class));
                                             finish();
+
+                                        } else if (result.contains("验证码不正确或超时")) {
+
+                                            ToastUtils.showShort("验证码不正确或超时");
+
+                                        } else {
+                                            ToastUtils.showShort("找回密码异常");
 
                                         }
 

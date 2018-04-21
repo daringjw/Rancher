@@ -127,7 +127,7 @@ public class ManagerFragment extends Fragment {
         textSliderView
                 .description("智慧牧场")
                 .setScaleType(BaseSliderView.ScaleType.Fit)//图片缩放类型
-                .image("http://s16.sinaimg.cn/large/4c74484dx738034dca2ef&690");
+                .image("http://pic.58pic.com/58pic/14/15/79/20U58PICrcu_1024.jpg");
 
         textSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
             @Override
@@ -142,7 +142,7 @@ public class ManagerFragment extends Fragment {
         TextSliderView textSliderView1 = new TextSliderView(getActivity());
         textSliderView1
                 .description("科技点亮牧场")
-                .image("https://goss2.vcg.com/creative/vcg/800/version23/VCG41544531487.jpg");
+                .image("http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1311/13/c7/28612921_1384347978119.jpg");
 
         textSliderView1.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
             @Override
@@ -156,7 +156,7 @@ public class ManagerFragment extends Fragment {
         TextSliderView textSliderView2 = new TextSliderView(getActivity());
         textSliderView2
                 .description("金坤技术")
-                .image("https://goss1.vcg.com/creative/vcg/800/version23/VCG41544521221.jpg");
+                .image("http://pic2.ooopic.com/12/49/46/19bOOOPICb3_1024.jpg");
 
         textSliderView2.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
             @Override
