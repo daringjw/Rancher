@@ -379,7 +379,7 @@ public class YangListActivity extends AppCompatActivity {
 
             String variety = datas.get(position).getVariety();
             if (variety.equals("100")) {
-                viewHolder.tvYangName.setText("品种：乌珠木漆黑羊");
+                viewHolder.tvYangName.setText("品种：乌珠穆沁黑头羊");
             } else {
                 viewHolder.tvYangName.setText("品种：山羊");
             }

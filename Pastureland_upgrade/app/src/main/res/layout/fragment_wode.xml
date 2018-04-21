@@ -118,12 +118,12 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/claim"/>
+                android:src="@mipmap/device_msg"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="认领"/>
+                android:text="设备消息"/>
 
         </LinearLayout>
 
@@ -140,12 +140,12 @@
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/device_msg"/>
+                android:src="@mipmap/claim"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="设备消息"/>
+                android:text="认领消息"/>
 
         </LinearLayout>
 

@@ -36,9 +36,6 @@ import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -223,13 +220,6 @@ public class DeviceMsgActivity extends Activity {
         });
 
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        //创建默认的线性LayoutManager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
-        mRecyclerView.setHasFixedSize(true);
-
         rcvQupaizhao = (RecyclerView) findViewById(R.id.rcvQupaizhao);
         //创建默认的线性LayoutManager
         LinearLayoutManager mLayoutManager1 = new LinearLayoutManager(this);
@@ -244,7 +234,7 @@ public class DeviceMsgActivity extends Activity {
                 .params("username", mUsername)
                 .params("ranchID", mLoginSuccess.getRanchID())
                 .params("current", 0)
-                .params("pagesize", 15)
+                .params("pagesize", 2000)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -258,13 +248,6 @@ public class DeviceMsgActivity extends Activity {
                         List<DeviceMsg.LivestockClaimListBean> livestockClaimList
                                 = deviceMsg.getLivestockClaimList();
 
-                        if (batteryList.size() != 0) {
-                            //创建并设置Adapter
-                            mAdapter = new MyAdapter(batteryList);
-                            mRecyclerView.setAdapter(mAdapter);
-
-
-                        }
 
                         if (livestockClaimList.size() != 0) {
 
@@ -279,23 +262,7 @@ public class DeviceMsgActivity extends Activity {
                 });
 
 
-        RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
 
-                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
-            }
-        });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-
-                refreshlayout.finishLoadMore(500/*,false*/);//传入false表示加载失败
-
-
-            }
-        });
 
 
     }
@@ -363,77 +330,6 @@ public class DeviceMsgActivity extends Activity {
     }
 
 
-    private String[] getDummyDatas() {
-
-        String[] arr = {"北京", "上海", "广州", "深圳"};
-
-        return arr;
-
-    }
-
-    RecyclerView mRecyclerView;
-    LinearLayoutManager mLayoutManager;
-    MyAdapter mAdapter;
-
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        public List<DeviceMsg.BatteryListBean> datas = null;
-
-        public MyAdapter(List<DeviceMsg.BatteryListBean> datas) {
-            this.datas = datas;
-        }
-
-        //创建新View，被LayoutManager所调用
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-
-            View view = LayoutInflater.from(viewGroup.getContext()).
-                    inflate(R.layout.item_device_msg, viewGroup, false);
-            ViewHolder vh = new ViewHolder(view);
-            return vh;
-
-        }
-
-        //将数据与界面进行绑定的操作
-        @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int position) {
-
-//            viewHolder.mTextView.setText(datas[position]);
-            viewHolder.tvTime1.setText(datas.get(position).getCreateTime());
-            viewHolder.tvLowPower.setText("设备" + datas.get(position).getDeviceNo() + "于" +
-                    datas.get(position).getCreateTime() + "发出了低电报警，请尽快去确认，及时充电");
-
-
-        }
-
-        //获取数据的数量
-        @Override
-        public int getItemCount() {
-            return datas.size();
-        }
-
-        //自定义的ViewHolder，持有每个Item的的所有界面元素
-        public class ViewHolder extends RecyclerView.ViewHolder {
-
-            //            public TextView mTextView;
-            TextView tvTime1;
-            TextView tvLowPower;
-
-
-            public ViewHolder(View view) {
-                super(view);
-
-//                mTextView = (TextView) view.findViewById(R.id.text);
-                tvTime1 = view.findViewById(R.id.tvTime1);
-                tvLowPower = view.findViewById(R.id.tvLowPower);
-
-
-            }
-
-
-        }
-    }
-
-
     public class QuPaizhaoAdapter extends RecyclerView.Adapter<QuPaizhaoAdapter.ViewHolder> {
 
         public List<DeviceMsg.LivestockClaimListBean> datas = null;
@@ -482,8 +378,8 @@ public class DeviceMsgActivity extends Activity {
                 //完成拍照
                 viewHolder.llQuPaizhao.setVisibility(View.VISIBLE);
                 viewHolder.ivQupaizhao.setImageResource(R.mipmap.done);
-                viewHolder.tvPaizhaoTime.setText(datas.get(position).getFinishTime());
-
+                viewHolder.tvPaizhaoTime.setText(datas.get(position)
+                        .getPhotographicTime());
                 viewHolder.ivQupaizhao.setClickable(false);
 
 
@@ -510,7 +406,6 @@ public class DeviceMsgActivity extends Activity {
                 viewHolder.ivQuluxiang.setImageResource(R.mipmap.quluxiang);
                 viewHolder.tvLuxiangTime.setText(datas.get(position).getVideoTime());
 
-
                 viewHolder.ivQuluxiang.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -524,17 +419,21 @@ public class DeviceMsgActivity extends Activity {
 
 
             } else if (isVideo.equals("1")) {
+
                 //完成录像
                 viewHolder.llQuLuxiang.setVisibility(View.VISIBLE);
                 viewHolder.ivQuluxiang.setImageResource(R.mipmap.done);
-                viewHolder.tvLuxiangTime.setText(datas.get(position).getFinishTime());
+                viewHolder.tvLuxiangTime.setText(datas.get(position).getVideoTime());
                 viewHolder.ivQuluxiang.setClickable(false);
 
             } else {
 
                 if (!isPhotographic.equals("0") && !isPhotographic.equals("1")) {
+
                     viewHolder.llPaiLu.setVisibility(View.GONE);
+
                 } else {
+
                     viewHolder.llPaiLu.setVisibility(View.VISIBLE);
                     viewHolder.llQuLuxiang.setVisibility(View.GONE);
                 }

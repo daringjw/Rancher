@@ -102,5 +102,7 @@ public class MuqunSum {
         public void set_$7(int _$7) {
             this._$7 = _$7;
         }
+
+
     }
 }

@@ -125,7 +125,7 @@ public class YangDetailActivity extends Activity {
                                 if (variety.equals("100")) {
 
                                     //乌珠木漆黑头羊
-                                    tvVariety.setText("品种名称：乌珠木漆黑头羊");
+                                    tvVariety.setText("品种名称：乌珠穆沁黑头羊");
 
 
                                 } else if (variety.equals("101")) {

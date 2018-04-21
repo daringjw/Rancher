@@ -301,7 +301,7 @@ public class RegisterActivity extends Activity {
                 switch (mInteger) {
 
                     case 100:
-                        tvVariety.setText("乌珠木漆黑羊");
+                        tvVariety.setText("乌珠穆沁黑头羊");
                         break;
 
                     case 101:
@@ -329,7 +329,9 @@ public class RegisterActivity extends Activity {
                 }
 
             }
+
             return convertView;
+
         }
     }
 
@@ -367,9 +369,6 @@ public class RegisterActivity extends Activity {
                 finish();
             }
         });
-
-
-
 
 
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);

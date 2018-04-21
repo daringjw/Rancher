@@ -308,7 +308,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                 switch (mInteger) {
 
                     case 100:
-                        tvVariety.setText("乌珠木漆黑羊");
+                        tvVariety.setText("乌珠穆沁黑头羊");
                         break;
 
                     case 101:
@@ -460,7 +460,6 @@ public class PublishClaimActivity extends AppCompatActivity {
         });
 
 
-
         AmountView avWeight = findViewById(R.id.avWeight);
         avWeight.setGoods_storage(10000);
 
@@ -496,7 +495,6 @@ public class PublishClaimActivity extends AppCompatActivity {
         });
 
 
-
         Button btnConfirm = (Button) findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -505,8 +503,6 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                 if (!TextUtils.isEmpty(mImgUrl)) {
                     if (!TextUtils.isEmpty(mDeviceNo)) {
-
-
 
 
                         if (mType1.equals("羊")) {
@@ -679,7 +675,6 @@ public class PublishClaimActivity extends AppCompatActivity {
                                     }
 
                                 });
-
 
 
                     } else {

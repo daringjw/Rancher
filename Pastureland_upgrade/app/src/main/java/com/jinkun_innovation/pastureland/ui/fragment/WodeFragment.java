@@ -21,6 +21,7 @@ import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.DeviceMsgActivity;
 import com.jinkun_innovation.pastureland.ui.GeRenXinxiActivity;
 import com.jinkun_innovation.pastureland.ui.HomeActivity;
+import com.jinkun_innovation.pastureland.ui.activity.ClaimMsgActivity;
 import com.jinkun_innovation.pastureland.ui.view.CircleImageView;
 import com.jinkun_innovation.pastureland.utilcode.util.ImageUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
@@ -165,8 +166,11 @@ public class WodeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                HomeActivity activity = (HomeActivity) getActivity();
-                activity.viewPager.setCurrentItem(2);
+                /*HomeActivity activity = (HomeActivity) getActivity();
+                activity.viewPager.setCurrentItem(2);*/
+                Intent intent = new Intent(getActivity(), ClaimMsgActivity.class);
+                startActivity(intent);
+
 
             }
         });
