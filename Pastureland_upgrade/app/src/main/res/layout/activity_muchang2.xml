@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 fresco:actualImageScaleType="fitXY"
-                fresco:placeholderImage="@mipmap/detail_yang"/>
+                />
 
             <RelativeLayout
                 android:layout_width="match_parent"
