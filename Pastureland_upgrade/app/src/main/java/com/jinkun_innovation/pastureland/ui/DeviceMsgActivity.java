@@ -30,6 +30,7 @@ import com.jinkun_innovation.pastureland.bean.ImgUrlBean;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.activity.QuPaizhaoActivity;
+import com.jinkun_innovation.pastureland.utilcode.AppManager;
 import com.jinkun_innovation.pastureland.utilcode.util.FileUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
@@ -203,6 +204,7 @@ public class DeviceMsgActivity extends Activity {
 
         setContentView(R.layout.activity_devicemsg);
 
+        AppManager.getAppManager().addActivity(this);
 
         mLogin_success = PrefUtils.getString(this, "login_success", null);
         Gson gson = new Gson();

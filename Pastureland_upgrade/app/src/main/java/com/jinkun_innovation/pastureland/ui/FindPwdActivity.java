@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.common.Constants;
+import com.jinkun_innovation.pastureland.utilcode.AppManager;
 import com.jinkun_innovation.pastureland.utils.PhoneFormatCheckUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -53,6 +54,7 @@ public class FindPwdActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_findpwd);
+        AppManager.getAppManager().addActivity(this);
         ButterKnife.bind(this);
 
 

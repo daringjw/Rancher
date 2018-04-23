@@ -17,6 +17,7 @@ import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.GrassBean;
 import com.jinkun_innovation.pastureland.manager.GrassManager;
 import com.jinkun_innovation.pastureland.ui.dialog.AddGrassDialog;
+import com.jinkun_innovation.pastureland.utilcode.AppManager;
 import com.jinkun_innovation.pastureland.utilcode.util.TimeUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -41,6 +42,8 @@ public class GrassActivity extends Activity {
         setContentView(R.layout.activity_grass);
 
         mGrassBeanList = GrassManager.getInstance().getGrassBeanList();
+
+        AppManager.getAppManager().addActivity(this);
 
 
         ImageView ivAdd = (ImageView) findViewById(R.id.ivAdd);

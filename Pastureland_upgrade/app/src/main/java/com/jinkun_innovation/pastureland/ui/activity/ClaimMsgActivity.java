@@ -1,10 +1,12 @@
 package com.jinkun_innovation.pastureland.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.DeviceMsg;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.common.Constants;
+import com.jinkun_innovation.pastureland.utilcode.AppManager;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -28,8 +31,10 @@ import java.util.List;
  * Created by Guan on 2018/4/21.
  */
 
-public class ClaimMsgActivity extends AppCompatActivity{
+public class ClaimMsgActivity extends AppCompatActivity {
 
+
+    private static final String TAG1 = ClaimMsgActivity.class.getSimpleName();
 
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
@@ -103,6 +108,7 @@ public class ClaimMsgActivity extends AppCompatActivity{
 
         setContentView(R.layout.activity_claim_msg);
 
+        AppManager.getAppManager().addActivity(this);
 
         ImageView ivBack = (ImageView) findViewById(R.id.ivBack);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -153,15 +159,64 @@ public class ClaimMsgActivity extends AppCompatActivity{
                         }
 
 
-
-
                     }
                 });
 
 
+        //轮询
+//        apHandler.postDelayed(apRunnable, 1000);
+
 
 
     }
+
+    private Handler apHandler = new Handler();
+    int count = 0;
+    private Runnable apRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            // handler自带方法实现定时器
+            apHandler.postDelayed(this, 1000*60);
+
+
+            Log.d(TAG1, "每隔一秒请求服务器，第" + count++ + "次了");
+
+            OkGo.<String>post(Constants.DEVICEMSG)
+                    .tag(this)
+                    .params("token", mLoginSuccess.getToken())
+                    .params("username", mUsername)
+                    .params("ranchID", mLoginSuccess.getRanchID())
+                    .params("current", 0)
+                    .params("pagesize", 1000)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                            String s = response.body().toString();
+
+
+                            Gson gson1 = new Gson();
+                            DeviceMsg deviceMsg = gson1.fromJson(s, DeviceMsg.class);
+                            List<DeviceMsg.BatteryListBean> batteryList = deviceMsg.getBatteryList();
+                            List<DeviceMsg.LivestockClaimListBean> livestockClaimList
+                                    = deviceMsg.getLivestockClaimList();
+
+                            if (batteryList.size() != 0) {
+                                //创建并设置Adapter
+                                mAdapter = new MyAdapter(batteryList);
+                                mRecyclerView.setAdapter(mAdapter);
+
+                            }
+
+
+                        }
+                    });
+
+
+        }
+
+    };
 
 
 }
