@@ -32,6 +32,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 /**
  * Created by Guan on 2018/3/16.
  */
@@ -292,6 +294,8 @@ public class YangListActivity extends AppCompatActivity {
                                 }
                             });
 
+
+
                         } else {
 
 
@@ -366,11 +370,135 @@ public class YangListActivity extends AppCompatActivity {
 
         //将数据与界面进行绑定的操作
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
 //            viewHolder.mTextView.setText(datas[position]);
             //将数据保存在itemView的Tag中，以便点击时进行获取
             viewHolder.itemView.setTag(position);
+
+            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+                    //删除第 position 条目
+                    new SweetAlertDialog(YangListActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("删除?")
+                            .setContentText("删除此条目")
+                            .setConfirmText("确定")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+
+                                    sDialog.cancel();
+                                    OkGo.<String>get(Constants.delLivestock)
+                                            .tag(this)
+                                            .params("token", mLoginSuccess.getToken())
+                                            .params("username", mUsername)
+                                            .params("deviceNo", datas.get(position).getDeviceNo())
+                                            .params("ranchID", mLoginSuccess.getRanchID())
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
+
+                                                    String result = response.body().toString();
+                                                    if (result.contains("删除成功")) {
+
+                                                        ToastUtils.showShort("删除成功");
+                                                        //通过牲畜类型查询所有牲畜
+                                                        OkGo.<String>get(Constants.QUERYLIVESTOCKVARIETYLIST)
+                                                                .tag(this)
+                                                                .params("token", mLoginSuccess.getToken())
+                                                                .params("username", mUsername)
+                                                                .params("ranchID", mLoginSuccess.getRanchID())
+                                                                .params("livestockType", 1)
+                                                                .params("current", 0)
+                                                                .params("pagesize", 10)
+                                                                .execute(new StringCallback() {
+                                                                    @Override
+                                                                    public void onSuccess(Response<String> response) {
+
+                                                                        String s = response.body().toString();
+                                                                        Log.d(TAG1, s);
+
+                                                                        if (s.contains("imgUrl")) {
+                                                                            //有数据
+                                                                            Gson gson1 = new Gson();
+                                                                            QueryByYang queryByYang = gson1.fromJson(s, QueryByYang.class);
+                                                                            mLivestockVarietyList = queryByYang.getLivestockVarietyList();
+                                                                            String deviceNo = mLivestockVarietyList.get(0).getDeviceNo();
+                                                                            Log.d(TAG1, deviceNo);
+                                                                            //创建并设置Adapter
+                                                                            mAdapter = new MyAdapter(mLivestockVarietyList);
+                                                                            mRecyclerView.setAdapter(mAdapter);
+
+                                                                            mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+                                                                                @Override
+                                                                                public void onItemClick(View view, int position) {
+
+                                                                                    Intent intent = new Intent(getApplicationContext(), YangDetailActivity.class);
+                                                                                    intent.putExtra("getVariety", mLivestockVarietyList.get(position).getVariety());
+                                                                                    intent.putExtra("getImgUrl", mLivestockVarietyList.get(position).getImgUrl());
+                                                                                    intent.putExtra("getDeviceNo", mLivestockVarietyList.get(position).getDeviceNo());
+                                                                                    intent.putExtra("getWeight", mLivestockVarietyList.get(position).getWeight());
+                                                                                    intent.putExtra("getBindStatus", mLivestockVarietyList.get(position).getBindStatus());
+                                                                                    intent.putExtra("getIsClaimed", mLivestockVarietyList.get(position).getIsClaimed());
+                                                                                    intent.putExtra("getUpdateTime", mLivestockVarietyList.get(position).getUpdateTime());
+                                                                                    startActivity(intent);
+
+                                                                                }
+                                                                            });
+
+
+
+                                                                        } else {
+
+
+                                                                        }
+
+
+                                                                    }
+                                                                });
+
+
+                                                    } else if (result.contains("删除失败")) {
+
+
+                                                        ToastUtils.showShort("删除失败");
+
+
+                                                    } else if (result.contains("已被认领不可删除")) {
+
+                                                        ToastUtils.showShort("已被认领不可删除");
+
+                                                    } else {
+
+                                                        ToastUtils.showShort("删除异常");
+
+                                                    }
+
+                                                }
+                                            });
+
+
+                                }
+                            })
+                            .setCancelText("取消")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.cancel();
+
+
+                                }
+                            })
+                            .show();
+
+                    return false;
+
+                }
+
+
+            });
 
             String imgUrl = datas.get(position).getImgUrl();
             imgUrl = Constants.BASE_URL + imgUrl;

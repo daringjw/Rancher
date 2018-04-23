@@ -18,11 +18,14 @@ import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.bean.MuqunSum;
 import com.jinkun_innovation.pastureland.common.Constants;
+import com.jinkun_innovation.pastureland.ui.LoginActivity1;
 import com.jinkun_innovation.pastureland.ui.YangListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.CamelListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.MaListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.NiuListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.PigListActivity;
+import com.jinkun_innovation.pastureland.utilcode.AppManager;
+import com.jinkun_innovation.pastureland.utilcode.SpUtil;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -147,6 +150,14 @@ public class MuqunFragment extends Fragment {
                                 tvCamelNo.setText(s7 + "头");
 
                             }
+
+
+                        }else if(s.contains("认证失败")){
+
+                            //退出到登录界面
+                            SpUtil.saveLoginState(false);
+                            startActivity(new Intent(getActivity(), LoginActivity1.class));
+                            AppManager.getAppManager().finishAllActivity();
 
 
                         }

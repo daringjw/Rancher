@@ -18,6 +18,7 @@ import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.utilcode.util.FileUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.LogUtils;
+import com.jinkun_innovation.pastureland.utilcode.util.NetworkUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
@@ -81,7 +82,16 @@ public class QuPaizhaoActivity extends Activity {
 
                 if (TextUtils.isEmpty(mImgUrl1)) {
 
-                    ToastUtils.showShort("正在上传图片，请稍后点击");
+                    if(NetworkUtils.isConnected()){
+                        //有网络
+                        ToastUtils.showShort("正在上传图片，请稍后点击");
+                    }else {
+                        //没网络
+                        ToastUtils.showShort("没网络，请检查网络");
+                    }
+
+
+
                 } else {
 
                     OkGo.<String>post(Constants.updLivestockClaim)
@@ -104,6 +114,15 @@ public class QuPaizhaoActivity extends Activity {
                                         finish();
 
                                     }
+
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+                                    super.onError(response);
+
+                                    //没网络
+                                    ToastUtils.showShort("上传失败，请检查网络");
 
                                 }
                             });

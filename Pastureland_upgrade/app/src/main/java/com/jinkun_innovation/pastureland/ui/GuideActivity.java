@@ -1,5 +1,6 @@
 package com.jinkun_innovation.pastureland.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
@@ -35,24 +36,31 @@ public class GuideActivity extends BaseActivity {
         Beta.checkUpgrade();
 
 
+        if (SpUtil.getLoginState()) {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            AppManager.getAppManager().finishActivity();
 
-        new CountDownTimer(1000, 3000) {
-            @Override
-            public void onTick(long l) {
+        } else {
+            new CountDownTimer(1000, 3000) {
+                @Override
+                public void onTick(long l) {
 
-            }
-
-            @Override
-            public void onFinish() {
-                if (SpUtil.getLoginState()) {
-                    ActivityUtils.startActivity(HomeActivity.class);
-                } else {
-                    ActivityUtils.startActivity(LoginActivity1.class);
                 }
-                AppManager.getAppManager().finishActivity();
-            }
 
-        }.start();
+                @Override
+                public void onFinish() {
+                    if (SpUtil.getLoginState()) {
+                        ActivityUtils.startActivity(HomeActivity.class);
+                    } else {
+                        ActivityUtils.startActivity(LoginActivity1.class);
+                    }
+                    AppManager.getAppManager().finishActivity();
+                }
+
+            }.start();
+        }
+
+
     }
 
 
