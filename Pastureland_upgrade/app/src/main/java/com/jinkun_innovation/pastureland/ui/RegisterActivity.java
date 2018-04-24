@@ -11,7 +11,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +31,7 @@ import com.jinkun_innovation.pastureland.bean.RegisterBean;
 import com.jinkun_innovation.pastureland.bean.SelectVariety;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.view.AmountView;
+import com.jinkun_innovation.pastureland.ui.view.AmountViewAge;
 import com.jinkun_innovation.pastureland.utilcode.util.FileUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.LogUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.TimeUtils;
@@ -439,7 +439,10 @@ public class RegisterActivity extends Activity {
 
 
         AmountView avWeight = findViewById(R.id.avWeight);
+
         avWeight.setGoods_storage(10000);
+
+        mWeightAm = 10;
 
         avWeight.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
@@ -455,10 +458,13 @@ public class RegisterActivity extends Activity {
 
         });
 
-        AmountView avAge = findViewById(R.id.avAge);
+        AmountViewAge avAge = findViewById(R.id.avAge);
+
         avAge.setGoods_storage(10000);
 
-        avAge.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
+        mAgeAm =1;
+
+        avAge.setOnAmountChangeListener(new AmountViewAge.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, int amount) {
 
@@ -519,68 +525,61 @@ public class RegisterActivity extends Activity {
                     type = 7;
                 }
 
-                if (!TextUtils.isEmpty(mImgUrl)) {
 
-                    Log.d(TAG1, "mWeightAm=" + mWeightAm + ",mAgeAm=" + mAgeAm);
+                Log.d(TAG1, "mWeightAm=" + mWeightAm + ",mAgeAm=" + mAgeAm);
 
-                    OkGo.<String>post(Constants.SAVELIVESTOCK)
-                            .tag(this)
-                            .params("token", mLoginSuccess.getToken())
-                            .params("username", mUsername)
-                            .params("deviceNO", mDeviceNO)
-                            .params("ranchID", mLoginSuccess.getRanchID())
-                            .params("livestockType", type)
-                            .params("variety", mInteger == 0 ? 100 : mInteger)
-                            .params("weight", mWeightAm)
-                            .params("age", mAgeAm)
-                            .params("imgUrl", mImgUrl)
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onSuccess(Response<String> response) {
+                OkGo.<String>post(Constants.SAVELIVESTOCK)
+                        .tag(this)
+                        .params("token", mLoginSuccess.getToken())
+                        .params("username", mUsername)
+                        .params("deviceNO", mDeviceNO)
+                        .params("ranchID", mLoginSuccess.getRanchID())
+                        .params("livestockType", type)
+                        .params("variety", mInteger == 0 ? 100 : mInteger)
+                        .params("weight", mWeightAm)
+                        .params("age", mAgeAm)
+                        .params("imgUrl", mImgUrl)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
 
 
-                                    String result = response.body().toString();
-                                    Log.d(TAG1, result);
+                                String result = response.body().toString();
+                                Log.d(TAG1, result);
 
-                                    Gson gson1 = new Gson();
-                                    RegisterBean registerBean = gson1.fromJson(result, RegisterBean.class);
-                                    String msg = registerBean.getMsg();
+                                Gson gson1 = new Gson();
+                                RegisterBean registerBean = gson1.fromJson(result, RegisterBean.class);
+                                String msg = registerBean.getMsg();
 
-                                    if (msg.contains("牲畜登记打疫苗成功")) {
-                                        //成功
-                                        Toast.makeText(getApplicationContext(),
-                                                "登记成功",
-                                                Toast.LENGTH_SHORT)
-                                                .show();
+                                if (msg.contains("牲畜登记打疫苗成功")) {
+                                    //成功
+                                    Toast.makeText(getApplicationContext(),
+                                            "登记成功",
+                                            Toast.LENGTH_SHORT)
+                                            .show();
 
-                                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                        finish();
+                                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                    finish();
 
-                                    } else {
-                                        //失败
-                                        Toast.makeText(getApplicationContext(),
-                                                msg,
-                                                Toast.LENGTH_SHORT)
-                                                .show();
-                                    }
-
+                                } else {
+                                    //失败
+                                    Toast.makeText(getApplicationContext(),
+                                            msg,
+                                            Toast.LENGTH_SHORT)
+                                            .show();
                                 }
 
-                                @Override
-                                public void onError(Response<String> response) {
-                                    super.onError(response);
+                            }
 
-                                    ToastUtils.showShort("没有网络，请检查网络");
+                            @Override
+                            public void onError(Response<String> response) {
+                                super.onError(response);
 
-                                }
-                            });
-                } else {
+                                ToastUtils.showShort("没有网络，请检查网络");
 
+                            }
+                        });
 
-                    Toast.makeText(getApplicationContext(), "亲，请拍照",
-                            Toast.LENGTH_SHORT).show();
-
-                }
 
 
             }

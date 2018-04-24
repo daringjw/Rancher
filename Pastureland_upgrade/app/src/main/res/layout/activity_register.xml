@@ -151,7 +151,7 @@
                     android:layout_weight="1"
                     android:text="年龄  "/>
 
-                <com.jinkun_innovation.pastureland.ui.view.AmountView
+                <com.jinkun_innovation.pastureland.ui.view.AmountViewAge
                     android:id="@+id/avAge"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"

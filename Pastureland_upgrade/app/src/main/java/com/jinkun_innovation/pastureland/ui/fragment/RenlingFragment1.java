@@ -253,6 +253,10 @@ public class RenlingFragment1 extends Fragment {
 
                 case 1001:
 
+                    if (mLivestockList != null) {
+                        mLivestockList.clear();
+                        mAdapter.notifyDataSetChanged();
+                    }
 
                     //刷新数据
                     OkGo.<String>post(Constants.LIVE_STOCK_CLAIM_LIST)
@@ -282,7 +286,7 @@ public class RenlingFragment1 extends Fragment {
                                         mAdapter = new MyAdapter(mLivestockList);
                                         mRecyclerView.setAdapter(mAdapter);
 
-                                        MoveToPosition(mLayoutManager, 0);
+//                                        MoveToPosition(mLayoutManager, 0);
 
 
                                         mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
@@ -312,6 +316,8 @@ public class RenlingFragment1 extends Fragment {
                 case 1002:
                     //支付成功，刷新界面
                     //刷新数据
+
+
                     OkGo.<String>post(Constants.LIVE_STOCK_CLAIM_LIST)
                             .tag(this)
                             .params("token", mLoginSuccess.getToken())
@@ -339,7 +345,7 @@ public class RenlingFragment1 extends Fragment {
                                         mAdapter = new MyAdapter(mLivestockList);
                                         mRecyclerView.setAdapter(mAdapter);
 
-                                        MoveToPosition(mLayoutManager, 0);
+//                                        MoveToPosition(mLayoutManager, 0);
 
 
                                         mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
@@ -399,6 +405,10 @@ public class RenlingFragment1 extends Fragment {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
 
+                if (mLivestockList != null) {
+                    mLivestockList.clear();
+                    mAdapter.notifyDataSetChanged();
+                }
 
                 if (mState.equals("全部")) {
                     OkGo.<String>post(Constants.LIVE_STOCK_CLAIM_LIST)
@@ -1217,7 +1227,6 @@ public class RenlingFragment1 extends Fragment {
                         viewHolder.tvState.setText("已认领未支付");
 
 
-
                     } else if (tradeStatus.contains("1")) {
 
                         //已认领未支付
@@ -1232,7 +1241,6 @@ public class RenlingFragment1 extends Fragment {
                                 mDeviceNo = datas.get(position).getDeviceNo();
                                 intent.putExtra("mDeviceNo", mDeviceNo);
                                 startActivityForResult(intent, 1002);
-
 
 
                             }
@@ -1297,12 +1305,17 @@ public class RenlingFragment1 extends Fragment {
 
                                                             ToastUtils.showShort("删除成功");
                                                             //刷新数据
+                                                            if (mLivestockList != null) {
+                                                                mLivestockList.clear();
+                                                                mAdapter.notifyDataSetChanged();
+                                                            }
+
                                                             OkGo.<String>post(Constants.LIVE_STOCK_CLAIM_LIST)
                                                                     .tag(this)
                                                                     .params("token", mLoginSuccess.getToken())
                                                                     .params("username", mUsername)
                                                                     .params("ranchID", mLoginSuccess.getRanchID())
-                                                             //.params("isClaimed",0)
+                                                                    //.params("isClaimed",0)
                                                                     .params("current", 1)
                                                                     .params("pagesize", 10)
                                                                     .execute(new StringCallback() {
@@ -1323,7 +1336,7 @@ public class RenlingFragment1 extends Fragment {
                                                                                 mAdapter = new MyAdapter(mLivestockList);
                                                                                 mRecyclerView.setAdapter(mAdapter);
 
-                                                                                MoveToPosition(mLayoutManager, 0);
+//                                                                                MoveToPosition(mLayoutManager, 0);
 
 
                                                                                 mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
