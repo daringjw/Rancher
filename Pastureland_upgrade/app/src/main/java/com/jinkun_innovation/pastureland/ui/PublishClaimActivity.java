@@ -392,6 +392,21 @@ public class PublishClaimActivity extends AppCompatActivity {
         });
 
 
+        /*OkGo.<String>get(Constants.LIVESTOCK)
+                .tag(this)
+                .params("token",)
+                .params("username",)
+                .params("ranchID",)
+                .params("",)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });*/
+
+
+
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -612,7 +627,11 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                                     .show();
 
 
-                                                        } else if (s1.contains("重新发布认领表成功")) {
+                                                        } else if (s1.contains("接收信息有空值")) {
+
+                                                            ToastUtils.showShort("接收信息有空值,请拍照");
+
+                                                        }else if (s1.contains("重新发布认领表成功")) {
 
                                                             ToastUtils.showShort("重新发布认领成功");
                                                             setResult(RESULT_OK);

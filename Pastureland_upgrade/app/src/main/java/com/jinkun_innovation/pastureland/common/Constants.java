@@ -127,5 +127,12 @@ public class Constants {
     public static final String delLivestock= BASE_URL + "/releaseLivestocks/delLivestock.do";
 
 
+    //跳转WEB首页
+    public static final String  homeWeb =BASE_URL +"/releaseLivestocks/homeWeb.do";
+
+
+
+
+
 
 }

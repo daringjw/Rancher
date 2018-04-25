@@ -3,6 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.jinkun_innovation.pastureland">
 
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -81,35 +82,35 @@
             android:name="com.google.zxing.client.android.CaptureActivity2"
             android:screenOrientation="portrait"/>
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.UpLoadActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.UploadCheckedActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.MainActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.LoginActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.PrivateActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.IpSettingActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.NetInterfaceActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
 
@@ -119,8 +120,8 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.LianJiangPasturelandActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
 
@@ -180,6 +181,17 @@
             android:name=".ui.VideoContainerActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activity.WebActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activity.PublishClaimActivity2"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
 
         <activity
             android:name=".ui.LoginActivity1"
@@ -290,28 +302,26 @@
 
 
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.FindPwdActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.ResetPwdActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:launchMode="singleInstance"
             android:name=".ui.activity.ClaimMsgActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
-
-
 
 
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:screenOrientation="portrait"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent"/>
 
 

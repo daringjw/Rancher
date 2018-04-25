@@ -137,9 +137,11 @@ public class RenlingFragment1 extends Fragment {
                                                             public void onClick(SweetAlertDialog sweetAlertDialog) {
 
                                                                 sweetAlertDialog.cancel();
+
                                                                 Intent intent = new Intent(getActivity(), PublishClaimActivity.class);
                                                                 intent.putExtra("isbn", isbn);
                                                                 startActivityForResult(intent, 1001);
+
 
                                                             }
                                                         })
@@ -236,6 +238,7 @@ public class RenlingFragment1 extends Fragment {
                                                 Intent intent = new Intent(getActivity(), PublishClaimActivity.class);
                                                 intent.putExtra("isbn", str);
                                                 startActivityForResult(intent, 1001);
+
                                             }
 
 
@@ -1165,6 +1168,129 @@ public class RenlingFragment1 extends Fragment {
             //将数据保存在itemView的Tag中，以便点击时进行获取
             viewHolder.itemView.setTag(position);
 
+            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    //删除
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("删除?")
+                            .setContentText("删除此条目")
+                            .setConfirmText("确定")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+
+                                    sDialog.cancel();
+                                    OkGo.<String>get(Constants.delLivestock)
+                                            .tag(this)
+                                            .params("token", mLoginSuccess.getToken())
+                                            .params("username", mUsername)
+                                            .params("deviceNo", datas.get(position).getDeviceNo())
+                                            .params("ranchID", mLoginSuccess.getRanchID())
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
+
+                                                    String result = response.body().toString();
+                                                    if (result.contains("删除成功")) {
+
+                                                        ToastUtils.showShort("删除成功");
+                                                        //刷新数据
+                                                        if (mLivestockList != null) {
+                                                            mLivestockList.clear();
+                                                            mAdapter.notifyDataSetChanged();
+                                                        }
+
+                                                        OkGo.<String>post(Constants.LIVE_STOCK_CLAIM_LIST)
+                                                                .tag(this)
+                                                                .params("token", mLoginSuccess.getToken())
+                                                                .params("username", mUsername)
+                                                                .params("ranchID", mLoginSuccess.getRanchID())
+                                                                //.params("isClaimed",0)
+                                                                .params("current", 1)
+                                                                .params("pagesize", 10)
+                                                                .execute(new StringCallback() {
+                                                                    @Override
+                                                                    public void onSuccess(Response<String> response) {
+
+
+                                                                        String s = response.body().toString();
+
+                                                                        if (s.contains("livestockId")) {
+
+                                                                            index = 2;
+                                                                            Gson gson1 = new Gson();
+                                                                            RenLing renLing = gson1.fromJson(s, RenLing.class);
+                                                                            mLivestockList = renLing.getLivestockList();
+
+                                                                            //创建并设置Adapter
+                                                                            mAdapter = new MyAdapter(mLivestockList);
+                                                                            mRecyclerView.setAdapter(mAdapter);
+
+//                                                                                MoveToPosition(mLayoutManager, 0);
+
+
+                                                                            mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+                                                                                @Override
+                                                                                public void onItemClick(View view, int position) {
+
+                                                                                    RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
+                                                                                    Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                                                    intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
+                                                                                    startActivity(intent);
+
+
+                                                                                }
+                                                                            });
+
+
+                                                                        }
+
+
+                                                                    }
+                                                                });
+
+
+                                                    } else if (result.contains("删除失败")) {
+
+
+                                                        ToastUtils.showShort("删除失败");
+
+
+                                                    } else if (result.contains("已被认领不可删除")) {
+
+                                                        ToastUtils.showShort("已被认领不可删除");
+
+                                                    } else {
+
+                                                        ToastUtils.showShort("删除异常");
+
+                                                    }
+
+                                                }
+                                            });
+
+
+                                }
+                            })
+                            .setCancelText("取消")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.cancel();
+
+
+                                }
+                            })
+                            .show();
+
+
+                    return false;
+
+                }
+
+            });
+
 
             String imgUrl = datas.get(position).getImgUrl();
             imgUrl = Constants.BASE_URL + imgUrl;
@@ -1182,17 +1308,11 @@ public class RenlingFragment1 extends Fragment {
             String nowString = TimeUtils.getNowString();
 //            Log.d(TAG1, "createTime=" + createTime);
 //            Log.d(TAG1, "nowString=" + nowString);
-            long timeSpanByNow = TimeUtils.getTimeSpanByNow(createTime, TimeConstants.DAY);
+            long timeSpanByNow = TimeUtils.getTimeSpanByNow(createTime, TimeConstants.DAY) + 2;
             Log.d(TAG1, timeSpanByNow + "天=timeSpanByNow");
             int age = (int) timeSpanByNow / 30;
             Log.d(TAG1, age + "个月");
-            if (age == 1) {
-                age = 2;
-            } else if (age == 2) {
-                age = 3;
-            } else if (age == 0) {
-                age = 1;
-            }
+
             viewHolder.tvAnimalAge.setText("年龄：" + age + "个月");
 
             String name = datas.get(position).getName();
@@ -1275,127 +1395,8 @@ public class RenlingFragment1 extends Fragment {
 
                 viewHolder.btnPayConfirm.setVisibility(View.GONE);
 
-                viewHolder.tvDel.setText("删除");
+                viewHolder.tvDel.setText("");
 
-                viewHolder.tvDel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText("删除?")
-                                .setContentText("删除此条目")
-                                .setConfirmText("确定")
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-
-                                        sDialog.cancel();
-                                        OkGo.<String>get(Constants.delLivestock)
-                                                .tag(this)
-                                                .params("token", mLoginSuccess.getToken())
-                                                .params("username", mUsername)
-                                                .params("deviceNo", datas.get(position).getDeviceNo())
-                                                .params("ranchID", mLoginSuccess.getRanchID())
-                                                .execute(new StringCallback() {
-                                                    @Override
-                                                    public void onSuccess(Response<String> response) {
-
-                                                        String result = response.body().toString();
-                                                        if (result.contains("删除成功")) {
-
-                                                            ToastUtils.showShort("删除成功");
-                                                            //刷新数据
-                                                            if (mLivestockList != null) {
-                                                                mLivestockList.clear();
-                                                                mAdapter.notifyDataSetChanged();
-                                                            }
-
-                                                            OkGo.<String>post(Constants.LIVE_STOCK_CLAIM_LIST)
-                                                                    .tag(this)
-                                                                    .params("token", mLoginSuccess.getToken())
-                                                                    .params("username", mUsername)
-                                                                    .params("ranchID", mLoginSuccess.getRanchID())
-                                                                    //.params("isClaimed",0)
-                                                                    .params("current", 1)
-                                                                    .params("pagesize", 10)
-                                                                    .execute(new StringCallback() {
-                                                                        @Override
-                                                                        public void onSuccess(Response<String> response) {
-
-
-                                                                            String s = response.body().toString();
-
-                                                                            if (s.contains("livestockId")) {
-
-                                                                                index = 2;
-                                                                                Gson gson1 = new Gson();
-                                                                                RenLing renLing = gson1.fromJson(s, RenLing.class);
-                                                                                mLivestockList = renLing.getLivestockList();
-
-                                                                                //创建并设置Adapter
-                                                                                mAdapter = new MyAdapter(mLivestockList);
-                                                                                mRecyclerView.setAdapter(mAdapter);
-
-//                                                                                MoveToPosition(mLayoutManager, 0);
-
-
-                                                                                mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
-                                                                                    @Override
-                                                                                    public void onItemClick(View view, int position) {
-
-                                                                                        RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
-                                                                                        Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
-                                                                                        intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
-                                                                                        startActivity(intent);
-
-
-                                                                                    }
-                                                                                });
-
-
-                                                                            }
-
-
-                                                                        }
-                                                                    });
-
-
-                                                        } else if (result.contains("删除失败")) {
-
-
-                                                            ToastUtils.showShort("删除失败");
-
-
-                                                        } else if (result.contains("已被认领不可删除")) {
-
-                                                            ToastUtils.showShort("已被认领不可删除");
-
-                                                        } else {
-
-                                                            ToastUtils.showShort("删除异常");
-
-                                                        }
-
-                                                    }
-                                                });
-
-
-                                    }
-                                })
-                                .setCancelText("取消")
-                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        sDialog.cancel();
-
-
-                                    }
-                                })
-                                .show();
-
-
-                    }
-                });
 
             }
 

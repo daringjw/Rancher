@@ -69,7 +69,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="登记/接羔/打疫苗"/>
+                        android:text="录入"/>
 
                 </LinearLayout>
 
@@ -90,7 +90,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="剪毛"/>
+                        android:text="剪羊毛"/>
 
                 </LinearLayout>
 
@@ -112,7 +112,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="生活照"/>
+                        android:text="生活环境照"/>
 
                 </LinearLayout>
             </LinearLayout>

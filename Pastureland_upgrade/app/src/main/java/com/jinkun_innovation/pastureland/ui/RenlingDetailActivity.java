@@ -173,16 +173,9 @@ public class RenlingDetailActivity extends Activity {
 
                                 String createTime = lives.getCreateTime();
 
-                                long timeSpanByNow = TimeUtils.getTimeSpanByNow(createTime, TimeConstants.DAY);
+                                long timeSpanByNow = TimeUtils.getTimeSpanByNow(createTime, TimeConstants.DAY)+2;
                                 int age = (int) timeSpanByNow / 30;
                                 Log.d(TAG1, age + "个月");
-                                if (age == 1) {
-                                    age = 2;
-                                } else if (age == 2) {
-                                    age = 3;
-                                } else if (age == 0) {
-                                    age = 1;
-                                }
 
                                 tvAge.setText("年龄：" + age + "个月");
                                 tvLifeTime.setText("一般寿命：" + lives.getLifeTime() + "个月");
