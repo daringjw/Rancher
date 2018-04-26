@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="牧场详情"
-            android:textSize="20sp"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:textSize="20sp"/>
 
         <ImageView
             android:id="@+id/ivEdit"
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:padding="10dp"
+
                     ></TextView>
 
             </RelativeLayout>
@@ -166,6 +166,12 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:text="牧场位置："/>
+
+            <TextView
+                android:id="@+id/tvLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
 
             <com.baidu.mapapi.map.MapView
                 android:id="@+id/bmapView"

@@ -267,7 +267,7 @@ public class RenlingFragment1 extends Fragment {
                             .params("token", mLoginSuccess.getToken())
                             .params("username", mUsername)
                             .params("ranchID", mLoginSuccess.getRanchID())
-                            .params("isClaimed", 0)
+//                            .params("isClaimed", 0)
                             .params("current", 1)
                             .params("pagesize", 10)
                             .execute(new StringCallback() {
@@ -1313,7 +1313,13 @@ public class RenlingFragment1 extends Fragment {
             int age = (int) timeSpanByNow / 30;
             Log.d(TAG1, age + "个月");
 
-            viewHolder.tvAnimalAge.setText("年龄：" + age + "个月");
+            if (age == 0) {
+                age = 1;
+                viewHolder.tvAnimalAge.setText("年龄：" + age + "个月");
+            } else {
+                viewHolder.tvAnimalAge.setText("年龄：" + age + "个月");
+            }
+
 
             String name = datas.get(position).getName();
             if (TextUtils.isEmpty(name)) {

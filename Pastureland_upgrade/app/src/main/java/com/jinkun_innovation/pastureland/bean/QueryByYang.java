@@ -41,6 +41,8 @@ public class QueryByYang {
          * bindStatus : 1
          */
 
+        public String name;
+
         public String address;
 
         private String deviceType;

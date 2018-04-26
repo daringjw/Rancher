@@ -27,6 +27,7 @@ import com.google.zxing.client.android.CaptureActivity2;
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.IsBinded;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
+import com.jinkun_innovation.pastureland.bean.QueryByYang;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.GrassActivity;
 import com.jinkun_innovation.pastureland.ui.RegisterActivity;
@@ -47,6 +48,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -184,6 +186,45 @@ public class ManagerFragment extends Fragment {
             }
         });
 
+
+        //通过牲畜类型查询所有牲畜
+        OkGo.<String>get(Constants.QUERYLIVESTOCKVARIETYLIST)
+                .tag(this)
+                .params("token", mLoginSuccess.getToken())
+                .params("username", mUsername)
+                .params("ranchID", mLoginSuccess.getRanchID())
+                .params("livestockType", 1)
+                .params("current", 1)
+                .params("pagesize", 10)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+
+                        String s = response.body().toString();
+
+
+                        if (s.contains("imgUrl")) {
+                            //有数据
+                            Gson gson1 = new Gson();
+                            QueryByYang queryByYang = gson1.fromJson(s, QueryByYang.class);
+                            List<QueryByYang.LivestockVarietyListBean> mylist =
+                                    queryByYang.getLivestockVarietyList();
+
+                            String address = mylist.get(0).address;
+                            PrefUtils.setString(getActivity(),"address",address);
+
+
+                        } else {
+
+
+
+
+                        }
+
+
+                    }
+                });
 
         return view;
 

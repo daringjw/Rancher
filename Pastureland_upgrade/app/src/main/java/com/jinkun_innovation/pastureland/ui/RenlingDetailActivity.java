@@ -17,6 +17,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +26,11 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.jinkun_innovation.pastureland.R;
@@ -173,11 +176,22 @@ public class RenlingDetailActivity extends Activity {
 
                                 String createTime = lives.getCreateTime();
 
-                                long timeSpanByNow = TimeUtils.getTimeSpanByNow(createTime, TimeConstants.DAY)+2;
+                                long timeSpanByNow = TimeUtils.getTimeSpanByNow(createTime, TimeConstants.DAY) + 2;
                                 int age = (int) timeSpanByNow / 30;
                                 Log.d(TAG1, age + "个月");
 
-                                tvAge.setText("年龄：" + age + "个月");
+                                if (age == 0) {
+
+                                    age = 1;
+                                    tvAge.setText("年龄：" + age + "个月");
+
+                                } else {
+
+                                    tvAge.setText("年龄：" + age + "个月");
+
+                                }
+
+
                                 tvLifeTime.setText("一般寿命：" + lives.getLifeTime() + "个月");
                                 tvMuchangName.setText("牧场：" + lives.getName());
 
@@ -197,6 +211,7 @@ public class RenlingDetailActivity extends Activity {
                                 BDLocation bdLocation = new BDLocation();
                                 bdLocation.setLongitude(Double.parseDouble(longtitudeBaidu));
                                 bdLocation.setLatitude(Double.parseDouble(lantitudeBaidu));
+
 
                                 // 开启定位图层
                                 map.setMyLocationEnabled(true);
@@ -220,6 +235,25 @@ public class RenlingDetailActivity extends Activity {
                                         true, mCurrentMarker);
 
                                 map.setMyLocationConfiguration(config);
+
+                                //创建InfoWindow展示的view
+                                Button button = new Button(getApplicationContext());
+                                button.setBackgroundResource(R.mipmap.popup);
+                                button.setText(lives.getAddress());
+
+//定义用于显示该InfoWindow的坐标点
+                                LatLng pt = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
+
+//创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
+                                InfoWindow mInfoWindow = new InfoWindow(button, pt, -47);
+
+//显示InfoWindow
+                                map.showInfoWindow(mInfoWindow);
+
+
+                                String address = PrefUtils.getString(getApplicationContext(), "address", null);
+                                TextView tvLoc = (TextView) findViewById(R.id.tvLoc);
+                                tvLoc.setText(lives.getAddress());
 
 
                             } else {

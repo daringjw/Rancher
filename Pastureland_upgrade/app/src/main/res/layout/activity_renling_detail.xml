@@ -102,6 +102,12 @@
                 android:src="@mipmap/loc"
                 android:text="牧场位置："/>
 
+            <TextView
+                android:id="@+id/tvLoc"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <com.baidu.mapapi.map.MapView
                 android:id="@+id/bmapView"
                 android:layout_width="300dp"

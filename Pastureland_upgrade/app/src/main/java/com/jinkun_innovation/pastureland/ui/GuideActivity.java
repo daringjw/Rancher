@@ -58,6 +58,7 @@ public class GuideActivity extends BaseActivity {
                 }
 
             }.start();
+
         }
 
 

@@ -83,6 +83,8 @@ public class LiveStock {
          * weight : 100.0
          */
 
+
+
         //请求拍照，照片放这里
         public String livestock_img_url;
         public String video_url;

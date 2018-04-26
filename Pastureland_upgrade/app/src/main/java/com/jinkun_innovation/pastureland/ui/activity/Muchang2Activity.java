@@ -155,6 +155,10 @@ public class Muchang2Activity extends Activity {
 
                             map.setMyLocationConfiguration(config);
 
+                            String address = PrefUtils.getString(getApplicationContext(), "address", null);
+                            TextView tvLoc = (TextView) findViewById(R.id.tvLoc);
+                            tvLoc.setText(address);
+
 
                         } else {
 

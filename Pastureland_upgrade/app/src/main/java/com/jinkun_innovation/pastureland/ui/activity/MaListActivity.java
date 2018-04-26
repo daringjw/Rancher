@@ -517,7 +517,7 @@ public class MaListActivity extends AppCompatActivity {
 
             viewHolder.tvDeviceNo.setText("设备号：" + datas.get(position).getDeviceNo());
             viewHolder.tvPublishTime.setText("发布时间：" + datas.get(position).getUpdateTime());
-            viewHolder.tvLocation.setText("位置：" + datas.get(position).address);
+            viewHolder.tvLocation.setText("牧场：" + datas.get(position).name);
 
 
         }

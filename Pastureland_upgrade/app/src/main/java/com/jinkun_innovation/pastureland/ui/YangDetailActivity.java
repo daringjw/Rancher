@@ -170,6 +170,10 @@ public class YangDetailActivity extends Activity {
                                 int age = (int) timeSpanByNow / 30;
                                 Log.d(TAG1, age + "个月");
 
+                                if (age == 0) {
+                                    age = 1;
+                                }
+
                                 tvAge.setText("年龄：" + age + "个月");
 
                                 tvLifeTime.setText("一般寿命：" + lives.getLifeTime() + "个月");
@@ -205,6 +209,10 @@ public class YangDetailActivity extends Activity {
                                         true, mCurrentMarker);
 
                                 map.setMyLocationConfiguration(config);
+
+                                String address = PrefUtils.getString(getApplicationContext(), "address", null);
+                                TextView tvLoc = (TextView) findViewById(R.id.tvLoc);
+                                tvLoc.setText(lives.getAddress());
 
 
                             } else {
