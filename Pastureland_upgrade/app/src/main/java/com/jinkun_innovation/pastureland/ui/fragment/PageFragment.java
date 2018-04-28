@@ -25,20 +25,29 @@ public class PageFragment extends Fragment {
         PageFragment fragment = new PageFragment();
         fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mPage = getArguments().getInt(ARGS_PAGE);
+
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_page,container,false);
         TextView textView = (TextView) view.findViewById(R.id.textView);
         textView.setText("第"+mPage+"页");
         return view;
+
     }
+
+
 }

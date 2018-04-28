@@ -67,6 +67,10 @@ public class UpLoadActivity extends BaseActivity {
                 setTitle(TypeEnum.PRIVATE.getName());
                 break;
 
+            case 101:
+                setTitle(TypeEnum.ONELIVE.getName());
+                break;
+
         }
     }
 
@@ -209,6 +213,15 @@ public class UpLoadActivity extends BaseActivity {
 
 
         switch (mCheckedItem) {
+
+            case 101:
+                //牲畜个体照片上传
+                Log.d(TAG1, "mDeviceNo=" + mDeviceNo);
+                Log.d(TAG1, "mImgUrl=" + mImgUrl);
+
+
+                break;
+
             case 2:
 
                 break;
@@ -336,7 +349,7 @@ public class UpLoadActivity extends BaseActivity {
 
 
     private enum TypeEnum {
-        BIRTHDAY("接羔照上传"), CROP("剪毛照上传"), LIFE("生活照上传"), PRIVATE("私人定制上传");
+        BIRTHDAY("接羔照上传"), CROP("剪毛照上传"), LIFE("生活照上传"), PRIVATE("私人定制上传"), ONELIVE("牲畜个体照上传");
 
         private final String name;
 

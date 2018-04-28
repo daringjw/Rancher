@@ -17,7 +17,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,11 +25,9 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.model.LatLng;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.jinkun_innovation.pastureland.R;
@@ -236,7 +233,7 @@ public class RenlingDetailActivity extends Activity {
 
                                 map.setMyLocationConfiguration(config);
 
-                                //创建InfoWindow展示的view
+                            /*    //创建InfoWindow展示的view
                                 Button button = new Button(getApplicationContext());
                                 button.setBackgroundResource(R.mipmap.popup);
                                 button.setText(lives.getAddress());
@@ -248,10 +245,9 @@ public class RenlingDetailActivity extends Activity {
                                 InfoWindow mInfoWindow = new InfoWindow(button, pt, -47);
 
 //显示InfoWindow
-                                map.showInfoWindow(mInfoWindow);
+                                map.showInfoWindow(mInfoWindow);*/
 
 
-                                String address = PrefUtils.getString(getApplicationContext(), "address", null);
                                 TextView tvLoc = (TextView) findViewById(R.id.tvLoc);
                                 tvLoc.setText(lives.getAddress());
 

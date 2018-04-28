@@ -66,6 +66,7 @@ public class ManagerFragment extends Fragment {
 
 
     private static final String TAG1 = ManagerFragment.class.getSimpleName();
+    private static final int SCAN_REQUEST_CODE2 = 1002;
 
     @BindView(R.id.llRegister)
     LinearLayout llRegister;
@@ -121,8 +122,6 @@ public class ManagerFragment extends Fragment {
         mUsername = PrefUtils.getString(getActivity(), "username", null);
 
 
-
-
         mSliderShow = view.findViewById(R.id.slider);
         TextSliderView textSliderView = new TextSliderView(getActivity());
 
@@ -135,7 +134,7 @@ public class ManagerFragment extends Fragment {
             @Override
             public void onSliderClick(BaseSliderView slider) {
 
-                startActivity(new Intent(getActivity(),Muchang2Activity.class));
+                startActivity(new Intent(getActivity(), Muchang2Activity.class));
 
             }
         });
@@ -150,7 +149,7 @@ public class ManagerFragment extends Fragment {
             @Override
             public void onSliderClick(BaseSliderView slider) {
 
-                startActivity(new Intent(getActivity(),Muchang2Activity.class));
+                startActivity(new Intent(getActivity(), Muchang2Activity.class));
 
             }
         });
@@ -212,12 +211,10 @@ public class ManagerFragment extends Fragment {
                                     queryByYang.getLivestockVarietyList();
 
                             String address = mylist.get(0).address;
-                            PrefUtils.setString(getActivity(),"address",address);
+                            PrefUtils.setString(getActivity(), "address", address);
 
 
                         } else {
-
-
 
 
                         }
@@ -256,8 +253,34 @@ public class ManagerFragment extends Fragment {
                 break;
             case R.id.llLifePhoto:
 
-                checkedItem = 0;
-                openCamera();
+                new SweetAlertDialog(getActivity())
+                        .setTitleText("请选择拍摄内容")
+                        .setContentText("请选择是要拍摄牲畜的个体照片，还是牧场的风景或者牧群的照片")
+                        .setConfirmText("牧场牧群")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                //牧场牧群照
+                                checkedItem = 0;
+                                openCamera();
+                            }
+                        })
+                        .setCancelText("牲畜个体")
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                                sweetAlertDialog.dismissWithAnimation();
+                                //牲畜个体
+
+                                startScanActivity2();
+
+
+                            }
+                        })
+                        .show();
+
 
                 break;
             case R.id.llTools:
@@ -290,6 +313,115 @@ public class ManagerFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
+
+                case SCAN_REQUEST_CODE2:
+                  final  String isbn2 = data.getStringExtra("CaptureIsbn");
+
+                    //牲畜个体
+                    checkedItem = 101;
+
+
+                    if (!TextUtils.isEmpty(isbn2)) {
+
+
+                        Toast.makeText(getActivity(), "解析到的内容为" + isbn2, Toast.LENGTH_LONG).show();
+
+                        if (StrLengthUtil.length(isbn2) == 16) {
+
+                            scanMessage =isbn2;
+                            OkGo.<String>post(Constants.ISDEVICEBINDED)
+                                    .tag(this)
+                                    .params("token", mLoginSuccess.getToken())
+                                    .params("username", mUsername) //用户手机号
+                                    .params("deviceNO", isbn2)
+                                    .params("ranchID", mLoginSuccess.getRanchID())
+                                    .execute(new StringCallback() {
+                                        @Override
+                                        public void onSuccess(Response<String> response) {
+
+                                            String result = response.body().toString();
+                                            Log.d(TAG1, result);
+                                            if (result.contains("true")) {
+
+                                                //已绑定
+                                                openCamera();
+
+
+
+                                            } else {
+                                                //未绑定
+                                                new SweetAlertDialog(getActivity())
+                                                        .setTitleText("未登记设备，不能拍牲畜个体照!")
+                                                        .show();
+
+                                            }
+
+
+                                        }
+                                    });
+
+
+
+
+                        } else if (StrLengthUtil.length(isbn2) == 15) {
+
+                            String str = Stringinsert(isbn2, "1", 7);
+                            Log.d(TAG1, "15位isbn=" + str);
+                            Log.d(TAG1, "新的长度" + StrLengthUtil.length(str));
+
+                            scanMessage =str;
+
+                            OkGo.<String>post(Constants.ISDEVICEBINDED)
+                                    .tag(this)
+                                    .params("token", mLoginSuccess.getToken())
+                                    .params("username", mUsername) //用户手机号
+                                    .params("deviceNO", scanMessage)
+                                    .params("ranchID", mLoginSuccess.getRanchID())
+                                    .execute(new StringCallback() {
+                                        @Override
+                                        public void onSuccess(Response<String> response) {
+
+                                            String result = response.body().toString();
+                                            Log.d(TAG1, result);
+                                            if (result.contains("true")) {
+
+                                                //已绑定
+                                                openCamera();
+
+
+
+                                            } else {
+                                                //未绑定
+                                                new SweetAlertDialog(getActivity())
+                                                        .setTitleText("未登记设备，不能拍牲畜个体照!")
+                                                        .show();
+
+                                            }
+
+
+                                        }
+                                    });
+
+
+
+
+
+                        } else {
+                            ToastUtils.showShort("设备号必须是16位数字");
+                        }
+
+
+                    }
+
+
+
+
+
+
+
+                    break;
+
+
                 case SCAN_REQUEST_CODE:
                     String isbn = data.getStringExtra("CaptureIsbn");
                     if (!TextUtils.isEmpty(isbn)) {
@@ -366,11 +498,18 @@ public class ManagerFragment extends Fragment {
                             intent.setClass(getActivity(), UpLoadActivity.class);
 
                         case 0:
-
+                            //牧群牧场照片
                             intent.setClass(getActivity(), UpLoadActivity.class);
                             break;
 
+                        case 101:
+                            //牲畜个体照
+                            intent.setClass(getActivity(), UpLoadActivity.class);
+
+                            break;
+
                     }
+
                     startActivity(intent);
                     break;
 
@@ -549,6 +688,16 @@ public class ManagerFragment extends Fragment {
         intent.putExtra("albumUnable", 1);
         intent.putExtra("cancleUnable", 1);
         startActivityForResult(intent, SCAN_REQUEST_CODE);
+    }
+
+    private void startScanActivity2() {
+        Intent intent = new Intent(getActivity(), CaptureActivity2.class);
+        intent.putExtra(CaptureActivity2.USE_DEFUALT_ISBN_ACTIVITY, true);
+        intent.putExtra("inputUnable", 0);
+        intent.putExtra("lightUnable", 1);
+        intent.putExtra("albumUnable", 1);
+        intent.putExtra("cancleUnable", 1);
+        startActivityForResult(intent, SCAN_REQUEST_CODE2);
     }
 
 

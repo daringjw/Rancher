@@ -26,7 +26,6 @@ import com.jinkun_innovation.pastureland.ui.activity.NiuListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.PigListActivity;
 import com.jinkun_innovation.pastureland.utilcode.AppManager;
 import com.jinkun_innovation.pastureland.utilcode.SpUtil;
-import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -162,19 +161,6 @@ public class MuqunFragment extends Fragment {
 
 
                         }
-
-
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-
-                        ToastUtils.showShort("没有网络，请检查网络");
-                        //退出到登录界面
-                        SpUtil.saveLoginState(false);
-                        startActivity(new Intent(getActivity(), LoginActivity1.class));
-                        AppManager.getAppManager().finishAllActivity();
 
 
                     }
