@@ -40,15 +40,28 @@
             </RelativeLayout>
 
 
-
-            <ImageView
-                android:id="@+id/ivTakePhoto"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/take_photo"/>
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivTakePhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/take_photo"/>
+
+                <ImageView
+                    android:id="@+id/ivOpen"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/open"/>
 
 
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvDeviceNo"

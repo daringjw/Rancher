@@ -3,6 +3,7 @@ package com.jinkun_innovation.pastureland.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -30,14 +31,17 @@ import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.bean.RegisterBean;
 import com.jinkun_innovation.pastureland.bean.SelectVariety;
 import com.jinkun_innovation.pastureland.common.Constants;
+import com.jinkun_innovation.pastureland.ui.activity.SelectPicActivity;
 import com.jinkun_innovation.pastureland.ui.view.AmountView;
 import com.jinkun_innovation.pastureland.ui.view.AmountViewAge;
 import com.jinkun_innovation.pastureland.utilcode.util.FileUtils;
+import com.jinkun_innovation.pastureland.utilcode.util.ImageUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.LogUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.TimeUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
@@ -57,6 +61,7 @@ import static com.jinkun_innovation.pastureland.R.id.ivTakePhoto;
 public class RegisterActivity extends Activity {
 
     private static final String TAG1 = RegisterActivity.class.getSimpleName();
+    private static final int IV_OPEN = 1001;
     private LoginSuccess mLoginSuccess;
     private String mUsername;
     private String mDeviceNO;
@@ -238,6 +243,30 @@ public class RegisterActivity extends Activity {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
 
+                case IV_OPEN:
+
+
+                    String pic = PrefUtils.getString(getApplicationContext(), "pic", null);
+
+                    pic = Constants.BASE_URL + pic;
+
+                    OkGo.<File>get(pic)
+                            .tag(this)
+                            .execute(new FileCallback() {
+                                @Override
+                                public void onSuccess(Response<File> response) {
+
+                                    File file = response.body().getAbsoluteFile();
+                                    Bitmap bitmap = ImageUtils.getBitmap(file);
+                                    mIvTakePhoto.setImageBitmap(bitmap);
+
+                                }
+                            });
+
+
+                    break;
+
+
                 case REQUEST_CAPTURE:
 
                     cropImage(photoFile.getAbsolutePath());
@@ -248,6 +277,7 @@ public class RegisterActivity extends Activity {
                             photoFile.getAbsolutePath());
 
                     break;
+
 
             }
 
@@ -348,6 +378,19 @@ public class RegisterActivity extends Activity {
             public void onClick(View view) {
 
                 openCamera();
+
+            }
+        });
+
+        ImageView ivOpen = (ImageView) findViewById(R.id.ivOpen);
+        ivOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), SelectPicActivity.class);
+
+                startActivityForResult(intent, IV_OPEN);
+
 
             }
         });
@@ -462,7 +505,7 @@ public class RegisterActivity extends Activity {
 
         avAge.setGoods_storage(10000);
 
-        mAgeAm =1;
+        mAgeAm = 1;
 
         avAge.setOnAmountChangeListener(new AmountViewAge.OnAmountChangeListener() {
             @Override
@@ -501,7 +544,6 @@ public class RegisterActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-
                 if (mType1.equals("羊")) {
 
                     type = 1;
@@ -525,60 +567,124 @@ public class RegisterActivity extends Activity {
                     type = 7;
                 }
 
-
                 Log.d(TAG1, "mWeightAm=" + mWeightAm + ",mAgeAm=" + mAgeAm);
 
-                OkGo.<String>post(Constants.SAVELIVESTOCK)
-                        .tag(this)
-                        .params("token", mLoginSuccess.getToken())
-                        .params("username", mUsername)
-                        .params("deviceNO", mDeviceNO)
-                        .params("ranchID", mLoginSuccess.getRanchID())
-                        .params("livestockType", type)
-                        .params("variety", mInteger == 0 ? 100 : mInteger)
-                        .params("weight", mWeightAm)
-                        .params("age", mAgeAm)
-                        .params("imgUrl", mImgUrl)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
+
+                /**
+                 * 如果没有拍照，使用本地 pic 进行上传
+                 *
+                 */
+
+                if (mImgUrl==null){
+
+                    String pic = PrefUtils.getString(getApplicationContext(), "pic", null);
 
 
-                                String result = response.body().toString();
-                                Log.d(TAG1, result);
+                    OkGo.<String>post(Constants.SAVELIVESTOCK)
+                            .tag(this)
+                            .params("token", mLoginSuccess.getToken())
+                            .params("username", mUsername)
+                            .params("deviceNO", mDeviceNO)
+                            .params("ranchID", mLoginSuccess.getRanchID())
+                            .params("livestockType", type)
+                            .params("variety", mInteger == 0 ? 100 : mInteger)
+                            .params("weight", mWeightAm)
+                            .params("age", mAgeAm)
+                            .params("imgUrl", pic)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
 
-                                Gson gson1 = new Gson();
-                                RegisterBean registerBean = gson1.fromJson(result, RegisterBean.class);
-                                String msg = registerBean.getMsg();
 
-                                if (msg.contains("牲畜登记打疫苗成功")) {
-                                    //成功
-                                    Toast.makeText(getApplicationContext(),
-                                            "登记成功",
-                                            Toast.LENGTH_SHORT)
-                                            .show();
+                                    String result = response.body().toString();
+                                    Log.d(TAG1, result);
 
-                                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                    finish();
+                                    Gson gson1 = new Gson();
+                                    RegisterBean registerBean = gson1.fromJson(result, RegisterBean.class);
+                                    String msg = registerBean.getMsg();
 
-                                } else {
-                                    //失败
-                                    Toast.makeText(getApplicationContext(),
-                                            msg,
-                                            Toast.LENGTH_SHORT)
-                                            .show();
+                                    if (msg.contains("牲畜登记打疫苗成功")) {
+                                        //成功
+                                        Toast.makeText(getApplicationContext(),
+                                                "登记成功",
+                                                Toast.LENGTH_SHORT)
+                                                .show();
+
+                                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                        finish();
+
+                                    } else {
+                                        //失败
+                                        Toast.makeText(getApplicationContext(),
+                                                msg,
+                                                Toast.LENGTH_SHORT)
+                                                .show();
+                                    }
+
                                 }
 
-                            }
+                                @Override
+                                public void onError(Response<String> response) {
+                                    super.onError(response);
 
-                            @Override
-                            public void onError(Response<String> response) {
-                                super.onError(response);
+                                    ToastUtils.showShort("没有网络，请检查网络");
 
-                                ToastUtils.showShort("没有网络，请检查网络");
+                                }
+                            });
 
-                            }
-                        });
+                }else {
+                    OkGo.<String>post(Constants.SAVELIVESTOCK)
+                            .tag(this)
+                            .params("token", mLoginSuccess.getToken())
+                            .params("username", mUsername)
+                            .params("deviceNO", mDeviceNO)
+                            .params("ranchID", mLoginSuccess.getRanchID())
+                            .params("livestockType", type)
+                            .params("variety", mInteger == 0 ? 100 : mInteger)
+                            .params("weight", mWeightAm)
+                            .params("age", mAgeAm)
+                            .params("imgUrl", mImgUrl)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+
+
+                                    String result = response.body().toString();
+                                    Log.d(TAG1, result);
+
+                                    Gson gson1 = new Gson();
+                                    RegisterBean registerBean = gson1.fromJson(result, RegisterBean.class);
+                                    String msg = registerBean.getMsg();
+
+                                    if (msg.contains("牲畜登记打疫苗成功")) {
+                                        //成功
+                                        Toast.makeText(getApplicationContext(),
+                                                "登记成功",
+                                                Toast.LENGTH_SHORT)
+                                                .show();
+
+                                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                        finish();
+
+                                    } else {
+                                        //失败
+                                        Toast.makeText(getApplicationContext(),
+                                                msg,
+                                                Toast.LENGTH_SHORT)
+                                                .show();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+                                    super.onError(response);
+
+                                    ToastUtils.showShort("没有网络，请检查网络");
+
+                                }
+                            });
+                }
 
 
 
