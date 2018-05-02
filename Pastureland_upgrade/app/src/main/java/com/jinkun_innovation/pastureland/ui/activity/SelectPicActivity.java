@@ -42,13 +42,16 @@ public class SelectPicActivity extends Activity {
     String mImgUrl;
     private File mFile1;
 
+    Bitmap bmp;
+    private File mFile;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_select_pic);
 
-        ImageView ivBack = (ImageView) findViewById(R.id.ivBack);
+        final ImageView ivBack = (ImageView) findViewById(R.id.ivBack);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,19 +60,67 @@ public class SelectPicActivity extends Activity {
             }
         });
 
-        ImageView ivPic = (ImageView) findViewById(R.id.ivPic);
-        Resources res = getResources();
-        Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_1);
-
-        File file = new File(Environment.getExternalStorageDirectory(), "/Pastureland/pic");
-        String yang_1 = ImageUtils.savePhoto(bmp, file.getAbsolutePath(), "yang_1");
-        mFile1 = new File(yang_1);
-
 
         mLogin_success = PrefUtils.getString(getApplicationContext(), "login_success", null);
         Gson gson = new Gson();
         mLoginSuccess = gson.fromJson(mLogin_success, LoginSuccess.class);
         mUsername = PrefUtils.getString(getApplicationContext(), "username", null);
+
+        final ImageView ivPic = (ImageView) findViewById(R.id.ivPic);
+
+        final Resources res = getResources();
+
+        ivPic.setImageResource(R.mipmap.yang_1);
+        bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_1);
+
+        mFile = new File(Environment.getExternalStorageDirectory(), "/Pastureland/pic");
+
+        Button btnPic1 = (Button) findViewById(R.id.btnPic1);
+        btnPic1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ivPic.setImageResource(R.mipmap.yang_1);
+                bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_1);
+
+                String yang_1 = ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_1");
+                mFile1 = new File(yang_1);
+
+            }
+        });
+
+        Button btnPic2 = (Button) findViewById(R.id.btnPic2);
+        btnPic2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ivPic.setImageResource(R.mipmap.yang_2);
+                bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_2);
+
+                String yang_1 = ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_1");
+                mFile1 = new File(yang_1);
+
+            }
+        });
+
+        Button btnPic3 = (Button) findViewById(R.id.btnPic3);
+        btnPic3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivPic.setImageResource(R.mipmap.yang_3);
+                bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_3);
+
+                String yang_1 = ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_1");
+                mFile1 = new File(yang_1);
+
+            }
+        });
+
+
+
+        String yang_1 = ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_1");
+        mFile1 = new File(yang_1);
+
 
         Button btnConfirm = (Button) findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -97,11 +148,10 @@ public class SelectPicActivity extends Activity {
                                 mImgUrl = mImgUrl.substring(j - 1, mImgUrl.length());
                                 Log.d(TAG1, mImgUrl);
 
-                                PrefUtils.setString(getApplicationContext(),"pic",mImgUrl);
+                                PrefUtils.setString(getApplicationContext(), "pic", mImgUrl);
 
                                 setResult(RESULT_OK);
                                 finish();
-
 
 
                             }
