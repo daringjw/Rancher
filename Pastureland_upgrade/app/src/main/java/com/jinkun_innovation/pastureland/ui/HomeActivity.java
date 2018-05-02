@@ -14,10 +14,11 @@ import android.util.SparseArray;
 import com.baidu.mapapi.SDKInitializer;
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.ui.fragment.ManagerFragment;
-import com.jinkun_innovation.pastureland.ui.fragment.MuqunFragment;
+import com.jinkun_innovation.pastureland.ui.fragment.MuqunFragment2;
 import com.jinkun_innovation.pastureland.ui.fragment.RenlingFragment1;
 import com.jinkun_innovation.pastureland.ui.fragment.WodeFragment;
 import com.jinkun_innovation.pastureland.utilcode.AppManager;
+
 
 /**
  * Created by Guan on 2018/3/14.
@@ -44,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //Fragment+ViewPager+FragmentViewPager组合的使用
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),
+        final MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),
                 this);
         viewPager.setAdapter(adapter);
 
@@ -55,6 +56,25 @@ public class HomeActivity extends AppCompatActivity {
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        //刷新fragment
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                adapter.getItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
         mTabLayout.getTabAt(0).setCustomView(R.layout.tab_manage);
@@ -83,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
             if (fragmentMap == null) {
                 fragmentMap = new SparseArray();
                 fragmentMap.put(0, new ManagerFragment());
-                fragmentMap.put(1, new MuqunFragment());
+                fragmentMap.put(1, new MuqunFragment2());
                 fragmentMap.put(2, new RenlingFragment1());
                 fragmentMap.put(3, new WodeFragment());
 

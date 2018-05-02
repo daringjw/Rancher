@@ -3,6 +3,7 @@ package com.jinkun_innovation.pastureland;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
+import android.os.Handler;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jinkun_innovation.pastureland.utilcode.util.CrashUtils;
@@ -18,9 +19,16 @@ import java.io.File;
 
 public class BaseApplication extends Application {
 
+    private static int mMainThreadId;
+    private static Handler mHandler;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        context =getApplicationContext();
+        mHandler=new Handler();
+
         Utils.init(this);
         initLog();
 
@@ -29,8 +37,22 @@ public class BaseApplication extends Application {
         //崩溃日志保存在本地，测试
         CrashUtils.init(Environment.getExternalStorageDirectory() + "/Pastureland/crash/");
 
+    }
 
+    /**
+     * 返回主线程的pid
+     * @return
+     */
+    public static int getMainThreadId() {
+        return mMainThreadId;
+    }
+    /**
+     * 返回Handler
+     * @return
+     */
+    public static Handler getHandler() {
 
+        return mHandler;
 
     }
 
@@ -54,10 +76,12 @@ public class BaseApplication extends Application {
         LogUtils.d(config.toString());
     }
 
-    public Context mContext;
+    private static Context context;
 
-    public Context getContext() {
-        return getApplicationContext();
+    public static Context getContext() {
+
+        return context;
+
     }
 
 

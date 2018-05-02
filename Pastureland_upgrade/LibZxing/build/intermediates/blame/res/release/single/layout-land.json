@@ -6,13 +6,5 @@
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout-land\\share.xml",
         "source": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\res\\layout-land\\share.xml"
-    },
-    {
-        "merged": "F:\\projects6\\Smart-Ranch\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout-land\\share.xml",
-        "source": "F:\\projects6\\Smart-Ranch\\Pastureland_upgrade\\LibZxing\\res\\layout-land\\share.xml"
-    },
-    {
-        "merged": "F:\\projects6\\Smart-Ranch\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout-land\\encode.xml",
-        "source": "F:\\projects6\\Smart-Ranch\\Pastureland_upgrade\\LibZxing\\res\\layout-land\\encode.xml"
     }
 ]

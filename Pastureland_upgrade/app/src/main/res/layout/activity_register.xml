@@ -39,12 +39,16 @@
 
             </RelativeLayout>
 
+
+
             <ImageView
                 android:id="@+id/ivTakePhoto"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:scaleType="fitXY"
                 android:src="@mipmap/take_photo"/>
+
+
 
             <TextView
                 android:id="@+id/tvDeviceNo"
