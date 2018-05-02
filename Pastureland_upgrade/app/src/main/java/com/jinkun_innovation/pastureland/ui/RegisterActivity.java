@@ -62,6 +62,7 @@ public class RegisterActivity extends Activity {
 
     private static final String TAG1 = RegisterActivity.class.getSimpleName();
     private static final int IV_OPEN = 1001;
+
     private LoginSuccess mLoginSuccess;
     private String mUsername;
     private String mDeviceNO;

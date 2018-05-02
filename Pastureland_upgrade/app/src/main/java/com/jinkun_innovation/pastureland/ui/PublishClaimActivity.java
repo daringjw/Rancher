@@ -3,6 +3,7 @@ package com.jinkun_innovation.pastureland.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -31,14 +32,17 @@ import com.jinkun_innovation.pastureland.bean.ImgUrlBean;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.bean.SelectVariety;
 import com.jinkun_innovation.pastureland.common.Constants;
+import com.jinkun_innovation.pastureland.ui.activity.SelectPicActivity;
 import com.jinkun_innovation.pastureland.ui.view.AmountView;
 import com.jinkun_innovation.pastureland.ui.view.AmountViewAge;
 import com.jinkun_innovation.pastureland.utilcode.util.FileUtils;
+import com.jinkun_innovation.pastureland.utilcode.util.ImageUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.LogUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.TimeUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
@@ -66,6 +70,8 @@ import static okhttp3.MultipartBody.ALTERNATIVE;
 public class PublishClaimActivity extends AppCompatActivity {
 
     private static final String TAG1 = PublishClaimActivity.class.getSimpleName();
+
+    private static final int IV_OPEN = 1001;
 
     String mLogin_success;
     LoginSuccess mLoginSuccess;
@@ -247,6 +253,30 @@ public class PublishClaimActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
 
+                case IV_OPEN:
+
+
+                    String pic = PrefUtils.getString(getApplicationContext(), "pic", null);
+
+                    pic = Constants.BASE_URL + pic;
+
+                    OkGo.<File>get(pic)
+                            .tag(this)
+                            .execute(new FileCallback() {
+                                @Override
+                                public void onSuccess(Response<File> response) {
+
+                                    File file = response.body().getAbsoluteFile();
+                                    Bitmap bitmap = ImageUtils.getBitmap(file);
+                                    mIvTakePhoto.setImageBitmap(bitmap);
+
+                                }
+                            });
+
+
+                    break;
+
+
                 case REQUEST_CAPTURE:
 
                     cropImage(photoFile.getAbsolutePath());
@@ -380,6 +410,20 @@ public class PublishClaimActivity extends AppCompatActivity {
         });
 
 
+        ImageView ivOpen = (ImageView) findViewById(R.id.ivOpen);
+        ivOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), SelectPicActivity.class);
+
+                startActivityForResult(intent, IV_OPEN);
+
+
+            }
+        });
+
+
         ImageView ivBack = (ImageView) findViewById(R.id.ivBack);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -404,7 +448,6 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                     }
                 });*/
-
 
 
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
@@ -547,6 +590,8 @@ public class PublishClaimActivity extends AppCompatActivity {
                     Log.d(TAG1, "mImgUrl1==" + mImgUrl);
                     Log.d(TAG1, "mWeightAm=" + mWeightAm + ",mAgeAm=" + mAgeAm);
 //
+                    String pic = PrefUtils.getString(getApplicationContext(), "pic", null);
+
                     OkGo.<String>post(Constants.RELEASE)
                             .tag(this)
                             .params("token", mLoginSuccess.getToken())
@@ -557,7 +602,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                             .params("variety", mInteger == 0 ? 100 : mInteger)
                             .params("weight", mWeightAm)
                             .params("age", mAgeAm)
-                            .params("imgUrl", mImgUrl)
+                            .params("imgUrl", TextUtils.isEmpty(mImgUrl) ? pic : mImgUrl)
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
@@ -631,7 +676,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                                                             ToastUtils.showShort("接收信息有空值,请拍照");
 
-                                                        }else if (s1.contains("重新发布认领表成功")) {
+                                                        } else if (s1.contains("重新发布认领表成功")) {
 
                                                             ToastUtils.showShort("重新发布认领成功");
                                                             setResult(RESULT_OK);
