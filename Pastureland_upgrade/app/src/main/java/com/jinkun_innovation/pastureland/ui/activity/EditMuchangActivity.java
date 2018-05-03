@@ -108,6 +108,7 @@ public class EditMuchangActivity extends Activity {
                         } else {
 
                             ToastUtils.showShort("获取牧场详情失败");
+
                         }
                     }
                 });
