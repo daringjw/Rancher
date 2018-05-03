@@ -3134,7 +3134,7 @@ containing a value of this type.
         public static int action_mode_bar_stub=0x7f0f0081;
         public static int action_mode_close_button=0x7f0f0065;
         public static int action_text=0x7f0f00d1;
-        public static int actions=0x7f0f00de;
+        public static int actions=0x7f0f00df;
         public static int activity_chooser_view_content=0x7f0f0066;
         public static int add=0x7f0f003a;
         public static int alertTitle=0x7f0f0079;
@@ -3208,7 +3208,7 @@ containing a value of this type.
         public static int home=0x7f0f0009;
         public static int homeAsUp=0x7f0f002a;
         public static int icon=0x7f0f006b;
-        public static int icon_group=0x7f0f00df;
+        public static int icon_group=0x7f0f00e0;
         public static int ifRoom=0x7f0f005e;
         public static int image=0x7f0f0068;
         public static int image_view=0x7f0f00c8;
@@ -3239,7 +3239,7 @@ containing a value of this type.
         public static int never=0x7f0f005f;
         public static int none=0x7f0f002b;
         public static int normal=0x7f0f0027;
-        public static int notification_background=0x7f0f00dd;
+        public static int notification_background=0x7f0f00de;
         public static int notification_main_column=0x7f0f00d8;
         public static int notification_main_column_container=0x7f0f00d7;
         public static int page_number_view=0x7f0f00e5;
@@ -3260,7 +3260,7 @@ containing a value of this type.
         public static int result_view=0x7f0f009c;
         public static int return_scan_result=0x7f0f0013;
         public static int right=0x7f0f0045;
-        public static int right_icon=0x7f0f00e0;
+        public static int right_icon=0x7f0f00dd;
         public static int right_side=0x7f0f00d9;
         public static int rlTitleBar=0x7f0f00ab;
         public static int save_image_matrix=0x7f0f0014;

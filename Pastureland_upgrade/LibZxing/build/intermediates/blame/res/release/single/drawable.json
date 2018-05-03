@@ -20,6 +20,10 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable\\abc_cab_background_top_material.xml"
     },
     {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\drawable\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\drawable\\design_bottom_navigation_item_background.xml"
+    },
+    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_small_material.xml",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
     },
@@ -108,6 +112,10 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\38faf9cfeb5c7a512e783285a12117985d77d201\\output\\res\\drawable\\notification_bg_low.xml"
     },
     {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\drawable\\isbn_shape.xml",
         "source": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\res\\drawable\\isbn_shape.xml"
     },
@@ -182,6 +190,14 @@
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_search_api_material.xml",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\drawable\\design_password_eye.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\drawable\\design_password_eye.xml"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable\\abc_btn_colored_material.xml"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_tick_mark_material.xml",

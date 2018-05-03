@@ -602,7 +602,7 @@ public final class R {
         public static final int action_mode_bar_stub = 0x7f0f0081;
         public static final int action_mode_close_button = 0x7f0f0065;
         public static final int action_text = 0x7f0f00d1;
-        public static final int actions = 0x7f0f00de;
+        public static final int actions = 0x7f0f00df;
         public static final int activity_chooser_view_content = 0x7f0f0066;
         public static final int add = 0x7f0f003a;
         public static final int alertTitle = 0x7f0f0079;
@@ -624,7 +624,7 @@ public final class R {
         public static final int forever = 0x7f0f0052;
         public static final int home = 0x7f0f0009;
         public static final int icon = 0x7f0f006b;
-        public static final int icon_group = 0x7f0f00df;
+        public static final int icon_group = 0x7f0f00e0;
         public static final int image = 0x7f0f0068;
         public static final int info = 0x7f0f00dc;
         public static final int italic = 0x7f0f0053;
@@ -637,14 +637,14 @@ public final class R {
         public static final int multiply = 0x7f0f0035;
         public static final int none = 0x7f0f002b;
         public static final int normal = 0x7f0f0027;
-        public static final int notification_background = 0x7f0f00dd;
+        public static final int notification_background = 0x7f0f00de;
         public static final int notification_main_column = 0x7f0f00d8;
         public static final int notification_main_column_container = 0x7f0f00d7;
         public static final int parentPanel = 0x7f0f006e;
         public static final int progress_circular = 0x7f0f000f;
         public static final int progress_horizontal = 0x7f0f0010;
         public static final int radio = 0x7f0f007e;
-        public static final int right_icon = 0x7f0f00e0;
+        public static final int right_icon = 0x7f0f00dd;
         public static final int right_side = 0x7f0f00d9;
         public static final int screen = 0x7f0f0036;
         public static final int scrollIndicatorDown = 0x7f0f0074;

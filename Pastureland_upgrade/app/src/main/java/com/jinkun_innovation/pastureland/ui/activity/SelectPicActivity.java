@@ -81,9 +81,11 @@ public class SelectPicActivity extends Activity {
             public void onClick(View view) {
 
                 ivPic.setImageResource(R.mipmap.yang_1);
+                bmp = null;
                 bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_1);
 
                 String yang_1 = ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_1");
+                mFile1 = null;
                 mFile1 = new File(yang_1);
 
             }
@@ -95,9 +97,11 @@ public class SelectPicActivity extends Activity {
             public void onClick(View view) {
 
                 ivPic.setImageResource(R.mipmap.yang_2);
+                bmp = null;
                 bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_2);
 
                 String yang_1 = ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_1");
+                mFile1 = null;
                 mFile1 = new File(yang_1);
 
             }
@@ -108,14 +112,15 @@ public class SelectPicActivity extends Activity {
             @Override
             public void onClick(View view) {
                 ivPic.setImageResource(R.mipmap.yang_3);
+                bmp = null;
                 bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_3);
 
                 String yang_1 = ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_1");
+                mFile1 = null;
                 mFile1 = new File(yang_1);
 
             }
         });
-
 
 
         String yang_1 = ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_1");

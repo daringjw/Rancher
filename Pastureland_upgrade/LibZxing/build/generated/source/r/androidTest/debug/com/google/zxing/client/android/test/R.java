@@ -3134,7 +3134,7 @@ containing a value of this type.
         public static final int action_mode_bar_stub=0x7f0f0081;
         public static final int action_mode_close_button=0x7f0f0065;
         public static final int action_text=0x7f0f00d1;
-        public static final int actions=0x7f0f00de;
+        public static final int actions=0x7f0f00df;
         public static final int activity_chooser_view_content=0x7f0f0066;
         public static final int add=0x7f0f003a;
         public static final int alertTitle=0x7f0f0079;
@@ -3208,7 +3208,7 @@ containing a value of this type.
         public static final int home=0x7f0f0009;
         public static final int homeAsUp=0x7f0f002a;
         public static final int icon=0x7f0f006b;
-        public static final int icon_group=0x7f0f00df;
+        public static final int icon_group=0x7f0f00e0;
         public static final int ifRoom=0x7f0f005e;
         public static final int image=0x7f0f0068;
         public static final int image_view=0x7f0f00c8;
@@ -3239,7 +3239,7 @@ containing a value of this type.
         public static final int never=0x7f0f005f;
         public static final int none=0x7f0f002b;
         public static final int normal=0x7f0f0027;
-        public static final int notification_background=0x7f0f00dd;
+        public static final int notification_background=0x7f0f00de;
         public static final int notification_main_column=0x7f0f00d8;
         public static final int notification_main_column_container=0x7f0f00d7;
         public static final int page_number_view=0x7f0f00e5;
@@ -3260,7 +3260,7 @@ containing a value of this type.
         public static final int result_view=0x7f0f009c;
         public static final int return_scan_result=0x7f0f0013;
         public static final int right=0x7f0f0045;
-        public static final int right_icon=0x7f0f00e0;
+        public static final int right_icon=0x7f0f00dd;
         public static final int right_side=0x7f0f00d9;
         public static final int rlTitleBar=0x7f0f00ab;
         public static final int save_image_matrix=0x7f0f0014;
