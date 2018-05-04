@@ -56,6 +56,7 @@ import com.tencent.bugly.beta.Beta;
 
 import java.io.File;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.jinkun_innovation.pastureland.utilcode.AppManager.getAppManager;
@@ -242,6 +243,9 @@ public class GeRenXinxiActivity extends AppCompatActivity {
                         mPDialog.cancel();
                         SpUtil.saveLoginState(false);
                         startActivity(new Intent(getApplicationContext(), LoginActivity1.class));
+                        //停止极光服务
+                        JPushInterface.stopPush(getApplicationContext());
+
                         AppManager.getAppManager().finishAllActivity();
 
                     }

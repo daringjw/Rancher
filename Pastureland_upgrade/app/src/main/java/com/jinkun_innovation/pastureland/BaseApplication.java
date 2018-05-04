@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jinkun_innovation.pastureland.utilcode.util.CrashUtils;
@@ -12,6 +13,8 @@ import com.jinkun_innovation.pastureland.utilcode.util.Utils;
 
 import java.io.File;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by yangxing on 2017/10/26.
@@ -19,8 +22,11 @@ import java.io.File;
 
 public class BaseApplication extends Application {
 
+    private static final String TAG1 = BaseApplication.class.getSimpleName();
+
     private static int mMainThreadId;
     private static Handler mHandler;
+    public static String registrationId;
 
     @Override
     public void onCreate() {
@@ -28,6 +34,12 @@ public class BaseApplication extends Application {
 
         context =getApplicationContext();
         mHandler=new Handler();
+
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+
+        registrationId = JPushInterface.getRegistrationID(this);
+        Log.d(TAG1,"registrationId="+registrationId);
 
         Utils.init(this);
         initLog();

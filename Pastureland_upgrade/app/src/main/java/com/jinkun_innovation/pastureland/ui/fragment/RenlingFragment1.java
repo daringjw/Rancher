@@ -62,7 +62,7 @@ public class RenlingFragment1 extends Fragment {
 
     private static final int SCAN_REQUEST_CODE = 100;
     private int checkedItem = 0;
-    private String scanMessage;
+    private String scanMessage ;
 
     int index = 2;
 

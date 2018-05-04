@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Guan on 2018/3/15.
@@ -69,11 +70,18 @@ public class MuqunFragment2 extends Fragment {
     private TextView mTvMaNo;
     private TextView mTvDeerNo, tvCamelNo;
 
+    public static String registrationId;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+        registrationId = JPushInterface.getRegistrationID(getActivity());
+
+
+        Log.d(TAG1, "registrationId1=" + registrationId);
 
 
         View view = View.inflate(getActivity(), R.layout.fragment_muqun, null);
@@ -84,13 +92,13 @@ public class MuqunFragment2 extends Fragment {
         mTvDeerNo = view.findViewById(R.id.tvDeerNo);
         tvCamelNo = view.findViewById(R.id.tvCamelNo);
 
-
         mLogin_success = PrefUtils.getString(getActivity(), "login_success", null);
         Gson gson = new Gson();
         mLoginSuccess = gson.fromJson(mLogin_success, LoginSuccess.class);
         mUsername = PrefUtils.getString(getActivity(), "username", null);
 
         initData();
+
 
         return view;
 
@@ -153,12 +161,13 @@ public class MuqunFragment2 extends Fragment {
                             }
 
 
-                        }else if(s.contains("认证失败")){
+                        } else if (s.contains("认证失败")) {
 
                             //退出到登录界面
                             SpUtil.saveLoginState(false);
                             startActivity(new Intent(getActivity(), LoginActivity1.class));
                             AppManager.getAppManager().finishAllActivity();
+
 
 
                         }
@@ -181,9 +190,13 @@ public class MuqunFragment2 extends Fragment {
             initData();
 
         } else {
+
             isGetData = false;
+
         }
+
         return super.onCreateAnimation(transit, enter, nextAnim);
+
     }
 
     @Override
