@@ -18,6 +18,17 @@
             android:text="牧群"
             android:textColor="#fff"/>
 
+        <TextView
+            android:id="@+id/tvMuqunLoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="牧群定位"
+            android:textColor="#fff"/>
+
+
     </RelativeLayout>
 
 

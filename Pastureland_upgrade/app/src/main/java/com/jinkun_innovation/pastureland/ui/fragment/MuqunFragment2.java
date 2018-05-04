@@ -22,6 +22,7 @@ import com.jinkun_innovation.pastureland.ui.LoginActivity1;
 import com.jinkun_innovation.pastureland.ui.YangListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.CamelListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.MaListActivity;
+import com.jinkun_innovation.pastureland.ui.activity.MuqunLocActivity;
 import com.jinkun_innovation.pastureland.ui.activity.NiuListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.PigListActivity;
 import com.jinkun_innovation.pastureland.utilcode.AppManager;
@@ -78,11 +79,9 @@ public class MuqunFragment2 extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+
         registrationId = JPushInterface.getRegistrationID(getActivity());
-
-
         Log.d(TAG1, "registrationId1=" + registrationId);
-
 
         View view = View.inflate(getActivity(), R.layout.fragment_muqun, null);
         unbinder = ButterKnife.bind(this, view);
@@ -96,6 +95,20 @@ public class MuqunFragment2 extends Fragment {
         Gson gson = new Gson();
         mLoginSuccess = gson.fromJson(mLogin_success, LoginSuccess.class);
         mUsername = PrefUtils.getString(getActivity(), "username", null);
+
+
+        TextView tvMuqunLoc = view.findViewById(R.id.tvMuqunLoc);
+        tvMuqunLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity(), MuqunLocActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
+
 
         initData();
 
@@ -167,7 +180,6 @@ public class MuqunFragment2 extends Fragment {
                             SpUtil.saveLoginState(false);
                             startActivity(new Intent(getActivity(), LoginActivity1.class));
                             AppManager.getAppManager().finishAllActivity();
-
 
 
                         }

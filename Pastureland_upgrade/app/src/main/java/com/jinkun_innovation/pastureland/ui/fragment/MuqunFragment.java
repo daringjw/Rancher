@@ -66,6 +66,7 @@ public class MuqunFragment extends Fragment {
 
 
     private boolean isGetData = false;
+
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         //   进入当前Fragment
