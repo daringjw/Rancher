@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.jinkun_innovation.pastureland.bean.MessageEvent;
+import com.jinkun_innovation.pastureland.ui.activity.MuqunLocActivity;
+
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import cn.jpush.android.api.JPushInterface;
@@ -23,32 +27,28 @@ public class M2Receiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (null == nm) {
-            nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        }
-
         Bundle bundle = intent.getExtras();
-        Log.d(TAG, "onReceive - " + intent.getAction() + ", extras: ");
-
-        String title = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-        Log.d(TAG, "EXTRA_REGISTRATION_ID=" + title);
+        Log.d(TAG, "onReceive - " + intent.getAction());
 
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
-            Log.d(TAG, "JPush用户注册成功");
+            String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
+            Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
+        }else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
+            Log.d(TAG, "收到了自定义消息。消息内容是：" + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+            String EXTRA_MESSAGE = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 
-        } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-            Log.d(TAG, "接受到推送下来的自定义消息");
+            EventBus.getDefault().post(new MessageEvent(EXTRA_MESSAGE));
 
+            // 自定义消息不会展示在通知栏，完全要开发者写代码去处理
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-            Log.d(TAG, "接受到推送下来的通知");
-
-            receivingNotification(context, bundle);
-
+            Log.d(TAG, "收到了通知");
+            // 在这里可以做些统计，或者做些其他工作
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "用户点击打开了通知");
-
-            openNotification(context, bundle);
-
+            // 在这里可以自己写代码去定义用户点击后的行为
+            Intent i = new Intent(context, MuqunLocActivity.class);  //自定义打开的界面
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
         } else {
             Log.d(TAG, "Unhandled intent - " + intent.getAction());
         }
@@ -59,6 +59,9 @@ public class M2Receiver extends BroadcastReceiver {
         Log.d(TAG, " title : " + title);
         String message = bundle.getString(JPushInterface.EXTRA_ALERT);
         Log.d(TAG, "message : " + message);
+
+
+
         String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
         Log.d(TAG, "extras : " + extras);
     }

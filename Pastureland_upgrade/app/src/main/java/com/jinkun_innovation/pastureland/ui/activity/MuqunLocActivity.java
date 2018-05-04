@@ -3,6 +3,7 @@ package com.jinkun_innovation.pastureland.ui.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,6 +18,11 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.jinkun_innovation.pastureland.R;
+import com.jinkun_innovation.pastureland.bean.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by Guan on 2018/5/4.
@@ -24,13 +30,28 @@ import com.jinkun_innovation.pastureland.R;
 
 public class MuqunLocActivity extends Activity {
 
+    private static final String TAG1 = MuqunLocActivity.class.getSimpleName();
+
     private MapView mMapView = null;
     BaiduMap map;
     private BitmapDescriptor mCurrentMarker;
 
+    boolean expansion =false;
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+//        mText.setText(messageEvent.getMessage());
+
+        Log.d(TAG1, "messageEvent.getMessage()=" + messageEvent.getMessage());
+
+    }
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        EventBus.getDefault().register(this);
 
         setContentView(R.layout.activity_muqun_loc);
 
@@ -79,8 +100,8 @@ public class MuqunLocActivity extends Activity {
         //创建InfoWindow展示的view
         Button button = new Button(getApplicationContext());
 //        button.setBackgroundResource(R.mipmap.popup);
-        button.setText("牲畜类型：羊\n"+"牲畜品种：乌珠木漆黑羊\n"+"设备编号：34134125\n"
-                +"上传时间：2018-04-25 09:02:01\n"+"牲畜位置：北京海淀区五道口路");
+        button.setText("牲畜类型：羊\n" + "牲畜品种：乌珠木漆黑羊\n" + "设备编号：34134125\n"
+                + "上传时间：2018-04-25 09:02:01\n" + "牲畜位置：北京海淀区五道口路");
 
 //定义用于显示该InfoWindow的坐标点
         LatLng pt = new LatLng(39.86923, 116.397428);
@@ -112,6 +133,34 @@ public class MuqunLocActivity extends Activity {
         });
 
 
+
+        final Button btnExpansion = (Button) findViewById(R.id.btnExpansion);
+        btnExpansion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (expansion){
+                    expansion =false;
+                    btnExpansion.setText("展开");
+
+                }else {
+
+                    expansion =true;
+                    btnExpansion.setText("收起");
+
+                    
+
+
+                }
+
+
+
+
+
+            }
+        });
+
+
     }
 
 
@@ -120,6 +169,11 @@ public class MuqunLocActivity extends Activity {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
+
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+
     }
 
     @Override
