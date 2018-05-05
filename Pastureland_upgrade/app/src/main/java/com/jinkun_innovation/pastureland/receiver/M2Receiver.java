@@ -15,6 +15,8 @@ import org.json.JSONObject;
 
 import cn.jpush.android.api.JPushInterface;
 
+import static cn.jpush.android.api.JPushInterface.ACTION_NOTIFICATION_RECEIVED;
+
 /**
  * Created by Guan on 2018/5/3.
  */
@@ -40,11 +42,11 @@ public class M2Receiver extends BroadcastReceiver {
             EventBus.getDefault().post(new MessageEvent(EXTRA_MESSAGE));
 
             // 自定义消息不会展示在通知栏，完全要开发者写代码去处理
-        } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
+        } else if (ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
 
 
-            String ACTION_NOTIFICATION_RECEIVED = bundle.getString(JPushInterface.ACTION_NOTIFICATION_RECEIVED);
-            Log.d(TAG, "收到了通知="+ACTION_NOTIFICATION_RECEIVED);
+            String EXTRA_ALERT = bundle.getString(JPushInterface.EXTRA_ALERT);
+            Log.d(TAG, "收到了通知="+EXTRA_ALERT);
 
             // 在这里可以做些统计，或者做些其他工作
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
