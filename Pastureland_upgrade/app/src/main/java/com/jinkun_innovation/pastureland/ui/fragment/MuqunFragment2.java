@@ -179,6 +179,8 @@ public class MuqunFragment2 extends Fragment {
                             //退出到登录界面
                             SpUtil.saveLoginState(false);
                             startActivity(new Intent(getActivity(), LoginActivity1.class));
+                            //停止极光推送服务
+                            JPushInterface.stopPush(getActivity());
                             AppManager.getAppManager().finishAllActivity();
 
 

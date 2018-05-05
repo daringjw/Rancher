@@ -41,7 +41,11 @@ public class M2Receiver extends BroadcastReceiver {
 
             // 自定义消息不会展示在通知栏，完全要开发者写代码去处理
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-            Log.d(TAG, "收到了通知");
+
+
+            String ACTION_NOTIFICATION_RECEIVED = bundle.getString(JPushInterface.ACTION_NOTIFICATION_RECEIVED);
+            Log.d(TAG, "收到了通知="+ACTION_NOTIFICATION_RECEIVED);
+
             // 在这里可以做些统计，或者做些其他工作
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "用户点击打开了通知");
@@ -54,16 +58,16 @@ public class M2Receiver extends BroadcastReceiver {
         }
     }
 
+
     private void receivingNotification(Context context, Bundle bundle) {
         String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
         Log.d(TAG, " title : " + title);
         String message = bundle.getString(JPushInterface.EXTRA_ALERT);
         Log.d(TAG, "message : " + message);
 
-
-
         String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
         Log.d(TAG, "extras : " + extras);
+
     }
 
     private void openNotification(Context context, Bundle bundle) {

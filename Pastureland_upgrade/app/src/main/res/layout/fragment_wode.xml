@@ -81,7 +81,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="牧场"/>
+                android:text="电子围栏"/>
 
         </LinearLayout>
 

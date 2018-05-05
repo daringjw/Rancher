@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -19,12 +20,16 @@ import com.jinkun_innovation.pastureland.ui.fragment.RenlingFragment1;
 import com.jinkun_innovation.pastureland.ui.fragment.WodeFragment;
 import com.jinkun_innovation.pastureland.utilcode.AppManager;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by Guan on 2018/3/14.
  */
 
 public class HomeActivity extends AppCompatActivity {
+
+    private static final String TAG1 = HomeActivity.class.getSimpleName();
 
     public ViewPager viewPager;
     public TabLayout mTabLayout;
@@ -41,6 +46,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         AppManager.getAppManager().addActivity(this);
+
+        String registrationID = JPushInterface.getRegistrationID(this);
+        Log.d(TAG1, "registrationID=" + registrationID);
 
 
         //Fragment+ViewPager+FragmentViewPager组合的使用
@@ -98,7 +106,6 @@ public class HomeActivity extends AppCompatActivity {
         public MyFragmentPagerAdapter(FragmentManager fm, Context context) {
             super(fm);
             this.context = context;
-
 
             if (fragmentMap == null) {
                 fragmentMap = new SparseArray();

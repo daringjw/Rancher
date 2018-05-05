@@ -2,7 +2,6 @@ package com.jinkun_innovation.pastureland.ui.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -144,13 +143,14 @@ public class WodeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                /*HomeActivity activity = (HomeActivity) getActivity();
-                activity.viewPager.setCurrentItem(0);*/
+
                 //跳转web首页
-                Uri uri = Uri.parse(Constants.homeWeb + "?token=" + mLoginSuccess.getToken()
+                /*Uri uri = Uri.parse(Constants.homeWeb + "?token=" + mLoginSuccess.getToken()
                         + "&username=" + mUsername);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+                startActivity(intent);*/
+                //电子围栏
+
 
 
             }
