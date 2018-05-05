@@ -378,6 +378,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
     private int mWeightAm;
     private int mAgeAm;
+    String pic;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -590,7 +591,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                     Log.d(TAG1, "mImgUrl1==" + mImgUrl);
                     Log.d(TAG1, "mWeightAm=" + mWeightAm + ",mAgeAm=" + mAgeAm);
 //
-                    String pic = PrefUtils.getString(getApplicationContext(), "pic", null);
+                     pic = PrefUtils.getString(getApplicationContext(), "pic", null);
 
                     OkGo.<String>post(Constants.RELEASE)
                             .tag(this)
@@ -645,7 +646,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                 .params("variety", mInteger == 0 ? 100 : mInteger)
                                                 .params("weight", mWeightAm)
                                                 .params("age", mAgeAm)
-                                                .params("imgUrl", mImgUrl)
+                                                .params("imgUrl", TextUtils.isEmpty(mImgUrl) ? pic : mImgUrl)
                                                 .execute(new StringCallback() {
                                                     @Override
                                                     public void onSuccess(Response<String> response) {

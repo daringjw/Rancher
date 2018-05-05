@@ -20,8 +20,10 @@ import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.google.gson.Gson;
 import com.jinkun_innovation.pastureland.R;
@@ -53,7 +55,7 @@ public class MuqunLocActivity extends Activity {
     BaiduMap map;
     private BitmapDescriptor mCurrentMarker;
 
-    boolean expansion = false;
+    boolean expansion = true;
     private Button mButton;
     private BDLocation mBdLocation;
     private MyLocationData mLocData;
@@ -173,7 +175,42 @@ public class MuqunLocActivity extends Activity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setVisibility(View.GONE);
+        OkGo.<String>get(Constants.QUERYLIVESTOCKVARIETYLIST)
+                .tag(this)
+                .params("token", mLoginSuccess.getToken())
+                .params("username", mUsername)
+                .params("ranchID", mLoginSuccess.getRanchID())
+                .params("livestockType", 1)
+                .params("current", 0)
+                .params("pagesize", 9999)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                        String s = response.body().toString();
+                        Log.d(TAG1, s);
+
+                        if (s.contains("imgUrl")) {
+                            //有数据
+                            Gson gson1 = new Gson();
+                            QueryByYang queryByYang = gson1.fromJson(s, QueryByYang.class);
+                            mLivestockVarietyList = queryByYang.getLivestockVarietyList();
+                            String deviceNo = mLivestockVarietyList.get(0).getDeviceNo();
+                            Log.d(TAG1, deviceNo);
+                            //创建并设置Adapter
+                            mAdapter = new MyAdapter(mLivestockVarietyList);
+                            mRecyclerView.setAdapter(mAdapter);
+                            mRecyclerView.setVisibility(View.VISIBLE);
+
+
+                        } else {
+
+
+                        }
+
+
+                    }
+                });
 
 
         final Button btnExpansion = (Button) findViewById(R.id.btnExpansion);
@@ -282,6 +319,79 @@ public class MuqunLocActivity extends Activity {
             deviceNo = deviceNo.substring(deviceNo.length() - 6, deviceNo.length());
             viewHolder.tvId.setText(deviceNo);
 
+            final String deviceNo1 = datas.get(position).getDeviceNo();
+            OkGo.<String>get(Constants.LIVESTOCK)
+                    .tag(this)
+                    .params("token", mLoginSuccess.getToken())
+                    .params("username", mUsername)
+                    .params("ranchID", mLoginSuccess.getRanchID())
+                    .params("deviceNO", deviceNo1)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                            String result = response.body().toString();
+                            Gson gson1 = new Gson();
+                            LiveStock liveStock = gson1.fromJson(result, LiveStock.class);
+                            String msg = liveStock.getMsg();
+
+                            LiveStock.LivestockBean lives = liveStock.getLivestock();
+                            String longtitudeBaidu = lives.getLongtitudeBaidu();
+                            String lantitudeBaidu = lives.getLantitudeBaidu();
+
+
+                            mBdLocation.setLongitude(Double.parseDouble(longtitudeBaidu));
+                            mBdLocation.setLatitude(Double.parseDouble(lantitudeBaidu));
+
+                            // 开启定位图层
+                            map.setMyLocationEnabled(true);
+
+                            // 构造定位数据
+                            // 此处设置开发者获取到的方向信息，顺时针0-360
+//.direction(100)
+                            mLocData = new MyLocationData.Builder()
+                                    .accuracy(mBdLocation.getRadius())
+                                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                                    //.direction(100)
+                                    .latitude(mBdLocation.getLatitude())
+                                    .longitude(mBdLocation.getLongitude()).build();
+
+                            // 设置定位数据
+                            map.setMyLocationData(mLocData);
+
+                            // 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
+                            mCurrentMarker = BitmapDescriptorFactory
+                                    .fromResource(R.mipmap.icon_location_3);
+                            mConfig = new MyLocationConfiguration(
+                                    MyLocationConfiguration.LocationMode.FOLLOWING,
+                                    true, mCurrentMarker);
+
+                            map.setMyLocationConfiguration(mConfig);
+
+                            //增加Marker
+                            //定义Maker坐标点
+
+                            LatLng point = new LatLng(mBdLocation.getLatitude(), mBdLocation.getLongitude());
+
+//构建Marker图标
+
+                            BitmapDescriptor bitmap = BitmapDescriptorFactory
+                                    .fromResource(R.mipmap.icon_location_3);
+
+//构建MarkerOption，用于在地图上添加Marker
+
+                            OverlayOptions option = new MarkerOptions()
+                                    .position(point)
+                                    .icon(bitmap);
+//在地图上添加Marker，并显示
+
+                            map.addOverlay(option);
+
+
+                        }
+                    });
+
+
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -341,8 +451,9 @@ public class MuqunLocActivity extends Activity {
                                     mButton = new Button(getApplicationContext());
                                     mButton.setBackgroundColor(Color.WHITE);
 //        button.setBackgroundResource(R.mipmap.popup);
+                                    mButton.setTextColor(Color.BLACK);
                                     mButton.setText("牲畜类型：羊\n" + "牲畜品种：乌珠穆泣黑头羊\n" + "   设备编号：" + deviceNo1 + "   \n"
-                                            + "   上传时间：" + lives.getUpdateTime() + "   \n" + "牲畜位置：" + lives.getAddress());
+                                            + "   上传时间：" + lives.getUpdateTime() + "   \n" + "   牲畜位置：" + lives.getAddress()+"   ");
 
 //定义用于显示该InfoWindow的坐标点
 
@@ -374,7 +485,6 @@ public class MuqunLocActivity extends Activity {
 
                                         }
                                     });
-
 
 
                                 }
