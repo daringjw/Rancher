@@ -64,12 +64,12 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\38faf9cfeb5c7a512e783285a12117985d77d201\\output\\res\\drawable-mdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-mdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
-    },
-    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-mdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-mdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png",

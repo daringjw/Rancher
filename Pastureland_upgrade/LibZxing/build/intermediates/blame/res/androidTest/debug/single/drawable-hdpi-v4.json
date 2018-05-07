@@ -8,24 +8,24 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-hdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_spinner_mtrl_am_alpha.9.png",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-hdpi-v4\\abc_spinner_mtrl_am_alpha.9.png"
-    },
-    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-hdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_spinner_mtrl_am_alpha.9.png",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-hdpi-v4\\abc_spinner_mtrl_am_alpha.9.png"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png"
-    },
-    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_list_longpressed_holo.9.png",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-hdpi-v4\\abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_015.png",
@@ -44,16 +44,16 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\drawable-hdpi-v4\\design_ic_visibility_off.png"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\iv_cancel.png",
-        "source": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\iv_cancel.png"
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\38faf9cfeb5c7a512e783285a12117985d77d201\\output\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_low_normal.9.png",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\38faf9cfeb5c7a512e783285a12117985d77d201\\output\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\iv_cancel.png",
+        "source": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\iv_cancel.png"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png",

@@ -88,12 +88,12 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\layout\\abc_action_bar_title_item.xml"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\share.xml",
-        "source": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\bundles\\debug\\res\\layout\\share.xml"
-    },
-    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_custom_big.xml",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\38faf9cfeb5c7a512e783285a12117985d77d201\\output\\res\\layout\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\share.xml",
+        "source": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\bundles\\debug\\res\\layout\\share.xml"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_activity_chooser_view.xml",
@@ -180,12 +180,12 @@
         "source": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\bundles\\debug\\res\\layout\\encode.xml"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_bottom_sheet_dialog.xml",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\layout\\design_bottom_sheet_dialog.xml"
-    },
-    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_action.xml",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\38faf9cfeb5c7a512e783285a12117985d77d201\\output\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_bottom_sheet_dialog.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\layout\\design_bottom_sheet_dialog.xml"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_screen_toolbar.xml",

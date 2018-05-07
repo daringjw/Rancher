@@ -8,12 +8,12 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\layout\\design_navigation_menu_item.xml"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\design_menu_item_action_area.xml",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\layout\\design_menu_item_action_area.xml"
-    },
-    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_item_material.xml",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b8969606e90f94eeefd19f30dd497202d22fd3ee\\output\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\design_menu_item_action_area.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\layout\\design_menu_item_action_area.xml"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\support_simple_spinner_dropdown_item.xml",
@@ -28,12 +28,12 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\3461192ff51554f5940b218e9a786c7ca3386d9a\\output\\res\\layout\\notification_template_media_custom.xml"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_item_subheader.xml",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\layout\\design_navigation_item_subheader.xml"
-    },
-    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\search_book_contents_list_item.xml",
         "source": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\res\\layout\\search_book_contents_list_item.xml"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_item_subheader.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\b0f16ba9b0dedafd9f0670652291bf10f4d8bfbc\\output\\res\\layout\\design_navigation_item_subheader.xml"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_title_item.xml",
@@ -276,12 +276,12 @@
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\3461192ff51554f5940b218e9a786c7ca3386d9a\\output\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
-        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media.xml",
-        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\3461192ff51554f5940b218e9a786c7ca3386d9a\\output\\res\\layout\\notification_template_media.xml"
-    },
-    {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_icon_group.xml",
         "source": "C:\\Users\\VULCAN\\.android\\build-cache\\38faf9cfeb5c7a512e783285a12117985d77d201\\output\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\VULCAN\\.android\\build-cache\\3461192ff51554f5940b218e9a786c7ca3386d9a\\output\\res\\layout\\notification_template_media.xml"
     },
     {
         "merged": "F:\\projects6\\Rancher\\Pastureland_upgrade\\LibZxing\\build\\intermediates\\res\\merged\\release\\layout\\design_bottom_sheet_dialog.xml",
