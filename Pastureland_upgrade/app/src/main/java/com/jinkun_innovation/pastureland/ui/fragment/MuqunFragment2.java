@@ -97,14 +97,13 @@ public class MuqunFragment2 extends Fragment {
         mUsername = PrefUtils.getString(getActivity(), "username", null);
 
 
-        TextView tvMuqunLoc = view.findViewById(R.id.tvMuqunLoc);
-        tvMuqunLoc.setOnClickListener(new View.OnClickListener() {
+        ImageView ivMuqunLoc = view.findViewById(R.id.ivMuqunLoc);
+        ivMuqunLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(getActivity(), MuqunLocActivity.class);
                 startActivity(intent);
-
 
             }
         });

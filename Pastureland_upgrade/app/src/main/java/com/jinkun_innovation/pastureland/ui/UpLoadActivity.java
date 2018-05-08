@@ -218,6 +218,62 @@ public class UpLoadActivity extends BaseActivity {
                 //牲畜个体照片上传
                 Log.d(TAG1, "mDeviceNo=" + mDeviceNo);
                 Log.d(TAG1, "mImgUrl=" + mImgUrl);
+                if (!TextUtils.isEmpty(mImgUrl)) {
+
+                    OkGo.<String>post(Constants.SHEARING)
+                            .tag(this)
+                            .params("token", mLoginSuccess.getToken())
+                            .params("username", mUsername)
+                            .params("ranchID", mLoginSuccess.getRanchID())
+                            .params("deviceNO", mDeviceNo)
+                            .params("imgUrl", mImgUrl)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+
+                                    String s = response.body().toString();
+                                    Log.d(TAG1, s);
+                                    pDialog.cancel();
+
+                                    if (s.contains("success")) {
+                                        //
+                                        Toast.makeText(getApplicationContext(),
+                                                "上传成功",
+                                                Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                        finish();
+
+
+                                    } else {
+                                        //fail
+                                        Toast.makeText(getApplicationContext(),
+                                                "没有找到此牲畜无法上传",
+                                                Toast.LENGTH_SHORT).show();
+
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+                                    super.onError(response);
+
+                                    ToastUtils.showShort("没有网络，请检查网络");
+
+                                }
+                            });
+
+                } else {
+
+                    pDialog.cancel();
+                    new SweetAlertDialog(UpLoadActivity.this,
+                            SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("抱歉...")
+                            .setContentText("网络不稳定,上传图片失败,请返回重新拍摄")
+                            .show();
+                }
+
 
 
                 break;
