@@ -10,18 +10,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.bean.QueryByYang;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.activity.MuqunLocActivity;
+import com.jinkun_innovation.pastureland.ui.view.LongClickImageView;
 import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
@@ -307,7 +308,6 @@ public class YangListActivity extends AppCompatActivity {
                             });
 
 
-
                         } else {
 
 
@@ -345,6 +345,32 @@ public class YangListActivity extends AppCompatActivity {
 
 
     }
+
+
+    /**
+     * * 判断是否有长按动作发生 * @param lastX 按下时X坐标 * @param lastY 按下时Y坐标 *
+     *
+     * @param thisX         移动时X坐标 *
+     * @param thisY         移动时Y坐标 *
+     * @param lastDownTime  按下时间 *
+     * @param thisEventTime 移动时间 *
+     * @param longPressTime 判断长按时间的阀值
+     */
+    static boolean isLongPressed(float lastX, float lastY, float thisX,
+                                 float thisY, long lastDownTime, long thisEventTime,
+                                 long longPressTime) {
+        float offsetX = Math.abs(thisX - lastX);
+        float offsetY = Math.abs(thisY - lastY);
+        long intervalTime = thisEventTime - lastDownTime;
+        if (offsetX <= 10 && offsetY <= 10 && intervalTime >= longPressTime) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements View.OnClickListener {
@@ -388,14 +414,25 @@ public class YangListActivity extends AppCompatActivity {
             //将数据保存在itemView的Tag中，以便点击时进行获取
             viewHolder.itemView.setTag(position);
 
-            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+
+            viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+
+                }
+            });
+
+
+            viewHolder.dvYang.setmDelayMillis(5000);
+            viewHolder.dvYang.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
 
                     //删除第 position 条目
                     new SweetAlertDialog(YangListActivity.this, SweetAlertDialog.WARNING_TYPE)
-                            .setTitleText("删除?")
-                            .setContentText("删除此条目")
+                            .setTitleText("确定要删除些条目吗？")
+                            .setContentText("删除后可能需要手动重新录入")
                             .setConfirmText("确定")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
@@ -461,7 +498,6 @@ public class YangListActivity extends AppCompatActivity {
                                                                             });
 
 
-
                                                                         } else {
 
 
@@ -506,11 +542,136 @@ public class YangListActivity extends AppCompatActivity {
                             .show();
 
                     return false;
+                }
+            });
+
+
+
+
+            /*viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+
+                    //删除第 position 条目
+                    new SweetAlertDialog(YangListActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("确定要删除些条目吗？")
+                            .setContentText("删除后可能需要手动重新录入")
+                            .setConfirmText("确定")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+
+                                    sDialog.cancel();
+                                    OkGo.<String>get(Constants.delLivestock)
+                                            .tag(this)
+                                            .params("token", mLoginSuccess.getToken())
+                                            .params("username", mUsername)
+                                            .params("deviceNo", datas.get(position).getDeviceNo())
+                                            .params("ranchID", mLoginSuccess.getRanchID())
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
+
+                                                    String result = response.body().toString();
+                                                    if (result.contains("删除成功")) {
+
+                                                        ToastUtils.showShort("删除成功");
+                                                        //通过牲畜类型查询所有牲畜
+                                                        OkGo.<String>get(Constants.QUERYLIVESTOCKVARIETYLIST)
+                                                                .tag(this)
+                                                                .params("token", mLoginSuccess.getToken())
+                                                                .params("username", mUsername)
+                                                                .params("ranchID", mLoginSuccess.getRanchID())
+                                                                .params("livestockType", 1)
+                                                                .params("current", 0)
+                                                                .params("pagesize", 10)
+                                                                .execute(new StringCallback() {
+                                                                    @Override
+                                                                    public void onSuccess(Response<String> response) {
+
+                                                                        String s = response.body().toString();
+                                                                        Log.d(TAG1, s);
+
+                                                                        if (s.contains("imgUrl")) {
+                                                                            //有数据
+                                                                            Gson gson1 = new Gson();
+                                                                            QueryByYang queryByYang = gson1.fromJson(s, QueryByYang.class);
+                                                                            mLivestockVarietyList = queryByYang.getLivestockVarietyList();
+                                                                            String deviceNo = mLivestockVarietyList.get(0).getDeviceNo();
+                                                                            Log.d(TAG1, deviceNo);
+                                                                            //创建并设置Adapter
+                                                                            mAdapter = new MyAdapter(mLivestockVarietyList);
+                                                                            mRecyclerView.setAdapter(mAdapter);
+
+                                                                            mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+                                                                                @Override
+                                                                                public void onItemClick(View view, int position) {
+
+                                                                                    Intent intent = new Intent(getApplicationContext(), YangDetailActivity.class);
+                                                                                    intent.putExtra("getVariety", mLivestockVarietyList.get(position).getVariety());
+                                                                                    intent.putExtra("getImgUrl", mLivestockVarietyList.get(position).getImgUrl());
+                                                                                    intent.putExtra("getDeviceNo", mLivestockVarietyList.get(position).getDeviceNo());
+                                                                                    intent.putExtra("getWeight", mLivestockVarietyList.get(position).getWeight());
+                                                                                    intent.putExtra("getBindStatus", mLivestockVarietyList.get(position).getBindStatus());
+                                                                                    intent.putExtra("getIsClaimed", mLivestockVarietyList.get(position).getIsClaimed());
+                                                                                    intent.putExtra("getUpdateTime", mLivestockVarietyList.get(position).getUpdateTime());
+                                                                                    startActivity(intent);
+
+                                                                                }
+                                                                            });
+
+
+                                                                        } else {
+
+
+                                                                        }
+
+
+                                                                    }
+                                                                });
+
+
+                                                    } else if (result.contains("删除失败")) {
+
+
+                                                        ToastUtils.showShort("删除失败");
+
+
+                                                    } else if (result.contains("已被认领不可删除")) {
+
+                                                        ToastUtils.showShort("已被认领不可删除");
+
+                                                    } else {
+
+                                                        ToastUtils.showShort("删除异常");
+
+                                                    }
+
+                                                }
+                                            });
+
+
+                                }
+                            })
+                            .setCancelText("取消")
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.cancel();
+
+
+                                }
+                            })
+                            .show();
+
+
+                    return false;
 
                 }
 
 
-            });
+            });*/
 
             String imgUrl = datas.get(position).getImgUrl();
             imgUrl = Constants.BASE_URL + imgUrl;
@@ -551,7 +712,7 @@ public class YangListActivity extends AppCompatActivity {
         //自定义的ViewHolder，持有每个Item的的所有界面元素
         public class ViewHolder extends RecyclerView.ViewHolder {
             public TextView mTextView;
-            public SimpleDraweeView dvYang;
+            public LongClickImageView dvYang;
             public TextView tvYangName, tvDeviceNo, tvPublishTime, tvLocation;
 
 

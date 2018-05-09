@@ -14,7 +14,7 @@
         android:background="#eeeeee"
         android:orientation="horizontal">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <com.jinkun_innovation.pastureland.ui.view.LongClickImageView
             android:id="@+id/dvYang"
             android:layout_width="100dp"
             android:layout_height="100dp"
