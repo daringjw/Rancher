@@ -347,6 +347,28 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".ui.locui.NiuLocActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.locui.MaLocActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.locui.PigLocActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.locui.CamelLocActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+
+
 
         <activity
             android:name=".ui.FindPwdActivity"

@@ -22,6 +22,7 @@ import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.bean.QueryByYang;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.YangDetailActivity;
+import com.jinkun_innovation.pastureland.ui.locui.NiuLocActivity;
 import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
@@ -225,6 +226,17 @@ public class NiuListActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
         initData();
+
+        ImageView ivMuqunLoc = findViewById(R.id.ivMuqunLoc);
+        ivMuqunLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), NiuLocActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
     }
