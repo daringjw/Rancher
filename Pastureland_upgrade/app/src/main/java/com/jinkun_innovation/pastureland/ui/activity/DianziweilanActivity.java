@@ -18,6 +18,7 @@ public class DianziweilanActivity extends Activity{
 
         setContentView(R.layout.activity_dianziweilan);
 
+
     }
 
 
