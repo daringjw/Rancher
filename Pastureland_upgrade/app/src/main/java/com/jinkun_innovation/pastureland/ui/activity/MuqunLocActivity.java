@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
@@ -15,9 +18,12 @@ import com.baidu.mapapi.map.MapView;
 import com.google.gson.Gson;
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
-import com.jinkun_innovation.pastureland.bean.QueryByYang;
-import com.jinkun_innovation.pastureland.ui.locui.CamelLocActivity;
+import com.jinkun_innovation.pastureland.bean.MuqunLoc;
+import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.List;
 
@@ -37,10 +43,10 @@ public class MuqunLocActivity extends Activity {
     LoginSuccess mLoginSuccess;
     String mUsername;
 
-    private List<QueryByYang.LivestockVarietyListBean> mLivestockVarietyList;
+    List<MuqunLoc.LivestockVarietyListBean> livestockVarietyList;
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
-    CamelLocActivity.MyAdapter mAdapter;
+    MyAdapter mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,49 +70,44 @@ public class MuqunLocActivity extends Activity {
         mUsername = PrefUtils.getString(this, "username", null);
 
 
-
         mRecyclerView = (RecyclerView) findViewById(R.id.rvList);
 //创建默认的线性LayoutManager
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         mRecyclerView.setHasFixedSize(true);
-        /*OkGo.<String>get(Constants.QUERYLIVESTOCKVARIETYLIST)
+
+        OkGo.<String>get(Constants.queryLivestockList)
                 .tag(this)
+                .params("livestockType", 1)
+                .params("ranchID", mLoginSuccess.getRanchID())
+                .params("current", 0)
+                .params("pagesize", 99999)
                 .params("token", mLoginSuccess.getToken())
                 .params("username", mUsername)
-                .params("ranchID", mLoginSuccess.getRanchID())
-                .params("livestockType", 7)
-                .params("current", 0)
-                .params("pagesize", 9999)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
 
-                        String s = response.body().toString();
-                        Log.d(TAG1, s);
+                        String result = response.body().toString();
+                        Gson gson1 = new Gson();
+                        MuqunLoc muqunLoc = gson1.fromJson(result, MuqunLoc.class);
+                        String msg = muqunLoc.getMsg();
+                        if (msg.contains("按类型获取牲畜成功")) {
 
-                        if (s.contains("imgUrl")) {
-                            //有数据
-                            Gson gson1 = new Gson();
-                            QueryByYang queryByYang = gson1.fromJson(s, QueryByYang.class);
-                            mLivestockVarietyList = queryByYang.getLivestockVarietyList();
-                            String deviceNo = mLivestockVarietyList.get(0).getDeviceNo();
-                            Log.d(TAG1, deviceNo);
-                            //创建并设置Adapter
-                            mAdapter = new CamelLocActivity.MyAdapter(mLivestockVarietyList);
+                            livestockVarietyList = muqunLoc.getLivestockVarietyList();
+                            mAdapter = new MyAdapter(livestockVarietyList);
                             mRecyclerView.setAdapter(mAdapter);
-                            mRecyclerView.setVisibility(View.VISIBLE);
-
-
-                        } else {
 
 
                         }
 
 
                     }
-                });*/
+
+
+                });
+
 
 //获取地图控件引用
         mMapView = (MapView) findViewById(R.id.bmapView);
@@ -149,6 +150,62 @@ public class MuqunLocActivity extends Activity {
 
     }
 
+
+    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
+        public List<MuqunLoc.LivestockVarietyListBean> datas = null;
+
+        public MyAdapter(List<MuqunLoc.LivestockVarietyListBean> datas) {
+
+            this.datas = datas;
+
+        }
+
+        //创建新View，被LayoutManager所调用
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_loc_yang, viewGroup, false);
+            ViewHolder vh = new ViewHolder(view);
+            return vh;
+        }
+
+        //将数据与界面进行绑定的操作
+        @Override
+        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+
+            viewHolder.ivIcon.setImageResource(R.mipmap.loc_yang);
+            String deviceNo = datas.get(position).getDeviceNo();
+            deviceNo = deviceNo.substring(deviceNo.length() - 6, deviceNo.length());
+            viewHolder.tvId.setText(deviceNo);
+
+
+        }
+
+        //获取数据的数量
+        @Override
+        public int getItemCount() {
+            return datas.size();
+        }
+
+        //自定义的ViewHolder，持有每个Item的的所有界面元素
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            //            public TextView mTextView;
+            TextView tvId;
+            ImageView ivIcon;
+
+
+            public ViewHolder(View view) {
+                super(view);
+//                mTextView = (TextView) view.findViewById(R.id.text);
+                tvId = view.findViewById(R.id.tvId);
+                ivIcon = view.findViewById(R.id.ivIcon);
+
+
+            }
+        }
+
+
+    }
 
 
     @Override

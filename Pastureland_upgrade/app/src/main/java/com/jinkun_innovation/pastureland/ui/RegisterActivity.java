@@ -657,8 +657,6 @@ public class RegisterActivity extends Activity {
         });
 
 
-
-
         if (mLoginSuccess != null) {
 
             Log.d(TAG1, mLoginSuccess.getToken());
@@ -706,158 +704,8 @@ public class RegisterActivity extends Activity {
                  *
                  */
 
-                if (mImgUrl == null) {
 
-                    if (mFile1 == null) {
-
-                        OkGo.<String>post(Constants.SAVELIVESTOCK)
-                                .tag(this)
-                                .params("token", mLoginSuccess.getToken())
-                                .params("username", mUsername)
-                                .params("deviceNO", mDeviceNO)
-                                .params("ranchID", mLoginSuccess.getRanchID())
-                                .params("livestockType", type)
-                                .params("variety", mInteger == 0 ? 100 : mInteger)
-                                .params("weight", mWeightAm)
-                                .params("age", mAgeAm)
-                                .params("imgUrl", mImgUrl)
-                                .execute(new StringCallback() {
-                                    @Override
-                                    public void onSuccess(Response<String> response) {
-
-
-                                        String result = response.body().toString();
-                                        Log.d(TAG1, result);
-
-                                        Gson gson1 = new Gson();
-                                        RegisterBean registerBean = gson1.fromJson(result, RegisterBean.class);
-                                        String msg = registerBean.getMsg();
-
-                                        if (msg.contains("牲畜登记打疫苗成功")) {
-                                            //成功
-                                            Toast.makeText(getApplicationContext(),
-                                                    "登记成功",
-                                                    Toast.LENGTH_SHORT)
-                                                    .show();
-
-                                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                            finish();
-
-                                        } else {
-                                            //失败
-                                            Toast.makeText(getApplicationContext(),
-                                                    msg,
-                                                    Toast.LENGTH_SHORT)
-                                                    .show();
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onError(Response<String> response) {
-                                        super.onError(response);
-
-                                        ToastUtils.showShort("没有网络，请检查网络");
-
-                                    }
-                                });
-
-
-                    } else {
-
-                        OkGo.<String>post(Constants.HEADIMGURL)
-                                .tag(this)
-                                .isMultipart(true)
-                                .params("token", mLoginSuccess.getToken())
-                                .params("username", mUsername)
-                                .params("uploadFile", mFile1)
-                                .execute(new StringCallback() {
-                                    @Override
-                                    public void onSuccess(Response<String> response) {
-
-
-                                        String s = response.body().toString();
-                                        Log.d(TAG1, s);
-                                        Gson gson = new Gson();
-                                        ImgUrlBean imgUrlBean = gson.fromJson(s, ImgUrlBean.class);
-                                        mImgUrl = imgUrlBean.getImgUrl();
-                                        int j = mImgUrl.indexOf("j");
-                                        mImgUrl = mImgUrl.substring(j - 1, mImgUrl.length());
-                                        Log.d(TAG1, mImgUrl);
-
-                                        OkGo.<String>post(Constants.SAVELIVESTOCK)
-                                                .tag(this)
-                                                .params("token", mLoginSuccess.getToken())
-                                                .params("username", mUsername)
-                                                .params("deviceNO", mDeviceNO)
-                                                .params("ranchID", mLoginSuccess.getRanchID())
-                                                .params("livestockType", type)
-                                                .params("variety", mInteger == 0 ? 100 : mInteger)
-                                                .params("weight", mWeightAm)
-                                                .params("age", mAgeAm)
-                                                .params("imgUrl", mImgUrl)
-                                                .execute(new StringCallback() {
-                                                    @Override
-                                                    public void onSuccess(Response<String> response) {
-
-
-                                                        String result = response.body().toString();
-                                                        Log.d(TAG1, result);
-
-                                                        Gson gson1 = new Gson();
-                                                        RegisterBean registerBean = gson1.fromJson(result, RegisterBean.class);
-                                                        String msg = registerBean.getMsg();
-
-                                                        if (msg.contains("牲畜登记打疫苗成功")) {
-                                                            //成功
-                                                            Toast.makeText(getApplicationContext(),
-                                                                    "登记成功",
-                                                                    Toast.LENGTH_SHORT)
-                                                                    .show();
-
-                                                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                                            finish();
-
-                                                        } else {
-                                                            //失败
-                                                            Toast.makeText(getApplicationContext(),
-                                                                    msg,
-                                                                    Toast.LENGTH_SHORT)
-                                                                    .show();
-                                                        }
-
-                                                    }
-
-                                                    @Override
-                                                    public void onError(Response<String> response) {
-                                                        super.onError(response);
-
-                                                        ToastUtils.showShort("没有网络，请检查网络");
-
-                                                    }
-                                                });
-
-
-                                    }
-
-                                    @Override
-                                    public void onError(Response<String> response) {
-                                        super.onError(response);
-
-
-                                        new SweetAlertDialog(RegisterActivity.this,
-                                                SweetAlertDialog.ERROR_TYPE)
-                                                .setTitleText("抱歉...")
-                                                .setContentText("网络不稳定,上传图片失败,请重新拍摄")
-                                                .show();
-
-
-                                    }
-                                });
-                    }
-
-
-                } else {
+                if (mFile1 == null) {
 
                     OkGo.<String>post(Constants.SAVELIVESTOCK)
                             .tag(this)
@@ -907,6 +755,99 @@ public class RegisterActivity extends Activity {
                                     super.onError(response);
 
                                     ToastUtils.showShort("没有网络，请检查网络");
+
+                                }
+                            });
+
+
+                } else {
+
+                    OkGo.<String>post(Constants.HEADIMGURL)
+                            .tag(this)
+                            .isMultipart(true)
+                            .params("token", mLoginSuccess.getToken())
+                            .params("username", mUsername)
+                            .params("uploadFile", mFile1)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+
+
+                                    String s = response.body().toString();
+                                    Log.d(TAG1, s);
+                                    Gson gson = new Gson();
+                                    ImgUrlBean imgUrlBean = gson.fromJson(s, ImgUrlBean.class);
+                                    mImgUrl = imgUrlBean.getImgUrl();
+                                    int j = mImgUrl.indexOf("j");
+                                    mImgUrl = mImgUrl.substring(j - 1, mImgUrl.length());
+                                    Log.d(TAG1, mImgUrl);
+
+                                    OkGo.<String>post(Constants.SAVELIVESTOCK)
+                                            .tag(this)
+                                            .params("token", mLoginSuccess.getToken())
+                                            .params("username", mUsername)
+                                            .params("deviceNO", mDeviceNO)
+                                            .params("ranchID", mLoginSuccess.getRanchID())
+                                            .params("livestockType", type)
+                                            .params("variety", mInteger == 0 ? 100 : mInteger)
+                                            .params("weight", mWeightAm)
+                                            .params("age", mAgeAm)
+                                            .params("imgUrl", mImgUrl)
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
+
+
+                                                    String result = response.body().toString();
+                                                    Log.d(TAG1, result);
+
+                                                    Gson gson1 = new Gson();
+                                                    RegisterBean registerBean = gson1.fromJson(result, RegisterBean.class);
+                                                    String msg = registerBean.getMsg();
+
+                                                    if (msg.contains("牲畜登记打疫苗成功")) {
+                                                        //成功
+                                                        Toast.makeText(getApplicationContext(),
+                                                                "登记成功",
+                                                                Toast.LENGTH_SHORT)
+                                                                .show();
+
+                                                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                                        finish();
+
+                                                    } else {
+                                                        //失败
+                                                        Toast.makeText(getApplicationContext(),
+                                                                msg,
+                                                                Toast.LENGTH_SHORT)
+                                                                .show();
+                                                    }
+
+                                                }
+
+                                                @Override
+                                                public void onError(Response<String> response) {
+                                                    super.onError(response);
+
+                                                    ToastUtils.showShort("没有网络，请检查网络");
+
+                                                }
+                                            });
+
+
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+                                    super.onError(response);
+
+
+                                    new SweetAlertDialog(RegisterActivity.this,
+                                            SweetAlertDialog.ERROR_TYPE)
+                                            .setTitleText("抱歉...")
+                                            .setContentText("网络不稳定,上传图片失败,请重新拍摄")
+                                            .show();
+
 
                                 }
                             });

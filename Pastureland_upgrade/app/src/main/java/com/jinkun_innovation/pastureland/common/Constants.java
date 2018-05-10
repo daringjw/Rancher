@@ -7,7 +7,7 @@ package com.jinkun_innovation.pastureland.common;
 
 public class Constants {
 
-    //朱之用
+    //
 //    public static final String BASE_URL = "http://192.168.50.215:8080";
 
 //    public static final String IP = "222.249.165.94";
@@ -124,13 +124,22 @@ public class Constants {
     public static final String orderPay = BASE_URL + "/releaseLivestocks/orderPay.do";
 
     //牲畜删除
-    public static final String delLivestock= BASE_URL + "/releaseLivestocks/delLivestock.do";
+    public static final String delLivestock = BASE_URL + "/releaseLivestocks/delLivestock.do";
 
 
     //跳转WEB首页
-    public static final String  homeWeb =BASE_URL +"/releaseLivestocks/homeWeb.do";
+    public static final String homeWeb = BASE_URL + "/releaseLivestocks/homeWeb.do";
 
+    //牲畜定位
+    public static final String queryLivestockList = BASE_URL + "/releaseLivestocks/queryLivestockList.do";
 
+    //农用工具
+    //添加
+    public static final String saveTool = BASE_URL + "/releaseLivestocks/saveTool.do";
+    //更新
+    public static final String updTool = BASE_URL + "/releaseLivestocks/updTool.do";
+    //删除
+    public static final String delTool = BASE_URL + "/releaseLivestocks/delTool.do";
 
 
 
