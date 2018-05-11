@@ -66,6 +66,7 @@ public class ManagerFragment extends Fragment {
 
 
     private static final String TAG1 = ManagerFragment.class.getSimpleName();
+
     private static final int SCAN_REQUEST_CODE2 = 1002;
 
     @BindView(R.id.llRegister)
@@ -253,7 +254,7 @@ public class ManagerFragment extends Fragment {
                 break;
             case R.id.llLifePhoto:
 
-                new SweetAlertDialog(getActivity())
+                /*new SweetAlertDialog(getActivity())
                         .setTitleText("请选择拍摄内容")
                         .setContentText("请选择是要拍摄牲畜的个体照片，还是牧场的风景或者牧群的照片")
                         .setConfirmText("牧场牧群")
@@ -273,16 +274,19 @@ public class ManagerFragment extends Fragment {
 
                                 sweetAlertDialog.dismissWithAnimation();
                                 //牲畜个体
-
                                 startScanActivity2();
 
 
                             }
                         })
-                        .show();
+                        .show();*/
 
+                //牧场牧群照
+                checkedItem = 0;
+                openCamera();
 
                 break;
+
             case R.id.llTools:
 
                 startActivity(new Intent(getActivity(), ToolsActivity.class));
@@ -315,7 +319,8 @@ public class ManagerFragment extends Fragment {
             switch (requestCode) {
 
                 case SCAN_REQUEST_CODE2:
-                  final  String isbn2 = data.getStringExtra("CaptureIsbn");
+
+                    final String isbn2 = data.getStringExtra("CaptureIsbn");
 
                     //牲畜个体
                     checkedItem = 101;
@@ -328,7 +333,7 @@ public class ManagerFragment extends Fragment {
 
                         if (StrLengthUtil.length(isbn2) == 16) {
 
-                            scanMessage =isbn2;
+                            scanMessage = isbn2;
                             OkGo.<String>post(Constants.ISDEVICEBINDED)
                                     .tag(this)
                                     .params("token", mLoginSuccess.getToken())
@@ -347,7 +352,6 @@ public class ManagerFragment extends Fragment {
                                                 openCamera();
 
 
-
                                             } else {
                                                 //未绑定
                                                 new SweetAlertDialog(getActivity())
@@ -361,15 +365,13 @@ public class ManagerFragment extends Fragment {
                                     });
 
 
-
-
                         } else if (StrLengthUtil.length(isbn2) == 15) {
 
                             String str = Stringinsert(isbn2, "1", 7);
                             Log.d(TAG1, "15位isbn=" + str);
                             Log.d(TAG1, "新的长度" + StrLengthUtil.length(str));
 
-                            scanMessage =str;
+                            scanMessage = str;
 
                             OkGo.<String>post(Constants.ISDEVICEBINDED)
                                     .tag(this)
@@ -389,7 +391,6 @@ public class ManagerFragment extends Fragment {
                                                 openCamera();
 
 
-
                                             } else {
                                                 //未绑定
                                                 new SweetAlertDialog(getActivity())
@@ -403,20 +404,12 @@ public class ManagerFragment extends Fragment {
                                     });
 
 
-
-
-
                         } else {
                             ToastUtils.showShort("设备号必须是16位数字");
                         }
 
 
                     }
-
-
-
-
-
 
 
                     break;

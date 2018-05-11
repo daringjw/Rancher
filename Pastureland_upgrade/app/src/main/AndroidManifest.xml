@@ -130,6 +130,13 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name=".ui.ToolsActivity1"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+
+
+        <activity
             android:name=".ui.PrivateActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>

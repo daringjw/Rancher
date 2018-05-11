@@ -143,32 +143,44 @@ public class MuqunFragment2 extends Fragment {
                             String s7 = typeMap.get_$7() + "";
 
 
-                            //羊
-                            if (!s1.equals("0") && !TextUtils.isEmpty(s1)) {
-                                tvYangNo.setText(s1 + "只");
-                            }
+                            try {
+//羊
+                                if (!s1.equals("0") && !TextUtils.isEmpty(s1)) {
+                                    tvYangNo.setText(s1 + "只");
+                                }
 
-                            //牛
-                            if (!s2.equals("0") && !TextUtils.isEmpty(s2)) {
-                                mTvNiuNo.setText(s2 + "头");
+                                //牛
+                                if (!s2.equals("0") && !TextUtils.isEmpty(s2)) {
+                                    mTvNiuNo.setText(s2 + "头");
 
-                            }
+                                }
 
-                            //马
-                            if (!s3.equals("0") && !TextUtils.isEmpty(s3)) {
-                                mTvMaNo.setText(s3 + "匹");
+                                //马
+                                if (!s3.equals("0") && !TextUtils.isEmpty(s3)) {
+                                    mTvMaNo.setText(s3 + "匹");
 
-                            }
+                                }
 
-                            //猪
-                            if (!s4.equals("0") && !TextUtils.isEmpty(s4)) {
-                                mTvDeerNo.setText(s4 + "头");
+                                //猪
+                                if (!s4.equals("0") && !TextUtils.isEmpty(s4)) {
+                                    mTvDeerNo.setText(s4 + "头");
 
-                            }
+                                }
 
-                            //骆驼
-                            if (!s7.equals("0") && !TextUtils.isEmpty(s7)) {
-                                tvCamelNo.setText(s7 + "头");
+                                //骆驼
+                                if (!s7.equals("0") && !TextUtils.isEmpty(s7)) {
+                                    tvCamelNo.setText(s7 + "头");
+
+                                }
+
+                            } catch (Exception e) {
+
+                                //退出到登录界面
+                                SpUtil.saveLoginState(false);
+                                startActivity(new Intent(getActivity(), LoginActivity1.class));
+                                //停止极光推送服务
+                                JPushInterface.stopPush(getActivity());
+                                AppManager.getAppManager().finishAllActivity();
 
                             }
 

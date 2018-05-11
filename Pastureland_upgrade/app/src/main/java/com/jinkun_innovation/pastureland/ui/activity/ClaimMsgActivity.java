@@ -135,8 +135,8 @@ public class ClaimMsgActivity extends AppCompatActivity {
                 .params("token", mLoginSuccess.getToken())
                 .params("username", mUsername)
                 .params("ranchID", mLoginSuccess.getRanchID())
-                .params("current", 0)
-                .params("pagesize", 1000)
+                .params("current", 1)
+                .params("pagesize", 299)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

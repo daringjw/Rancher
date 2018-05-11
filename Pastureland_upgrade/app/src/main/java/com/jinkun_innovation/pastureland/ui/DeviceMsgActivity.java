@@ -236,7 +236,7 @@ public class DeviceMsgActivity extends Activity {
                 .params("username", mUsername)
                 .params("ranchID", mLoginSuccess.getRanchID())
                 .params("current", 0)
-                .params("pagesize", 2000)
+                .params("pagesize", 299)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -388,7 +388,9 @@ public class DeviceMsgActivity extends Activity {
             } else {
 
                 if (!isVideo.equals("0") && !isVideo.equals("1")) {
+
                     viewHolder.llPaiLu.setVisibility(View.GONE);
+
                 } else {
                     viewHolder.llPaiLu.setVisibility(View.VISIBLE);
                     viewHolder.llQuPaizhao.setVisibility(View.GONE);
