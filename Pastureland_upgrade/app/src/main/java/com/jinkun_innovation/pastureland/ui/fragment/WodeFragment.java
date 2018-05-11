@@ -22,6 +22,7 @@ import com.jinkun_innovation.pastureland.ui.DeviceMsgActivity;
 import com.jinkun_innovation.pastureland.ui.GeRenXinxiActivity;
 import com.jinkun_innovation.pastureland.ui.HomeActivity;
 import com.jinkun_innovation.pastureland.ui.activity.ClaimMsgActivity;
+import com.jinkun_innovation.pastureland.ui.activity.DianziweilanActivity;
 import com.jinkun_innovation.pastureland.ui.view.CircleImageView;
 import com.jinkun_innovation.pastureland.utilcode.util.ImageUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
@@ -150,6 +151,7 @@ public class WodeFragment extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);*/
                 //电子围栏
+                startActivity(new Intent(getActivity(), DianziweilanActivity.class));
 
 
 

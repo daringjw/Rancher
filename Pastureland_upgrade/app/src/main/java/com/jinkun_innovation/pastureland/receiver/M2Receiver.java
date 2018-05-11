@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.jinkun_innovation.pastureland.bean.MessageEvent;
+import com.jinkun_innovation.pastureland.ui.DeviceMsgActivity;
 import com.jinkun_innovation.pastureland.ui.activity.ClaimMsgActivity;
 import com.jinkun_innovation.pastureland.ui.activity.DianziweilanActivity;
 
@@ -70,6 +71,10 @@ public class M2Receiver extends BroadcastReceiver {
                 context.startActivity(i);
 
             }else {
+
+                Intent i = new Intent(context, DeviceMsgActivity.class);  //自定义打开的界面
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
 
             }
 

@@ -44,6 +44,7 @@ import java.util.List;
 public class MuqunLocActivity extends Activity {
 
     private static final String TAG1 = MuqunLocActivity.class.getSimpleName();
+
     private MapView mMapView = null;
     BaiduMap mBaiduMap;
     private BitmapDescriptor mCurrentMarker;
@@ -124,11 +125,21 @@ public class MuqunLocActivity extends Activity {
                             String latitudeBaidu = livestockVarietyList.get(0).getLatitudeBaidu();
                             String longtitudeBaidu = livestockVarietyList.get(0).getLongtitudeBaidu();
                             if (!TextUtils.isEmpty(latitudeBaidu)) {
-                                mLocation.setLatitude(Double.parseDouble(latitudeBaidu));
-                                mLocation.setLongitude(Double.parseDouble(longtitudeBaidu));
+
+                                try {
+                                    mLocation.setLatitude(Double.parseDouble(latitudeBaidu));
+                                    mLocation.setLongitude(Double.parseDouble(longtitudeBaidu));
+                                } catch (Exception e) {
+                                    mLocation.setLatitude(22.5366038785);
+                                    mLocation.setLongitude(113.9381825394);
+                                }
+
+
                             } else {
+
                                 mLocation.setLatitude(22.5366038785);
                                 mLocation.setLongitude(113.9381825394);
+
                             }
 
 
@@ -277,6 +288,7 @@ public class MuqunLocActivity extends Activity {
 
                 } catch (Exception e) {
 
+                    point = new LatLng(39.963175, 116.400244);
 
                 }
 
@@ -324,8 +336,13 @@ public class MuqunLocActivity extends Activity {
 //定义用于显示该InfoWindow的坐标点
                     if (!TextUtils.isEmpty(latitudeBaidu)) {
 
-                        pt = new LatLng(Double.parseDouble(latitudeBaidu),
-                                Double.parseDouble(longtitudeBaidu));
+                        try {
+                            pt = new LatLng(Double.parseDouble(latitudeBaidu),
+                                    Double.parseDouble(longtitudeBaidu));
+                        } catch (Exception e) {
+                            pt = new LatLng(39.86923, 116.397428);
+                        }
+
 
                     } else {
                         pt = new LatLng(39.86923, 116.397428);

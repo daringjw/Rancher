@@ -221,9 +221,12 @@ public class LoginActivity extends BaseActivity {
                                 .show();
 
                     } else {
+
                         //不是中国大陆号码，请重新输入
-                        Toast.makeText(getApplicationContext(), "不是中国大陆号码，请重新输入",
+                        Toast.makeText(getApplicationContext(),
+                                "不是中国大陆号码，请重新输入",
                                 Toast.LENGTH_SHORT).show();
+
                     }
 
 

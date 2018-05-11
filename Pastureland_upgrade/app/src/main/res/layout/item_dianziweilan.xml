@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/tvMsgTitle"
+        android:text="头羊离开电子围栏区域报警！头羊定位网关编号：0001180100000020"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/tvAddress"
+        android:text="广东省深圳市宝安区金海路10附近，汇潮科技大厦"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/tvTime"
+        android:text="时间：2018-05-11 14:16:20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:background="#000"
+        ></View>
+
+
+
+</LinearLayout>

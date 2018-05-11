@@ -26,6 +26,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:text="牧群定位"
+            android:visibility="gone"
             android:src="@mipmap/muqun_loc1"
             android:textColor="#fff"/>
 
