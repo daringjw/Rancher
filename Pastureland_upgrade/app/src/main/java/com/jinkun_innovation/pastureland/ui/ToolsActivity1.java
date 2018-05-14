@@ -87,11 +87,11 @@ public class ToolsActivity1 extends Activity {
                                             public void onSuccess(Response<String> response) {
 
                                                 String result = response.body().toString();
-                                                if (result.contains("success")){
+                                                if (result.contains("success")) {
 
                                                     ToastUtils.showShort("添加成功");
 
-                                                }else {
+                                                } else {
 
                                                     ToastUtils.showShort("添加失败");
 
@@ -111,12 +111,14 @@ public class ToolsActivity1 extends Activity {
         });
 
 
-
         OkGo.<String>get(Constants.getToolList)
                 .tag(this)
                 .params("token", mLoginSuccess.getToken())
                 .params("username", mUsername)
                 .params("ranchID", mLoginSuccess.getRanchID())
+                .params("current", 1)
+                .params("pagesize", 299)
+
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -125,9 +127,9 @@ public class ToolsActivity1 extends Activity {
 
 
 
-
                     }
                 });
+
 
 
 
