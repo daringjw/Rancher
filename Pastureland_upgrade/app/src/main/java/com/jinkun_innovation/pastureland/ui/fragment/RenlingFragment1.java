@@ -1173,8 +1173,8 @@ public class RenlingFragment1 extends Fragment {
                 public boolean onLongClick(View view) {
                     //删除
                     new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                            .setTitleText("删除?")
-                            .setContentText("删除此条目")
+                            .setTitleText("确定要删除些条目吗？")
+                            .setContentText("删除后可能需要手动重新录入")
                             .setConfirmText("确定")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override

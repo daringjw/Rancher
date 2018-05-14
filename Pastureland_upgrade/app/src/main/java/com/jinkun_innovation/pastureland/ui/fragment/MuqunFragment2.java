@@ -125,6 +125,9 @@ public class MuqunFragment2 extends Fragment {
                 .params("username", mUsername)
                 .params("ranchID", mLoginSuccess.getRanchID())
                 .execute(new StringCallback() {
+
+
+
                     @Override
                     public void onSuccess(Response<String> response) {
 
@@ -199,7 +202,27 @@ public class MuqunFragment2 extends Fragment {
 
 
                     }
+
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+
+                        //退出到登录界面
+                        SpUtil.saveLoginState(false);
+                        startActivity(new Intent(getActivity(), LoginActivity1.class));
+                        //停止极光推送服务
+                        JPushInterface.stopPush(getActivity());
+                        AppManager.getAppManager().finishAllActivity();
+
+                    }
+
+
                 });
+
+
+
+
 
     }
 
