@@ -11,6 +11,7 @@ import android.widget.Spinner;
 
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.ToolBean;
+import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 
 /**
  * Created by Guan on 2018/3/29.
@@ -137,28 +138,31 @@ public class AddToolDialog extends Dialog {
 
 
                                 break;
+
                             case 1:
                                 // 2 台
                                 mToolBean.tool_sum = "2台";
                                 listener.refreshPriorityUI(mToolBean);
 
                                 break;
+
                             case 2:
+
                                 // 3 台
                                 mToolBean.tool_sum = "3台";
 
                                 listener.refreshPriorityUI(mToolBean);
 
-
                                 break;
+
                             case 3:
                                 // 4台
                                 mToolBean.tool_sum = "4台";
 
                                 listener.refreshPriorityUI(mToolBean);
 
-
                                 break;
+
                             case 4:
                                 // 5 台
                                 mToolBean.tool_sum = "5台";
@@ -183,7 +187,7 @@ public class AddToolDialog extends Dialog {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-//                ToastUtils.showShort("spnType选择了第" + i + "个");
+                ToastUtils.showShort("spnType选择了第" + i + "个");
                 tool_type = i;
 
 
@@ -209,6 +213,7 @@ public class AddToolDialog extends Dialog {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
 
             }
 

@@ -31,7 +31,7 @@ import com.jinkun_innovation.pastureland.bean.QueryByYang;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.GrassActivity;
 import com.jinkun_innovation.pastureland.ui.RegisterActivity;
-import com.jinkun_innovation.pastureland.ui.ToolsActivity;
+import com.jinkun_innovation.pastureland.ui.ToolsActivity1;
 import com.jinkun_innovation.pastureland.ui.UpLoadActivity;
 import com.jinkun_innovation.pastureland.ui.activity.Muchang2Activity;
 import com.jinkun_innovation.pastureland.utilcode.util.FileUtils;
@@ -289,7 +289,7 @@ public class ManagerFragment extends Fragment {
 
             case R.id.llTools:
 
-                startActivity(new Intent(getActivity(), ToolsActivity.class));
+                startActivity(new Intent(getActivity(), ToolsActivity1.class));
 
                 break;
 

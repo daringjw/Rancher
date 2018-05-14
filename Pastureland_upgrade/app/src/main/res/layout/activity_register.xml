@@ -70,6 +70,8 @@
                     android:src="@mipmap/paizhao"/>
 
 
+
+
             </RelativeLayout>
 
             <TextView

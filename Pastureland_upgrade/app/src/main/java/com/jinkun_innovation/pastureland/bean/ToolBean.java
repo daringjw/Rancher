@@ -10,6 +10,10 @@ public class ToolBean {
 
     public String tool_sum;
 
+    public int tool_sum1;
+
     public String time;
+
+    public String tool_fun;
 
 }

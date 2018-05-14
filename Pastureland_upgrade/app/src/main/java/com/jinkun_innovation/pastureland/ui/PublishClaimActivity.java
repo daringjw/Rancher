@@ -3,7 +3,9 @@ package com.jinkun_innovation.pastureland.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -32,7 +34,6 @@ import com.jinkun_innovation.pastureland.bean.ImgUrlBean;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.bean.SelectVariety;
 import com.jinkun_innovation.pastureland.common.Constants;
-import com.jinkun_innovation.pastureland.ui.activity.SelectPicActivity;
 import com.jinkun_innovation.pastureland.ui.view.AmountView;
 import com.jinkun_innovation.pastureland.ui.view.AmountViewAge;
 import com.jinkun_innovation.pastureland.utilcode.util.FileUtils;
@@ -49,6 +50,7 @@ import com.lzy.okgo.model.Response;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -62,6 +64,7 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 import static okhttp3.MultipartBody.ALTERNATIVE;
+import static vi.com.gdi.bgl.android.java.EnvDrawText.bmp;
 
 /**
  * Created by Guan on 2018/3/16.
@@ -380,6 +383,10 @@ public class PublishClaimActivity extends AppCompatActivity {
     private int mAgeAm;
     String pic;
 
+    File mFile;
+    private File mFile1;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -411,14 +418,83 @@ public class PublishClaimActivity extends AppCompatActivity {
         });
 
 
+        final Resources res = getResources();
+
+        mFile = new File(Environment.getExternalStorageDirectory(), "/Pastureland/pic");
+
         ImageView ivOpen = (ImageView) findViewById(R.id.ivOpen);
         ivOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), SelectPicActivity.class);
 
-                startActivityForResult(intent, IV_OPEN);
+                Random random = new Random();
+                int i = random.nextInt(6);
+                Log.d(TAG1, "随机数" + i);
+
+                switch (i) {
+
+                    case 0:
+
+                        mIvTakePhoto.setImageResource(R.mipmap.yang_0);
+                        bmp = null;
+                        bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_0);
+                        String yang_0 = com.jinkun_innovation.pastureland.utils.ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_0");
+                        mFile1 = null;
+                        mFile1 = new File(yang_0);
+
+
+                        break;
+                    case 1:
+
+                        mIvTakePhoto.setImageResource(R.mipmap.yang_1);
+                        bmp = null;
+                        bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_1);
+                        String yang_1 = com.jinkun_innovation.pastureland.utils.ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_1");
+                        mFile1 = null;
+                        mFile1 = new File(yang_1);
+
+                        break;
+
+                    case 2:
+
+                        mIvTakePhoto.setImageResource(R.mipmap.yang_2);
+                        bmp = null;
+                        bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_2);
+                        String yang_2 = com.jinkun_innovation.pastureland.utils.ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_2");
+                        mFile1 = null;
+                        mFile1 = new File(yang_2);
+                        break;
+
+                    case 3:
+                        mIvTakePhoto.setImageResource(R.mipmap.yang_3);
+                        bmp = null;
+                        bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_3);
+                        String yang_3 = com.jinkun_innovation.pastureland.utils.ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_3");
+                        mFile1 = null;
+                        mFile1 = new File(yang_3);
+                        break;
+
+                    case 4:
+                        mIvTakePhoto.setImageResource(R.mipmap.yang_4);
+                        bmp = null;
+                        bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_4);
+                        String yang_4 = com.jinkun_innovation.pastureland.utils.ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_4");
+                        mFile1 = null;
+                        mFile1 = new File(yang_4);
+                        break;
+
+                    case 5:
+                        mIvTakePhoto.setImageResource(R.mipmap.yang_5);
+                        bmp = null;
+                        bmp = BitmapFactory.decodeResource(res, R.mipmap.yang_5);
+                        String yang_5 = com.jinkun_innovation.pastureland.utils.ImageUtils.savePhoto(bmp, mFile.getAbsolutePath(), "yang_5");
+                        mFile1 = null;
+                        mFile1 = new File(yang_5);
+                        break;
+
+
+                }
 
 
             }
@@ -561,207 +637,195 @@ public class PublishClaimActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if (!TextUtils.isEmpty(mDeviceNo)) {
+                if (mType1.equals("羊")) {
+
+                    type = 1;
+                } else if (mType1.equals("牛")) {
+
+                    type = 2;
+                } else if (mType1.equals("马")) {
+
+                    type = 3;
+                } else if (mType1.equals("猪")) {
+
+                    type = 4;
+                } else if (mType1.equals("鸡")) {
+
+                    type = 5;
+                } else if (mType1.equals("鹿")) {
+
+                    type = 6;
+                } else if (mType1.equals("骆驼")) {
+
+                    type = 7;
+                }
 
 
-                    if (mType1.equals("羊")) {
-
-                        type = 1;
-                    } else if (mType1.equals("牛")) {
-
-                        type = 2;
-                    } else if (mType1.equals("马")) {
-
-                        type = 3;
-                    } else if (mType1.equals("猪")) {
-
-                        type = 4;
-                    } else if (mType1.equals("鸡")) {
-
-                        type = 5;
-                    } else if (mType1.equals("鹿")) {
-
-                        type = 6;
-                    } else if (mType1.equals("骆驼")) {
-
-                        type = 7;
-                    }
-
-
-                    Log.d(TAG1, "mImgUrl1==" + mImgUrl);
-                    Log.d(TAG1, "mWeightAm=" + mWeightAm + ",mAgeAm=" + mAgeAm);
+                Log.d(TAG1, "mImgUrl1==" + mImgUrl);
+                Log.d(TAG1, "mWeightAm=" + mWeightAm + ",mAgeAm=" + mAgeAm);
 //
-                     pic = PrefUtils.getString(getApplicationContext(), "pic", null);
+                
 
-                    OkGo.<String>post(Constants.RELEASE)
-                            .tag(this)
-                            .params("token", mLoginSuccess.getToken())
-                            .params("username", mUsername)
-                            .params("deviceNO", mIsbn)
-                            .params("ranchID", mLoginSuccess.getRanchID())
-                            .params("livestockType", type)
-                            .params("variety", mInteger == 0 ? 100 : mInteger)
-                            .params("weight", mWeightAm)
-                            .params("age", mAgeAm)
-                            .params("imgUrl", TextUtils.isEmpty(mImgUrl) ? pic : mImgUrl)
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onSuccess(Response<String> response) {
+                OkGo.<String>post(Constants.RELEASE)
+                        .tag(this)
+                        .params("token", mLoginSuccess.getToken())
+                        .params("username", mUsername)
+                        .params("deviceNO", mIsbn)
+                        .params("ranchID", mLoginSuccess.getRanchID())
+                        .params("livestockType", type)
+                        .params("variety", mInteger == 0 ? 100 : mInteger)
+                        .params("weight", mWeightAm)
+                        .params("age", mAgeAm)
+                        .params("imgUrl", TextUtils.isEmpty(mImgUrl) ? pic : mImgUrl)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
 
-                                    Log.d(TAG1, "mImgUrl2==" + mImgUrl);
+                                Log.d(TAG1, "mImgUrl2==" + mImgUrl);
 
-                                    final String s = response.body().toString();
+                                final String s = response.body().toString();
 
-                                    if (s.contains("发布牲畜到认领表成功")) {
+                                if (s.contains("发布牲畜到认领表成功")) {
 
-                                        //发布认领成功
-                                        Toast.makeText(getApplicationContext(), "发布牲畜到认领表成功",
-                                                Toast.LENGTH_SHORT).show();
+                                    //发布认领成功
+                                    Toast.makeText(getApplicationContext(), "发布牲畜到认领表成功",
+                                            Toast.LENGTH_SHORT).show();
 
-                                        setResult(RESULT_OK);
-                                        finish();
-
-
-                                    } else if (s.contains("发布认领牲畜异常")) {
-
-                                        ToastUtils.showShort("发布认领牲畜异常,请拍照");
-
-                                    } else if (s.contains("亲，同一品种第一次发布认领需要拍照")) {
-
-                                        ToastUtils.showShort("亲，同一品种第一次发布认领需要拍照");
-
-                                    } else if (s.contains("接收信息有空值")) {
-
-                                        ToastUtils.showShort("接收信息有空值,请拍照");
-
-                                    } else if (s.contains("已经发布过了")) {
-
-                                        OkGo.<String>post(Constants.IS_CLAIMED)
-                                                .tag(this)
-                                                .params("token", mLoginSuccess.getToken())
-                                                .params("username", mUsername)
-                                                .params("deviceNO", mIsbn)
-                                                .params("ranchID", mLoginSuccess.getRanchID())
-                                                .params("livestockType", type)
-                                                .params("variety", mInteger == 0 ? 100 : mInteger)
-                                                .params("weight", mWeightAm)
-                                                .params("age", mAgeAm)
-                                                .params("imgUrl", TextUtils.isEmpty(mImgUrl) ? pic : mImgUrl)
-                                                .execute(new StringCallback() {
-                                                    @Override
-                                                    public void onSuccess(Response<String> response) {
-
-                                                        String s1 = response.body().toString();
-                                                        Log.d(TAG1, "s1=" + s1);
-
-                                                        if (s1.contains("已被认领不可重新发布")) {
-
-                                                            new SweetAlertDialog(PublishClaimActivity.this,
-                                                                    SweetAlertDialog.WARNING_TYPE)
-                                                                    .setTitleText("已经被认领")
-                                                                    .setContentText("已被认领不可重新发布")
-                                                                    .setConfirmText("确定")
-                                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                                        @Override
-                                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                                            ToastUtils.showShort("已被认领不可重新发布");
-                                                                            setResult(RESULT_OK);
-                                                                            finish();
-                                                                        }
-                                                                    })
-
-                                                                    .show();
+                                    setResult(RESULT_OK);
+                                    finish();
 
 
-                                                        } else if (s1.contains("接收信息有空值")) {
+                                } else if (s.contains("发布认领牲畜异常")) {
 
-                                                            ToastUtils.showShort("接收信息有空值,请拍照");
+                                    ToastUtils.showShort("发布认领牲畜异常,请拍照");
 
-                                                        } else if (s1.contains("重新发布认领表成功")) {
+                                } else if (s.contains("亲，同一品种第一次发布认领需要拍照")) {
 
-                                                            ToastUtils.showShort("重新发布认领成功");
-                                                            setResult(RESULT_OK);
-                                                            finish();
+                                    ToastUtils.showShort("亲，同一品种第一次发布认领需要拍照");
 
-                                                        }
+                                } else if (s.contains("接收信息有空值")) {
 
-                                                    }
-                                                });
+                                    ToastUtils.showShort("接收信息有空值,请拍照");
 
+                                } else if (s.contains("已经发布过了")) {
 
-                                    } else if (s.contains("牲畜信息为空或者没有这个品种,发布不成功")) {
+                                    OkGo.<String>post(Constants.IS_CLAIMED)
+                                            .tag(this)
+                                            .params("token", mLoginSuccess.getToken())
+                                            .params("username", mUsername)
+                                            .params("deviceNO", mIsbn)
+                                            .params("ranchID", mLoginSuccess.getRanchID())
+                                            .params("livestockType", type)
+                                            .params("variety", mInteger == 0 ? 100 : mInteger)
+                                            .params("weight", mWeightAm)
+                                            .params("age", mAgeAm)
+                                            .params("imgUrl", TextUtils.isEmpty(mImgUrl) ? pic : mImgUrl)
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
 
+                                                    String s1 = response.body().toString();
+                                                    Log.d(TAG1, "s1=" + s1);
 
-                                        new SweetAlertDialog(PublishClaimActivity.this, SweetAlertDialog.WARNING_TYPE)
-                                                .setTitleText("未登记牲畜,是否直接发布认领?")
-                                                .setContentText("按确定直接发布认领")
-                                                .setCancelText("否")
-                                                .setConfirmText("确定")
-                                                .showCancelButton(true)
-                                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                    @Override
-                                                    public void onClick(SweetAlertDialog sDialog) {
-                                                        sDialog.cancel();
-                                                    }
-                                                })
-                                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                    @Override
-                                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                        sweetAlertDialog.cancel();
+                                                    if (s1.contains("已被认领不可重新发布")) {
 
-
-                                                        OkGo.<String>post(Constants.RELEASE)
-                                                                .tag(this)
-                                                                .params("token", mLoginSuccess.getToken())
-                                                                .params("username", mUsername)
-                                                                .params("deviceNO", mIsbn)
-                                                                .params("ranchID", mLoginSuccess.getRanchID())
-                                                                .params("livestockType", type)
-                                                                .params("variety", mInteger == 0 ? 100 : mInteger)
-                                                                .params("weight", mWeightAm)
-                                                                .params("age", mAgeAm)
-                                                                .params("imgUrl", mImgUrl)
-                                                                .execute(new StringCallback() {
+                                                        new SweetAlertDialog(PublishClaimActivity.this,
+                                                                SweetAlertDialog.WARNING_TYPE)
+                                                                .setTitleText("已经被认领")
+                                                                .setContentText("已被认领不可重新发布")
+                                                                .setConfirmText("确定")
+                                                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                                     @Override
-                                                                    public void onSuccess(Response<String> response) {
-
-                                                                        String s1 = response.body().toString();
-                                                                        Log.d(TAG1, "s1=" + s1);
-                                                                        ToastUtils.showShort("发布成功");
+                                                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                        ToastUtils.showShort("已被认领不可重新发布");
                                                                         setResult(RESULT_OK);
                                                                         finish();
-
                                                                     }
-                                                                });
+                                                                })
+
+                                                                .show();
+
+
+                                                    } else if (s1.contains("接收信息有空值")) {
+
+                                                        ToastUtils.showShort("接收信息有空值,请拍照");
+
+                                                    } else if (s1.contains("重新发布认领表成功")) {
+
+                                                        ToastUtils.showShort("重新发布认领成功");
+                                                        setResult(RESULT_OK);
+                                                        finish();
 
                                                     }
-                                                })
-                                                .show();
+
+                                                }
+                                            });
 
 
-                                    }
+                                } else if (s.contains("牲畜信息为空或者没有这个品种,发布不成功")) {
+
+
+                                    new SweetAlertDialog(PublishClaimActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                            .setTitleText("未登记牲畜,是否直接发布认领?")
+                                            .setContentText("按确定直接发布认领")
+                                            .setCancelText("否")
+                                            .setConfirmText("确定")
+                                            .showCancelButton(true)
+                                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    sDialog.cancel();
+                                                }
+                                            })
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.cancel();
+
+
+                                                    OkGo.<String>post(Constants.RELEASE)
+                                                            .tag(this)
+                                                            .params("token", mLoginSuccess.getToken())
+                                                            .params("username", mUsername)
+                                                            .params("deviceNO", mIsbn)
+                                                            .params("ranchID", mLoginSuccess.getRanchID())
+                                                            .params("livestockType", type)
+                                                            .params("variety", mInteger == 0 ? 100 : mInteger)
+                                                            .params("weight", mWeightAm)
+                                                            .params("age", mAgeAm)
+                                                            .params("imgUrl", mImgUrl)
+                                                            .execute(new StringCallback() {
+                                                                @Override
+                                                                public void onSuccess(Response<String> response) {
+
+                                                                    String s1 = response.body().toString();
+                                                                    Log.d(TAG1, "s1=" + s1);
+                                                                    ToastUtils.showShort("发布成功");
+                                                                    setResult(RESULT_OK);
+                                                                    finish();
+
+                                                                }
+                                                            });
+
+                                                }
+                                            })
+                                            .show();
+
 
                                 }
 
-                                @Override
-                                public void onError(Response<String> response) {
-                                    super.onError(response);
+                            }
 
-                                    ToastUtils.showShort("没有网络，请检查网络");
+                            @Override
+                            public void onError(Response<String> response) {
+                                super.onError(response);
 
-
-                                }
-
-                            });
+                                ToastUtils.showShort("没有网络，请检查网络");
 
 
-                } else {
+                            }
 
-                    Toast.makeText(getApplicationContext(), "设备号不能为空",
-                            Toast.LENGTH_SHORT).show();
-
-
-                }
+                        });
 
 
             }

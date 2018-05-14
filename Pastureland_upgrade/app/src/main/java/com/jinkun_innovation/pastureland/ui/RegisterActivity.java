@@ -439,6 +439,7 @@ public class RegisterActivity extends Activity {
 
                         } else {
 
+                            mIvTakePhoto.setImageResource(R.mipmap.take_photo);
 
                         }
 
@@ -456,8 +457,7 @@ public class RegisterActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                /*Intent intent = new Intent(getApplicationContext(), SelectPicActivity.class);
-                startActivityForResult(intent, IV_OPEN);*/
+
                 Random random = new Random();
                 int i = random.nextInt(6);
                 Log.d(TAG1, "随机数" + i);

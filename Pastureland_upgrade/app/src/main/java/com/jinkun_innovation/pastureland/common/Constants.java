@@ -140,6 +140,8 @@ public class Constants {
     public static final String updTool = BASE_URL + "/releaseLivestocks/updTool.do";
     //删除
     public static final String delTool = BASE_URL + "/releaseLivestocks/delTool.do";
+    //查询
+    public static final String getToolList = BASE_URL + "/releaseLivestocks/getToolList.do";
 
 
 

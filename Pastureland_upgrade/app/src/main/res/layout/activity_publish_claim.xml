@@ -59,6 +59,16 @@
                     android:layout_marginRight="10dp"
                     android:src="@mipmap/open"/>
 
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/paizhao"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"/>
+
             </RelativeLayout>
 
             <TextView
