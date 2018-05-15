@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.ImgUrlBean;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
+import com.jinkun_innovation.pastureland.bean.RenLing;
 import com.jinkun_innovation.pastureland.bean.SelectVariety;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.view.AmountView;
@@ -415,6 +416,57 @@ public class PublishClaimActivity extends AppCompatActivity {
 
             }
         });
+
+
+        //显示上一张上传服务器的图片
+        OkGo.<String>get(Constants.LIVE_STOCK_CLAIM_LIST)
+                .tag(this)
+                .params("token", mLoginSuccess.getToken())
+                .params("username", mUsername)
+                .params("ranchID", mLoginSuccess.getRanchID())
+//                .params("isClaimed",)
+                .params("current", 1)
+                .params("pagesize", 1)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                        String result = response.body().toString();
+                        Gson gson1 = new Gson();
+                        final RenLing renLing = gson1.fromJson(result, RenLing.class);
+                        String msg = renLing.getMsg();
+                        Log.d(TAG1, "msg=" + msg);
+                        if (msg.contains("获取已发布牲畜信息成功")) {
+
+                            List<RenLing.LivestockListBean> livestockList = renLing.getLivestockList();
+                            String imgUrl = livestockList.get(0).getImgUrl();
+                            imgUrl = Constants.BASE_URL + imgUrl;
+                            Log.d(TAG1,"imgUrl="+imgUrl);
+                            OkGo.<File>get(imgUrl)
+                                    .tag(this)
+                                    .execute(new FileCallback() {
+                                        @Override
+                                        public void onSuccess(Response<File> response) {
+
+                                            File file = response.body().getAbsoluteFile();
+                                            Bitmap bitmap = ImageUtils.getBitmap(file);
+                                            mIvTakePhoto.setImageBitmap(bitmap);
+
+
+                                        }
+                                    });
+
+
+
+                        } else {
+
+                            mIvTakePhoto.setImageResource(R.mipmap.take_photo);
+
+                        }
+
+
+                    }
+                });
 
 
         final Resources res = getResources();
