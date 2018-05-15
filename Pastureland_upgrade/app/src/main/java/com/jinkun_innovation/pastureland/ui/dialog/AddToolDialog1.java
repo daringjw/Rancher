@@ -138,7 +138,7 @@ public class AddToolDialog1 extends Dialog {
                 mToolBean.tool_fun = mEtToolFunc.getText().toString().trim();
                 if (TextUtils.isEmpty(mToolBean.tool_fun)) {
 
-                    ToastUtils.showShort("工具功能不能为空");
+                    ToastUtils.showShort("工具作用不能为空");
                     return;
 
                 }else {

@@ -109,23 +109,28 @@ public class LoginActivity1 extends AppCompatActivity {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_SETTINGS) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }if (ContextCompat.checkSelfPermission(this, Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }if (ContextCompat.checkSelfPermission(this, Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         }
-
-
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_SETTINGS) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
 
 
         if (permissions.size() > 0) {
@@ -138,14 +143,22 @@ public class LoginActivity1 extends AppCompatActivity {
 
     }
 
+    boolean grant = false;
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    grant = true;
+
                 } else {
-                    Toast.makeText(LoginActivity1.this, "请手动打开摄像头权限", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity1.this, "请手动打开所有权限", Toast.LENGTH_SHORT).show();
+
+                    grant = false;
+
                 }
                 break;
             default:
@@ -171,92 +184,101 @@ public class LoginActivity1 extends AppCompatActivity {
                 final String account = mTieAccount.getText().toString().trim();
                 String pwd = mTiePwd.getText().toString();
 
+                if (!grant) {
 
-                if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(pwd)) {
+                    ToastUtils.showShort("请允许所有权限");
+
+
+                } else {
 
 
                     if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(pwd)) {
 
-                        if (PhoneFormatCheckUtils.isMobile(account)) {
 
-                            //大陆号码，可以登录
-                            mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-                            mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                            mPDialog.setTitleText("正在登录...");
-                            mPDialog.setCancelable(true);
-                            mPDialog.show();
+                        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(pwd)) {
 
-                            OkGo.<String>post(Constants.LOGIN)
-                                    .tag(this)
-                                    .params("username", account)
-                                    .params("password", pwd)
-                                    .execute(new StringCallback() {
-                                        @Override
-                                        public void onSuccess(Response<String> response) {
+                            if (PhoneFormatCheckUtils.isMobile(account)) {
 
-                                            String result = response.body().toString();
-                                            Log.d(TAG1, result);
-                                            if (result.contains("error")) {
-                                                Toast.makeText(getApplicationContext(),
-                                                        "账号或者密码错误",
-                                                        Toast.LENGTH_SHORT).show();
-                                                mPDialog.cancel();
-                                            } else if (result.contains("token")) {
+                                //大陆号码，可以登录
+                                mPDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                                mPDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                mPDialog.setTitleText("正在登录...");
+                                mPDialog.setCancelable(true);
+                                mPDialog.show();
+
+                                OkGo.<String>post(Constants.LOGIN)
+                                        .tag(this)
+                                        .params("username", account)
+                                        .params("password", pwd)
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onSuccess(Response<String> response) {
+
+                                                String result = response.body().toString();
+                                                Log.d(TAG1, result);
+                                                if (result.contains("error")) {
+                                                    Toast.makeText(getApplicationContext(),
+                                                            "账号或者密码错误",
+                                                            Toast.LENGTH_SHORT).show();
+                                                    mPDialog.cancel();
+                                                } else if (result.contains("token")) {
 
 
-                                                //登陆成功
-                                                PrefUtils.setString(getApplicationContext(), "login_success", result);
-                                                PrefUtils.setString(getApplicationContext(), "username", account);
-                                                mPDialog.cancel();
-                                                SpUtil.saveLoginState(true);
-                                                Toast.makeText(getApplicationContext(), "登录成功",
-                                                        Toast.LENGTH_SHORT).show();
-                                                //恢复极光服务
-                                                JPushInterface.resumePush(getApplicationContext());
-                                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                                finish();
+                                                    //登陆成功
+                                                    PrefUtils.setString(getApplicationContext(), "login_success", result);
+                                                    PrefUtils.setString(getApplicationContext(), "username", account);
+                                                    mPDialog.cancel();
+                                                    SpUtil.saveLoginState(true);
+                                                    Toast.makeText(getApplicationContext(), "登录成功",
+                                                            Toast.LENGTH_SHORT).show();
+                                                    //恢复极光服务
+                                                    JPushInterface.resumePush(getApplicationContext());
+                                                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                                    finish();
 
-                                            } else {
-                                                Toast.makeText(getApplicationContext(),
-                                                        "登录异常",
-                                                        Toast.LENGTH_SHORT).show();
-                                                mPDialog.cancel();
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(),
+                                                            "登录异常",
+                                                            Toast.LENGTH_SHORT).show();
+                                                    mPDialog.cancel();
+
+                                                }
+
 
                                             }
 
+                                            @Override
+                                            public void onError(Response<String> response) {
+                                                super.onError(response);
 
-                                        }
+                                                ToastUtils.showShort("没有网络，请检查网络");
 
-                                        @Override
-                                        public void onError(Response<String> response) {
-                                            super.onError(response);
-
-                                            ToastUtils.showShort("没有网络，请检查网络");
-
-                                        }
-                                    });
+                                            }
+                                        });
 
 
-                        } else {
+                            } else {
 
-                            //非法电话号码
-                            ToastUtils.showShort("请输入正确的电话号码");
+                                //非法电话号码
+                                ToastUtils.showShort("请输入正确的电话号码");
+
+                            }
 
                         }
+
+
+                        break;
+                    } else {
+
+
+                        ToastUtils.showShort("账号和密码不能为空");
 
                     }
 
 
-                    break;
-                } else {
-
-
-                    ToastUtils.showShort("账号和密码不能为空");
-
                 }
-
-
         }
+
     }
 
 }
