@@ -49,7 +49,6 @@ import com.google.zxing.util.ProjectorUtil;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import static com.google.zxing.client.android.R.id.etISBN;
 
 public class CaptureActivity2 extends CaptureActivity implements OnEditorActionListener {
 
@@ -98,7 +97,7 @@ public class CaptureActivity2 extends CaptureActivity implements OnEditorActionL
         viewCaptureISBN = findViewById(R.id.captureIsbn);
         titleBar = findViewById(R.id.llTitleBar);
         viewManualInputISBN = findViewById(R.id.manualInputIsbn);
-        etIsbn = findViewById(etISBN);
+        etIsbn = findViewById(R.id.etISBN);
         tvClose = findViewById(R.id.tvClose);
         btnSearch = findViewById(R.id.btnSearch);
         ivClose = findViewById(R.id.ivClose);
@@ -243,7 +242,7 @@ public class CaptureActivity2 extends CaptureActivity implements OnEditorActionL
             return;
         final String isbn = etIsbn.getText().toString();
         if (isbn.equals("") && isSearch) {
-            Toast.makeText(this, "请输入ISBN号", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请输入设备二维码编号", Toast.LENGTH_SHORT).show();
             return;
         }
         animOut.setAnimationListener(new AnimationListener() {

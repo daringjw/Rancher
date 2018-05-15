@@ -70,7 +70,7 @@ public class ISBNActivity extends AppCompatActivity implements TextView.OnEditor
     private void inputIsbnViewOut(final boolean isSearch) {
         final String isbn = etISBN.getText().toString();
         if (isbn.equals("") && isSearch) {
-            Toast.makeText(this, "请输入ISBN号", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请输入设备二维码编号", Toast.LENGTH_SHORT).show();
             return;
         }
         Intent intent = new Intent();

@@ -804,8 +804,8 @@
     <string name="history_send">Send history</string>
     <string name="history_title">History</string>
     <string name="input">手动输入</string>
-    <string name="input_isbn">手动输入ISBN号</string>
-    <string name="input_isbn_hint">请输入ISBN号</string>
+    <string name="input_isbn">手动输入设备二维码编号</string>
+    <string name="input_isbn_hint">请输入设备二维码编号</string>
     <string name="menu_about">About</string>
     <string name="menu_encode_mecard">Use MECARD</string>
     <string name="menu_encode_vcard">Use vCard</string>
