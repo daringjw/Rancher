@@ -70,6 +70,9 @@ public class LoginActivity1 extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkRuntimePermissions();
+        }else {
+            // 6.0 以下
+            grant=true;
         }
 
         TextView tvVersion = (TextView) findViewById(R.id.tvVersion);
@@ -210,6 +213,8 @@ public class LoginActivity1 extends AppCompatActivity {
                                         .tag(this)
                                         .params("username", account)
                                         .params("password", pwd)
+                                        .params("registrationId", JPushInterface.getRegistrationID(this))
+
                                         .execute(new StringCallback() {
                                             @Override
                                             public void onSuccess(Response<String> response) {
@@ -266,8 +271,8 @@ public class LoginActivity1 extends AppCompatActivity {
 
                         }
 
-
                         break;
+
                     } else {
 
 
