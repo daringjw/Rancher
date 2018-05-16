@@ -548,8 +548,16 @@ public class RegisterActivity extends Activity {
             }
         });
 
+        //0001 头羊  0002 小羊  0003 大牲畜
 
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
+
+        if (mDeviceNO.startsWith("0003")){
+            //大牲畜
+            spinner1.setSelection(1);
+
+        }
+
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -558,6 +566,7 @@ public class RegisterActivity extends Activity {
 
                 String[] type = getResources().getStringArray(R.array.type);
                 mType1 = type[pos];
+
 
 
                 //根据type1 访问接口
@@ -614,6 +623,8 @@ public class RegisterActivity extends Activity {
             }
 
         });
+
+
 
 
         AmountView avWeight = findViewById(R.id.avWeight);

@@ -579,6 +579,14 @@ public class PublishClaimActivity extends AppCompatActivity {
 
 
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
+
+        if (mIsbn.startsWith("0003")){
+            //大牲畜
+            spinner1.setSelection(1);
+
+        }
+
+
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
