@@ -418,55 +418,7 @@ public class PublishClaimActivity extends AppCompatActivity {
         });
 
 
-        //显示上一张上传服务器的图片
-        OkGo.<String>get(Constants.LIVE_STOCK_CLAIM_LIST)
-                .tag(this)
-                .params("token", mLoginSuccess.getToken())
-                .params("username", mUsername)
-                .params("ranchID", mLoginSuccess.getRanchID())
-//                .params("isClaimed",)
-                .params("current", 1)
-                .params("pagesize", 1)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
 
-                        String result = response.body().toString();
-                        Gson gson1 = new Gson();
-                        final RenLing renLing = gson1.fromJson(result, RenLing.class);
-                        String msg = renLing.getMsg();
-                        Log.d(TAG1, "msg=" + msg);
-                        if (msg.contains("获取已发布牲畜信息成功")) {
-
-                            List<RenLing.LivestockListBean> livestockList = renLing.getLivestockList();
-                            String imgUrl = livestockList.get(0).getImgUrl();
-                            imgUrl = Constants.BASE_URL + imgUrl;
-                            Log.d(TAG1,"imgUrl="+imgUrl);
-                            OkGo.<File>get(imgUrl)
-                                    .tag(this)
-                                    .execute(new FileCallback() {
-                                        @Override
-                                        public void onSuccess(Response<File> response) {
-
-                                            File file = response.body().getAbsoluteFile();
-                                            Bitmap bitmap = ImageUtils.getBitmap(file);
-                                            mIvTakePhoto.setImageBitmap(bitmap);
-
-
-                                        }
-                                    });
-
-
-
-                        } else {
-
-                            mIvTakePhoto.setImageResource(R.mipmap.take_photo);
-
-                        }
-
-
-                    }
-                });
 
 
         final Resources res = getResources();
@@ -583,6 +535,112 @@ public class PublishClaimActivity extends AppCompatActivity {
         if (mIsbn.startsWith("0003")){
             //大牲畜
             spinner1.setSelection(1);
+
+            //显示上一张上传服务器的图片
+            OkGo.<String>get(Constants.LIVE_STOCK_CLAIM_LIST)
+                    .tag(this)
+                    .params("token", mLoginSuccess.getToken())
+                    .params("username", mUsername)
+                    .params("ranchID", mLoginSuccess.getRanchID())
+//                .params("isClaimed",)
+                    .params("current", 1)
+                    .params("pagesize", 1)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                            String result = response.body().toString();
+                            Gson gson1 = new Gson();
+                            final RenLing renLing = gson1.fromJson(result, RenLing.class);
+                            String msg = renLing.getMsg();
+                            Log.d(TAG1, "msg=" + msg);
+                            if (msg.contains("获取已发布牲畜信息成功")) {
+
+                                List<RenLing.LivestockListBean> livestockList = renLing.getLivestockList();
+                                String imgUrl = livestockList.get(0).getImgUrl();
+                                imgUrl = Constants.BASE_URL + imgUrl;
+                                Log.d(TAG1,"imgUrl="+imgUrl);
+                                OkGo.<File>get(imgUrl)
+                                        .tag(this)
+                                        .execute(new FileCallback() {
+                                            @Override
+                                            public void onSuccess(Response<File> response) {
+
+                                                File file = response.body().getAbsoluteFile();
+                                                Bitmap bitmap = ImageUtils.getBitmap(file);
+                                                mIvTakePhoto.setImageBitmap(bitmap);
+
+
+                                            }
+                                        });
+
+
+
+                            } else {
+
+                                mIvTakePhoto.setImageResource(R.mipmap.take_photo);
+
+                            }
+
+
+                        }
+                    });
+
+
+
+
+        }else {
+
+
+            //显示上一张上传服务器的图片
+            OkGo.<String>get(Constants.LIVE_STOCK_CLAIM_LIST)
+                    .tag(this)
+                    .params("token", mLoginSuccess.getToken())
+                    .params("username", mUsername)
+                    .params("ranchID", mLoginSuccess.getRanchID())
+//                .params("isClaimed",)
+                    .params("current", 1)
+                    .params("pagesize", 1)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                            String result = response.body().toString();
+                            Gson gson1 = new Gson();
+                            final RenLing renLing = gson1.fromJson(result, RenLing.class);
+                            String msg = renLing.getMsg();
+                            Log.d(TAG1, "msg=" + msg);
+                            if (msg.contains("获取已发布牲畜信息成功")) {
+
+                                List<RenLing.LivestockListBean> livestockList = renLing.getLivestockList();
+                                String imgUrl = livestockList.get(0).getImgUrl();
+                                imgUrl = Constants.BASE_URL + imgUrl;
+                                Log.d(TAG1,"imgUrl="+imgUrl);
+                                OkGo.<File>get(imgUrl)
+                                        .tag(this)
+                                        .execute(new FileCallback() {
+                                            @Override
+                                            public void onSuccess(Response<File> response) {
+
+                                                File file = response.body().getAbsoluteFile();
+                                                Bitmap bitmap = ImageUtils.getBitmap(file);
+                                                mIvTakePhoto.setImageBitmap(bitmap);
+
+
+                                            }
+                                        });
+
+
+
+                            } else {
+
+                                mIvTakePhoto.setImageResource(R.mipmap.take_photo);
+
+                            }
+
+
+                        }
+                    });
 
         }
 

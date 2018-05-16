@@ -397,55 +397,7 @@ public class RegisterActivity extends Activity {
         });
 
 
-        //显示上一张上传服务器的图片
-        //通过牲畜类型查询所有牲畜
-        OkGo.<String>get(Constants.QUERYLIVESTOCKVARIETYLIST)
-                .tag(this)
-                .params("token", mLoginSuccess.getToken())
-                .params("username", mUsername)
-                .params("ranchID", mLoginSuccess.getRanchID())
-                .params("livestockType", 1)
-                .params("current", 0)
-                .params("pagesize", 1)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
 
-                        String s = response.body().toString();
-                        Log.d(TAG1, s);
-
-                        if (s.contains("imgUrl")) {
-                            //有数据
-                            Gson gson1 = new Gson();
-                            QueryByYang queryByYang = gson1.fromJson(s, QueryByYang.class);
-                            mLivestockVarietyList = queryByYang.getLivestockVarietyList();
-
-                            String ab = mLivestockVarietyList.get(0).getImgUrl();
-                            ab = Constants.BASE_URL + ab;
-
-                            OkGo.<File>get(ab)
-                                    .tag(this)
-                                    .execute(new FileCallback() {
-                                        @Override
-                                        public void onSuccess(Response<File> response) {
-
-                                            File file = response.body().getAbsoluteFile();
-                                            Bitmap bitmap = ImageUtils.getBitmap(file);
-                                            mIvTakePhoto.setImageBitmap(bitmap);
-
-                                        }
-                                    });
-
-
-                        } else {
-
-                            mIvTakePhoto.setImageResource(R.mipmap.take_photo);
-
-                        }
-
-
-                    }
-                });
 
 
         final Resources res = getResources();
@@ -555,6 +507,109 @@ public class RegisterActivity extends Activity {
         if (mDeviceNO.startsWith("0003")){
             //大牲畜
             spinner1.setSelection(1);
+
+            //显示上一张上传服务器的图片
+            //通过牲畜类型查询所有牲畜
+            OkGo.<String>get(Constants.QUERYLIVESTOCKVARIETYLIST)
+                    .tag(this)
+                    .params("token", mLoginSuccess.getToken())
+                    .params("username", mUsername)
+                    .params("ranchID", mLoginSuccess.getRanchID())
+                    .params("livestockType", 2)
+                    .params("current", 0)
+                    .params("pagesize", 1)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                            String s = response.body().toString();
+                            Log.d(TAG1, s);
+
+                            if (s.contains("imgUrl")) {
+                                //有数据
+                                Gson gson1 = new Gson();
+                                QueryByYang queryByYang = gson1.fromJson(s, QueryByYang.class);
+                                mLivestockVarietyList = queryByYang.getLivestockVarietyList();
+
+                                String ab = mLivestockVarietyList.get(0).getImgUrl();
+                                ab = Constants.BASE_URL + ab;
+
+                                OkGo.<File>get(ab)
+                                        .tag(this)
+                                        .execute(new FileCallback() {
+                                            @Override
+                                            public void onSuccess(Response<File> response) {
+
+                                                File file = response.body().getAbsoluteFile();
+                                                Bitmap bitmap = ImageUtils.getBitmap(file);
+                                                mIvTakePhoto.setImageBitmap(bitmap);
+
+                                            }
+                                        });
+
+
+                            } else {
+
+                                mIvTakePhoto.setImageResource(R.mipmap.take_photo);
+
+                            }
+
+
+                        }
+                    });
+
+        }else {
+
+            //显示上一张上传服务器的图片
+            //通过牲畜类型查询所有牲畜
+            OkGo.<String>get(Constants.QUERYLIVESTOCKVARIETYLIST)
+                    .tag(this)
+                    .params("token", mLoginSuccess.getToken())
+                    .params("username", mUsername)
+                    .params("ranchID", mLoginSuccess.getRanchID())
+                    .params("livestockType", 1)
+                    .params("current", 0)
+                    .params("pagesize", 1)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                            String s = response.body().toString();
+                            Log.d(TAG1, s);
+
+                            if (s.contains("imgUrl")) {
+                                //有数据
+                                Gson gson1 = new Gson();
+                                QueryByYang queryByYang = gson1.fromJson(s, QueryByYang.class);
+                                mLivestockVarietyList = queryByYang.getLivestockVarietyList();
+
+                                String ab = mLivestockVarietyList.get(0).getImgUrl();
+                                ab = Constants.BASE_URL + ab;
+
+                                OkGo.<File>get(ab)
+                                        .tag(this)
+                                        .execute(new FileCallback() {
+                                            @Override
+                                            public void onSuccess(Response<File> response) {
+
+                                                File file = response.body().getAbsoluteFile();
+                                                Bitmap bitmap = ImageUtils.getBitmap(file);
+                                                mIvTakePhoto.setImageBitmap(bitmap);
+
+                                            }
+                                        });
+
+
+                            } else {
+
+                                mIvTakePhoto.setImageResource(R.mipmap.take_photo);
+
+                            }
+
+
+                        }
+                    });
+
 
         }
 
