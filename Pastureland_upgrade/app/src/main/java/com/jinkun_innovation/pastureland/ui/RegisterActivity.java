@@ -743,7 +743,9 @@ public class RegisterActivity extends Activity {
                                                     Toast.LENGTH_SHORT)
                                                     .show();
 
-                                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                            startActivity(new Intent(getApplicationContext(),
+                                                    HomeActivity.class));
+
                                             finish();
 
                                         } else {
@@ -752,6 +754,7 @@ public class RegisterActivity extends Activity {
                                                     msg,
                                                     Toast.LENGTH_SHORT)
                                                     .show();
+
                                         }
 
                                     }

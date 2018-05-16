@@ -34,8 +34,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="品种名称：鄂尔多斯羊"
+                    android:text="品种名称："
                     android:textColor="#fff"/>
+
             </RelativeLayout>
 
 
@@ -45,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="设备号：0235625652565245"/>
+                android:text="设备号："/>
 
             <TextView
                 android:id="@+id/tvAge"
@@ -53,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="年龄：3个月"/>
+                android:text="年龄："/>
 
             <TextView
                 android:id="@+id/tvLifeTime"
@@ -61,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="一般寿命：48个月"/>
+                android:text="一般寿命："/>
 
             <TextView
                 android:id="@+id/tvMuchangName"
@@ -69,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="牧场：连江牧场"/>
+                android:text="牧场："/>
 
             <TextView
                 android:id="@+id/tvPublishTime"
@@ -77,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="发布时间：2018-4-3"/>
+                android:text="发布时间："/>
 
 
             <ImageView
