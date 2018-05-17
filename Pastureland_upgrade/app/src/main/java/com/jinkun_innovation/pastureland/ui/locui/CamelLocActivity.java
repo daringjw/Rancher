@@ -295,7 +295,6 @@ public class CamelLocActivity extends Activity {
                         public void onSuccess(Response<String> response) {
 
 
-
                             String result = response.body().toString();
                             Gson gson1 = new Gson();
                             LiveStock liveStock = gson1.fromJson(result, LiveStock.class);
@@ -424,7 +423,7 @@ public class CamelLocActivity extends Activity {
                                     mButton.setBackgroundColor(Color.WHITE);
 //        button.setBackgroundResource(R.mipmap.popup);
                                     mButton.setTextColor(Color.BLACK);
-                                    mButton.setText("牲畜类型：骆驼\n" + "牲畜品种：草原黑毛猪\n" + "   设备编号：" + deviceNo1 + "   \n"
+                                    mButton.setText("牲畜类型：骆驼\n" + "牲畜品种：骆驼\n" + "   设备编号：" + deviceNo1 + "   \n"
                                             + "   上传时间：" + lives.getUpdateTime() + "   \n" + "   牲畜位置：" + lives.getAddress() + "   ");
 
 //定义用于显示该InfoWindow的坐标点
