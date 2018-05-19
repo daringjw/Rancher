@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.ImgUrlBean;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
+import com.jinkun_innovation.pastureland.bean.SelectLivestock;
 import com.jinkun_innovation.pastureland.bean.SelectVariety;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.view.AmountView;
@@ -102,6 +103,8 @@ public class PublishClaimActivity extends AppCompatActivity {
     private int mLivestockType;
     private List<Integer> mVariety;
     private Integer mInteger = 0;
+    private Spinner mSpinner2;
+    private Spinner mSpinner1;
 
 
     private void cropImage(final String imgUrl) {
@@ -526,17 +529,19 @@ public class PublishClaimActivity extends AppCompatActivity {
                 });*/
 
 
-        Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
+        mSpinner1 = (Spinner) findViewById(R.id.spinner1);
+
+        mSpinner2 = (Spinner) findViewById(R.id.spinner2);
+
 
         if (mIsbn.startsWith("0003")) {
             //大牲畜
-            spinner1.setSelection(1);
-
+            mSpinner1.setSelection(1);
 
         }
 
 
-        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -574,15 +579,13 @@ public class PublishClaimActivity extends AppCompatActivity {
                                     }
 
 
-                                    Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
-
                                     if (mVariety != null) {
                                         //  建立Adapter绑定数据源
                                         MyAdapter _MyAdapter = new MyAdapter
                                                 (getApplicationContext(), mVariety);
 
                                         //绑定Adapter
-                                        spinner2.setAdapter(_MyAdapter);
+                                        mSpinner2.setAdapter(_MyAdapter);
                                     }
 
 
@@ -604,7 +607,7 @@ public class PublishClaimActivity extends AppCompatActivity {
         });
 
 
-        AmountView avWeight = findViewById(R.id.avWeight);
+        final AmountView avWeight = findViewById(R.id.avWeight);
         avWeight.setGoods_storage(10000);
         mWeightAm = 10;
         avWeight.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
@@ -621,7 +624,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
         });
 
-        AmountViewAge avAge = findViewById(R.id.avAge);
+        final AmountViewAge avAge = findViewById(R.id.avAge);
         avAge.setGoods_storage(10000);
         mAgeAm = 1;
         avAge.setOnAmountChangeListener(new AmountViewAge.OnAmountChangeListener() {
@@ -637,6 +640,76 @@ public class PublishClaimActivity extends AppCompatActivity {
             }
 
         });
+
+
+        //查看发布情况selectLivestock.do
+        OkGo.<String>get(Constants.SELECT_LIVE_STOCK)
+                .tag(this)
+                .params("token", mLoginSuccess.getToken())
+                .params("username", mUsername)
+                .params("deviceNO", mIsbn)
+                .params("ranchID", mLoginSuccess.getRanchID())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                        String result = response.body().toString();
+                        Log.d(TAG1, "result=" + result);
+                        Gson gson1 = new Gson();
+                        SelectLivestock selectLivestock = gson1.fromJson(result, SelectLivestock.class);
+                        String msg = selectLivestock.getMsg();
+                        if (msg.equals("此牲畜已经发布过")) {
+
+                            mSpinner1.setVisibility(View.GONE);
+
+                            mSpinner2.setVisibility(View.GONE);
+
+
+                            TextView tvType = findViewById(R.id.tvType);
+                            TextView tvVariety = findViewById(R.id.tvVariety);
+                            tvType.setVisibility(View.VISIBLE);
+                            tvVariety.setVisibility(View.VISIBLE);
+
+
+                            int variety = selectLivestock.getVariety();
+                            if (variety == 100) {
+
+                                tvType.setText("羊");
+                                tvVariety.setText("乌珠穆泣黑头羊");
+
+
+                            } else if (variety == 101) {
+
+                                tvType.setText("羊");
+                                tvVariety.setText("山羊");
+
+                            } else if (variety == 201) {
+                                tvType.setText("牛");
+                                tvVariety.setText("西门塔尔牛");
+                            } else if (variety == 301) {
+
+                                tvType.setText("马");
+                                tvVariety.setText("蒙古马");
+
+                            } else if (variety == 401) {
+
+                                tvType.setText("猪");
+                                tvVariety.setText("草原黑毛猪");
+
+
+                            } else if (variety == 701) {
+
+                                tvType.setText("骆驼");
+                                tvVariety.setText("骆驼");
+
+                            }
+
+
+                        }
+
+
+                    }
+                });
 
 
         Button btnConfirm = (Button) findViewById(R.id.btnConfirm);

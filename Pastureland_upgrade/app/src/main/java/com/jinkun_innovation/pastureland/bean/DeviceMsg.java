@@ -439,4 +439,6 @@ public class DeviceMsg {
             this.bindStatus = bindStatus;
         }
     }
+
+
 }
