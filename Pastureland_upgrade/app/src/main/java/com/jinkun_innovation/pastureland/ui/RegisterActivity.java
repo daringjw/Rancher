@@ -32,7 +32,6 @@ import com.jinkun_innovation.pastureland.bean.ImgUrlBean;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.bean.QueryByYang;
 import com.jinkun_innovation.pastureland.bean.RegisterBean;
-import com.jinkun_innovation.pastureland.bean.SelectLivestock;
 import com.jinkun_innovation.pastureland.bean.SelectVariety;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.view.AmountView;
@@ -500,7 +499,7 @@ public class RegisterActivity extends Activity {
 
         //0001 头羊  0002 小羊  0003 大牲畜
 
-      final  Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
+        final Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
 
         if (mDeviceNO.startsWith("0003")) {
             //大牲畜
@@ -625,52 +624,6 @@ public class RegisterActivity extends Activity {
 
 
         }
-
-
-        //查看发布情况selectLivestock.do
-        OkGo.<String>get(Constants.SELECT_LIVE_STOCK)
-                .tag(this)
-                .params("token", mLoginSuccess.getToken())
-                .params("username", mUsername)
-                .params("deviceNO", mDeviceNO)
-                .params("ranchID", mLoginSuccess.getRanchID())
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-
-                        String result = response.body().toString();
-                        Log.d(TAG1, "result=" + result);
-                        Gson gson1 = new Gson();
-                        SelectLivestock selectLivestock = gson1.fromJson(result, SelectLivestock.class);
-                        String msg = selectLivestock.getMsg();
-                        if (msg.equals("此牲畜已经发布过")) {
-
-                            int variety = selectLivestock.getVariety();
-                            if (variety == 100) {
-                                spinner1.setSelection(0);
-                            } else if (variety == 101) {
-                                spinner1.setSelection(0);
-                                //山羊
-
-                            } else if (variety == 201) {
-                                spinner1.setSelection(1);
-                            } else if (variety == 301) {
-                                spinner1.setSelection(2);
-                            } else if (variety == 401) {
-                                spinner1.setSelection(3);
-                            } else if (variety == 701) {
-                                spinner1.setSelection(4);
-                            }
-
-
-                        }
-
-
-
-
-
-                    }
-                });
 
 
         Button btnConfirm = (Button) findViewById(R.id.btnConfirm);

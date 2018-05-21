@@ -30,8 +30,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.jinkun_innovation.pastureland.R;
 import com.jinkun_innovation.pastureland.bean.ImgUrlBean;
+import com.jinkun_innovation.pastureland.bean.LiveStock;
 import com.jinkun_innovation.pastureland.bean.LoginSuccess;
-import com.jinkun_innovation.pastureland.bean.SelectLivestock;
 import com.jinkun_innovation.pastureland.bean.SelectVariety;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.view.AmountView;
@@ -643,7 +643,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
 
         //查看发布情况selectLivestock.do
-        OkGo.<String>get(Constants.SELECT_LIVE_STOCK)
+        OkGo.<String>get(Constants.LIVESTOCK)
                 .tag(this)
                 .params("token", mLoginSuccess.getToken())
                 .params("username", mUsername)
@@ -656,9 +656,9 @@ public class PublishClaimActivity extends AppCompatActivity {
                         String result = response.body().toString();
                         Log.d(TAG1, "result=" + result);
                         Gson gson1 = new Gson();
-                        SelectLivestock selectLivestock = gson1.fromJson(result, SelectLivestock.class);
+                        LiveStock selectLivestock = gson1.fromJson(result, LiveStock.class);
                         String msg = selectLivestock.getMsg();
-                        if (msg.equals("此牲畜已经发布过")) {
+                        if (msg.contains("成功")) {
 
                             mSpinner1.setVisibility(View.GONE);
 
@@ -671,33 +671,34 @@ public class PublishClaimActivity extends AppCompatActivity {
                             tvVariety.setVisibility(View.VISIBLE);
 
 
-                            int variety = selectLivestock.getVariety();
-                            if (variety == 100) {
+                            String variety = selectLivestock.getLivestock().getVariety();
+                            if (variety.equals("100")) {
 
                                 tvType.setText("羊");
                                 tvVariety.setText("乌珠穆泣黑头羊");
 
-
-                            } else if (variety == 101) {
+                            } else if (variety.equals("101")) {
 
                                 tvType.setText("羊");
                                 tvVariety.setText("山羊");
 
-                            } else if (variety == 201) {
+                            } else if (variety.equals("201")) {
+
                                 tvType.setText("牛");
                                 tvVariety.setText("西门塔尔牛");
-                            } else if (variety == 301) {
+
+                            } else if (variety.equals("301")) {
 
                                 tvType.setText("马");
                                 tvVariety.setText("蒙古马");
 
-                            } else if (variety == 401) {
+                            } else if (variety.equals("401")) {
 
                                 tvType.setText("猪");
                                 tvVariety.setText("草原黑毛猪");
 
 
-                            } else if (variety == 701) {
+                            } else if (variety.equals("701")) {
 
                                 tvType.setText("骆驼");
                                 tvVariety.setText("骆驼");
@@ -910,6 +911,10 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                     .show();
 
 
+                                        }else {
+
+
+                                            ToastUtils.showShort("图片库无数据，请拍照");
                                         }
 
                                     }

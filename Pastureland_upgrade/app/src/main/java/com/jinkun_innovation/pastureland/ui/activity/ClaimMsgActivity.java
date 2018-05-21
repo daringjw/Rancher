@@ -143,7 +143,6 @@ public class ClaimMsgActivity extends AppCompatActivity {
 
                         String s = response.body().toString();
 
-
                         Gson gson1 = new Gson();
                         DeviceMsg deviceMsg = gson1.fromJson(s, DeviceMsg.class);
                         List<DeviceMsg.BatteryListBean> batteryList = deviceMsg.getBatteryList();
