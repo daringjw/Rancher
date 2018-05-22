@@ -70,9 +70,9 @@ public class LoginActivity1 extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkRuntimePermissions();
-        }else {
+        } else {
             // 6.0 以下
-            grant=true;
+            grant = true;
         }
 
         TextView tvVersion = (TextView) findViewById(R.id.tvVersion);
@@ -137,9 +137,13 @@ public class LoginActivity1 extends AppCompatActivity {
 
 
         if (permissions.size() > 0) {
-            ActivityCompat.requestPermissions(LoginActivity1.this, permissions.toArray(new String[permissions.size()]),
+
+            ActivityCompat.requestPermissions(LoginActivity1.this, permissions.toArray
+                            (new String[permissions.size()]),
                     REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+
         } else {
+
 //            startScanActivity();
 
         }
@@ -153,7 +157,9 @@ public class LoginActivity1 extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
                 if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+
+                        ) {
 
                     grant = true;
 
@@ -190,6 +196,9 @@ public class LoginActivity1 extends AppCompatActivity {
                 if (!grant) {
 
                     ToastUtils.showShort("请允许所有权限");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        checkRuntimePermissions();
+                    }
 
 
                 } else {
