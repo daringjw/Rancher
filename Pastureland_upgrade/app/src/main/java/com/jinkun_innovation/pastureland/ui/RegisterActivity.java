@@ -360,6 +360,11 @@ public class RegisterActivity extends Activity {
                         tvVariety.setText("骆驼");
                         break;
 
+                    case 801:
+
+                        tvVariety.setText("驴");
+                        break;
+
 
                 }
 
@@ -374,6 +379,7 @@ public class RegisterActivity extends Activity {
     private File mFile1;
     private List<QueryByYang.LivestockVarietyListBean> mLivestockVarietyList;
 
+    int type2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -516,13 +522,21 @@ public class RegisterActivity extends Activity {
                 String[] type = getResources().getStringArray(R.array.type);
                 mType1 = type[pos];
 
+                if (pos == 4) {
+                    type2 = 7;
+                } else if (pos == 5) {
+                    type2 = 8;
+                } else {
+                    type2 = pos + 1;
+                }
+
 
                 //根据type1 访问接口
                 OkGo.<String>get(Constants.SELECTVARIETY)
                         .tag(this)
                         .params("token", mLoginSuccess.getToken())
                         .params("username", mUsername)
-                        .params("livestockType", pos == 4 ? 7 : pos + 1)
+                        .params("livestockType", type2)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
@@ -682,7 +696,7 @@ public class RegisterActivity extends Activity {
                                 .params("username", mUsername)
                                 .params("deviceNO", mDeviceNO)
                                 .params("ranchID", mLoginSuccess.getRanchID())
-                                .params("livestockType", type)
+                                .params("livestockType", type2)
                                 .params("variety", mInteger == 0 ? 100 : mInteger)
                                 .params("weight", mWeightAm)
                                 .params("age", mAgeAm)

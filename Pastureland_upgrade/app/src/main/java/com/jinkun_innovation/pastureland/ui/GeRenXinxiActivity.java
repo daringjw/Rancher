@@ -498,14 +498,16 @@ public class GeRenXinxiActivity extends AppCompatActivity {
     private void gotoCamera() {
         Log.d("evan", "*****************打开相机********************");
         //创建拍照存储的图片文件
-        tempFile = new File(FileUtil.checkDirPath(Environment.getExternalStorageDirectory().getPath() + "/image/"), System.currentTimeMillis() + ".jpg");
+        tempFile = new File(FileUtil.checkDirPath(Environment.getExternalStorageDirectory().getPath()
+                + "/image/"), System.currentTimeMillis() + ".jpg");
 
         //跳转到调用系统相机
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             //设置7.0中共享文件，分享路径定义在xml/file_paths.xml
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(GeRenXinxiActivity.this, BuildConfig.APPLICATION_ID + ".fileProvider", tempFile);
+            Uri contentUri = FileProvider.getUriForFile(GeRenXinxiActivity.this, BuildConfig.APPLICATION_ID +
+                    ".fileProvider", tempFile);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         } else {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));

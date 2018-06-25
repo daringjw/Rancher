@@ -12,7 +12,7 @@ public class MuqunSum {
     /**
      * msg : 获取牲畜类型和数量成功
      * code : success
-     * typeMap : {"1":235,"2":3,"3":6,"4":8,"7":1}
+     * typeMap : {"1":350,"2":3,"3":3,"4":1,"7":1,"8":1}
      */
 
     private String msg;
@@ -45,11 +45,12 @@ public class MuqunSum {
 
     public static class TypeMapBean {
         /**
-         * 1 : 235
+         * 1 : 350
          * 2 : 3
-         * 3 : 6
-         * 4 : 8
+         * 3 : 3
+         * 4 : 1
          * 7 : 1
+         * 8 : 1
          */
 
         @SerializedName("1")
@@ -62,6 +63,8 @@ public class MuqunSum {
         private int _$4;
         @SerializedName("7")
         private int _$7;
+        @SerializedName("8")
+        private int _$8;
 
         public int get_$1() {
             return _$1;
@@ -103,6 +106,12 @@ public class MuqunSum {
             this._$7 = _$7;
         }
 
+        public int get_$8() {
+            return _$8;
+        }
 
+        public void set_$8(int _$8) {
+            this._$8 = _$8;
+        }
     }
 }

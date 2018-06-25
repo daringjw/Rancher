@@ -7,15 +7,6 @@ package com.jinkun_innovation.pastureland.common;
 
 public class Constants {
 
-    //
-//    public static final String BASE_URL = "http://192.168.50.215:8080";
-
-//    public static final String IP = "222.249.165.94";
-//    public static final String PORT = ":10100";
-
-
-//    public static final String IP = "192.168.50.215";
-//    public static final String PORT = ":8080";
 
     public static final String IP = "182.92.3.109";
     public static final String PORT = ":10100";
@@ -26,7 +17,6 @@ public class Constants {
 
     //测试服务器
     public static final String BASE_URL = "http://" + IP + PORT;
-
 
     //内部正式服务器
     //http://182.92.3.109:10100 testranch 12345678 这是109访问地址跟用户名密码

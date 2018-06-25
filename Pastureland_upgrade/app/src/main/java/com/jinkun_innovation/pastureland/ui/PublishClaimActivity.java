@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -115,7 +116,7 @@ public class PublishClaimActivity extends AppCompatActivity {
             LogUtils.e(file.getAbsolutePath());
             Luban.with(this)
 
-                    .load(FileUtils.getFileByPath(imgUrl))                                   // 传人要压缩的图片列表
+                    .load(FileUtils.getFileByPath(imgUrl))           // 传人要压缩的图片列表
                     .ignoreBy(100)                                  // 忽略不压缩图片的大小
                     .setTargetDir(file.getAbsolutePath())
                     .setCompressListener(new OnCompressListener() { //设置回调
@@ -368,6 +369,11 @@ public class PublishClaimActivity extends AppCompatActivity {
                         tvVariety.setText("骆驼");
                         break;
 
+                    case 801:
+
+                        tvVariety.setText("驴");
+                        break;
+
                 }
 
 //                ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
@@ -387,6 +393,10 @@ public class PublishClaimActivity extends AppCompatActivity {
 
     File mFile;
     private File mFile1;
+
+
+    int type2;
+    int variety3;
 
 
     @Override
@@ -552,12 +562,20 @@ public class PublishClaimActivity extends AppCompatActivity {
 //                mType1 = type[mLivestockType - 1];
                 mType1 = type[pos];
 
+                if (pos == 4) {
+                    type2 = 7;
+                } else if (pos == 5) {
+                    type2 = 8;
+                } else {
+                    type2 = pos + 1;
+                }
+
                 //根据type1 访问接口
                 OkGo.<String>get(Constants.SELECTVARIETY)
                         .tag(this)
                         .params("token", mLoginSuccess.getToken())
                         .params("username", mUsername)
-                        .params("livestockType", pos == 4 ? 7 : pos + 1)
+                        .params("livestockType", type2)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
@@ -658,54 +676,83 @@ public class PublishClaimActivity extends AppCompatActivity {
                         Gson gson1 = new Gson();
                         LiveStock selectLivestock = gson1.fromJson(result, LiveStock.class);
                         String msg = selectLivestock.getMsg();
-                        if (msg.contains("成功")) {
+                        if (TextUtils.isEmpty(msg)) {
 
-                            mSpinner1.setVisibility(View.GONE);
+                            return;
 
-                            mSpinner2.setVisibility(View.GONE);
+                        } else {
 
+                            if (msg.contains("成功")) {
 
-                            TextView tvType = findViewById(R.id.tvType);
-                            TextView tvVariety = findViewById(R.id.tvVariety);
-                            tvType.setVisibility(View.VISIBLE);
-                            tvVariety.setVisibility(View.VISIBLE);
+                                mSpinner1.setVisibility(View.GONE);
+                                mSpinner2.setVisibility(View.GONE);
 
-
-                            String variety = selectLivestock.getLivestock().getVariety();
-                            if (variety.equals("100")) {
-
-                                tvType.setText("羊");
-                                tvVariety.setText("乌珠穆泣黑头羊");
-
-                            } else if (variety.equals("101")) {
-
-                                tvType.setText("羊");
-                                tvVariety.setText("山羊");
-
-                            } else if (variety.equals("201")) {
-
-                                tvType.setText("牛");
-                                tvVariety.setText("西门塔尔牛");
-
-                            } else if (variety.equals("301")) {
-
-                                tvType.setText("马");
-                                tvVariety.setText("蒙古马");
-
-                            } else if (variety.equals("401")) {
-
-                                tvType.setText("猪");
-                                tvVariety.setText("草原黑毛猪");
+                                TextView tvType = findViewById(R.id.tvType);
+                                TextView tvVariety = findViewById(R.id.tvVariety);
+                                tvType.setVisibility(View.VISIBLE);
+                                tvVariety.setVisibility(View.VISIBLE);
 
 
-                            } else if (variety.equals("701")) {
+                                String variety = selectLivestock.getLivestock().getVariety();
+                                if (variety.equals("100")) {
 
-                                tvType.setText("骆驼");
-                                tvVariety.setText("骆驼");
+                                    tvType.setText("羊");
+                                    tvVariety.setText("乌珠穆泣黑头羊");
+                                    type2 = 1;
+                                    variety3 = 100;
+
+                                } else if (variety.equals("101")) {
+
+                                    tvType.setText("羊");
+                                    tvVariety.setText("山羊");
+                                    type2 = 1;
+                                    variety3 = 101;
+
+                                } else if (variety.equals("201")) {
+
+                                    tvType.setText("牛");
+                                    tvVariety.setText("西门塔尔牛");
+                                    type2 = 2;
+                                    variety3 = 201;
+
+                                } else if (variety.equals("301")) {
+
+                                    tvType.setText("马");
+                                    tvVariety.setText("蒙古马");
+                                    type2 = 3;
+                                    variety3 = 301;
+
+                                } else if (variety.equals("401")) {
+
+                                    tvType.setText("猪");
+                                    tvVariety.setText("草原黑毛猪");
+
+                                    type2 = 4;
+                                    variety3 = 401;
+
+
+                                } else if (variety.equals("701")) {
+
+                                    tvType.setText("骆驼");
+                                    tvVariety.setText("骆驼");
+
+                                    type2 = 7;
+                                    variety3 = 701;
+
+
+                                } else if (variety.equals("801")) {
+
+                                    tvType.setText("驴");
+                                    tvVariety.setText("驴");
+
+                                    type2 = 8;
+                                    variety3 = 801;
+
+
+                                }
+
 
                             }
-
-
                         }
 
 
@@ -771,8 +818,8 @@ public class PublishClaimActivity extends AppCompatActivity {
                                 .params("username", mUsername)
                                 .params("deviceNO", mIsbn)
                                 .params("ranchID", mLoginSuccess.getRanchID())
-                                .params("livestockType", type)
-                                .params("variety", mInteger == 0 ? 100 : mInteger)
+                                .params("livestockType", type2)
+                                .params("variety", variety3)
                                 .params("weight", mWeightAm)
                                 .params("age", mAgeAm)
                                 .params("imgUrl", mImgUrl)
@@ -814,7 +861,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                     .params("username", mUsername)
                                                     .params("deviceNO", mIsbn)
                                                     .params("ranchID", mLoginSuccess.getRanchID())
-                                                    .params("livestockType", type)
+                                                    .params("livestockType", type2)
                                                     .params("variety", mInteger == 0 ? 100 : mInteger)
                                                     .params("weight", mWeightAm)
                                                     .params("age", mAgeAm)
@@ -888,7 +935,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                                     .params("username", mUsername)
                                                                     .params("deviceNO", mIsbn)
                                                                     .params("ranchID", mLoginSuccess.getRanchID())
-                                                                    .params("livestockType", type)
+                                                                    .params("livestockType", type2)
                                                                     .params("variety", mInteger == 0 ? 100 : mInteger)
                                                                     .params("weight", mWeightAm)
                                                                     .params("age", mAgeAm)
@@ -911,7 +958,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                     .show();
 
 
-                                        }else {
+                                        } else {
 
 
                                             ToastUtils.showShort("图片库无数据，请拍照");

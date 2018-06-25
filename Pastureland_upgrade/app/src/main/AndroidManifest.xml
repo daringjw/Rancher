@@ -374,6 +374,13 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".ui.activity.DonkeyListActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+
+
 
 
 
@@ -391,6 +398,8 @@
             android:name=".ui.activity.ClaimMsgActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
+
+
 
 
         <activity

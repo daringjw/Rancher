@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="牧群"
-            android:textSize="20sp"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:textSize="20sp"/>
 
         <ImageView
             android:id="@+id/ivMuqunLoc"
@@ -26,10 +26,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:text="牧群定位"
-            android:visibility="gone"
             android:src="@mipmap/muqun_loc1"
-            android:textColor="#fff"/>
+            android:text="牧群定位"
+            android:textColor="#fff"
+            android:visibility="gone"/>
 
 
     </RelativeLayout>
@@ -170,11 +170,11 @@
 
 
                 <ImageView
+                    android:id="@+id/ivDonkey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:src="@mipmap/pig"
-                    android:visibility="invisible"
+                    android:src="@mipmap/lv1"
                     />
 
 
@@ -195,12 +195,13 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvDonkey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="0 匹"
-                    android:visibility="invisible"/>
+                    android:text="0 头"
+                    />
 
             </LinearLayout>
 

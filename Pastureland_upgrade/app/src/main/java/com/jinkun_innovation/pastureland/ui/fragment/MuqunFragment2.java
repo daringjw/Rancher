@@ -21,6 +21,7 @@ import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.LoginActivity1;
 import com.jinkun_innovation.pastureland.ui.YangListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.CamelListActivity;
+import com.jinkun_innovation.pastureland.ui.activity.DonkeyListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.MaListActivity;
 import com.jinkun_innovation.pastureland.ui.activity.MuqunLocActivity;
 import com.jinkun_innovation.pastureland.ui.activity.NiuListActivity;
@@ -72,6 +73,7 @@ public class MuqunFragment2 extends Fragment {
     private TextView mTvDeerNo, tvCamelNo;
 
     public static String registrationId;
+    private TextView mTvDonkey;
 
     @Nullable
     @Override
@@ -111,6 +113,20 @@ public class MuqunFragment2 extends Fragment {
 
         initData();
 
+        ImageView ivDonkey = view.findViewById(R.id.ivDonkey);
+        ivDonkey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity(), DonkeyListActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        mTvDonkey = view.findViewById(R.id.tvDonkey);
+
+
 
         return view;
 
@@ -127,7 +143,6 @@ public class MuqunFragment2 extends Fragment {
                 .execute(new StringCallback() {
 
 
-
                     @Override
                     public void onSuccess(Response<String> response) {
 
@@ -136,6 +151,7 @@ public class MuqunFragment2 extends Fragment {
                         if (s.contains("获取牲畜类型和数量成功")) {
 
                             Gson gson1 = new Gson();
+
                             MuqunSum muqunSum = gson1.fromJson(s, MuqunSum.class);
                             MuqunSum.TypeMapBean typeMap = muqunSum.getTypeMap();
 
@@ -144,6 +160,7 @@ public class MuqunFragment2 extends Fragment {
                             String s3 = typeMap.get_$3() + "";
                             String s4 = typeMap.get_$4() + "";
                             String s7 = typeMap.get_$7() + "";
+                            String s8 = typeMap.get_$8() + "";
 
 
                             try {
@@ -175,6 +192,14 @@ public class MuqunFragment2 extends Fragment {
                                     tvCamelNo.setText(s7 + "头");
 
                                 }
+
+                                //驴子
+                                if (!s8.equals("0") && !TextUtils.isEmpty(s8)) {
+                                    mTvDonkey.setText(s8 + "头");
+
+                                }
+
+
 
                             } catch (Exception e) {
 
@@ -219,9 +244,6 @@ public class MuqunFragment2 extends Fragment {
 
 
                 });
-
-
-
 
 
     }
@@ -274,6 +296,7 @@ public class MuqunFragment2 extends Fragment {
     @OnClick({R.id.ivYang, R.id.ivNiu, R.id.ivMa, R.id.ivPig, R.id.ivCamel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+
             case R.id.ivYang:
 
                 startActivity(new Intent(getActivity(), YangListActivity.class));
