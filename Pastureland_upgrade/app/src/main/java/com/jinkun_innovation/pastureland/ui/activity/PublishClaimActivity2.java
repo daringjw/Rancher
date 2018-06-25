@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -34,7 +33,7 @@ public class PublishClaimActivity2 extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_publish_claim2);
+        setContentView(R.layout.activity_publish_claim);
 
         initView();
 
@@ -68,7 +67,7 @@ public class PublishClaimActivity2 extends Activity {
                             LiveStock.LivestockBean livestockBean = liveStock.getLivestock();
                             String homeImgUrl = livestockBean.homeImgUrl;
                             homeImgUrl = Constants.BASE_URL + homeImgUrl;
-                            mIvTakePhoto.setImageURI(homeImgUrl);
+//                            mIvTakePhoto.setImageURI(homeImgUrl);
 
                             String variety = livestockBean.getVariety();
 
@@ -85,8 +84,7 @@ public class PublishClaimActivity2 extends Activity {
 
     private void initView() {
 
-        mIvTakePhoto = findViewById(R.id.ivTakePhoto);
-        TextView viewById = (TextView) findViewById(R.id.etDeviceNo);
+
 
 
     }

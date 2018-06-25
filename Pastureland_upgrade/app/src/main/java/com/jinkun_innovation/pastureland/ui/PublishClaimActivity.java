@@ -376,12 +376,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                 }
 
-//                ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
-//                imageView.setImageResource(R.drawable.ic_launcher);
-//                TextView _TextView1=(TextView)convertView.findViewById(R.id.textView1);
-//                TextView _TextView2=(TextView)convertView.findViewById(R.id.textView2);
-//                _TextView1.setText(mList.get(position).getPersonName());
-//                _TextView2.setText(mList.get(position).getPersonAddress());
+
             }
             return convertView;
         }
@@ -396,7 +391,10 @@ public class PublishClaimActivity extends AppCompatActivity {
 
 
     int type2;
+    int variety2;
     int variety3;
+
+
 
 
     @Override
@@ -769,24 +767,38 @@ public class PublishClaimActivity extends AppCompatActivity {
                 if (mType1.equals("羊")) {
 
                     type = 1;
+                    variety2 =100;
+
                 } else if (mType1.equals("牛")) {
 
                     type = 2;
+                    variety2=201;
+
                 } else if (mType1.equals("马")) {
 
                     type = 3;
+                    variety2=301;
+
                 } else if (mType1.equals("猪")) {
 
                     type = 4;
+                    variety2=401;
                 } else if (mType1.equals("鸡")) {
 
                     type = 5;
+                    variety2=501;
                 } else if (mType1.equals("鹿")) {
 
                     type = 6;
+                    variety2=601;
                 } else if (mType1.equals("骆驼")) {
 
                     type = 7;
+                    variety2=701;
+                }else if (mType1.equals("驴")){
+
+                    type =8;
+                    variety2=801;
                 }
 
 
@@ -819,7 +831,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                 .params("deviceNO", mIsbn)
                                 .params("ranchID", mLoginSuccess.getRanchID())
                                 .params("livestockType", type2)
-                                .params("variety", variety3)
+                                .params("variety", mInteger == 0 ? 100 : mInteger)
                                 .params("weight", mWeightAm)
                                 .params("age", mAgeAm)
                                 .params("imgUrl", mImgUrl)
@@ -862,7 +874,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                     .params("deviceNO", mIsbn)
                                                     .params("ranchID", mLoginSuccess.getRanchID())
                                                     .params("livestockType", type2)
-                                                    .params("variety", mInteger == 0 ? 100 : mInteger)
+                                                    .params("variety", variety3)
                                                     .params("weight", mWeightAm)
                                                     .params("age", mAgeAm)
                                                     .params("imgUrl", mImgUrl)

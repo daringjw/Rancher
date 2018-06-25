@@ -62,7 +62,7 @@ public class RenlingFragment1 extends Fragment {
 
     private static final int SCAN_REQUEST_CODE = 100;
     private int checkedItem = 0;
-    private String scanMessage ;
+    private String scanMessage;
 
     int index = 2;
 
@@ -238,6 +238,7 @@ public class RenlingFragment1 extends Fragment {
                                                 Intent intent = new Intent(getActivity(), PublishClaimActivity.class);
                                                 intent.putExtra("isbn", str);
                                                 startActivityForResult(intent, 1001);
+
 
                                             }
 
