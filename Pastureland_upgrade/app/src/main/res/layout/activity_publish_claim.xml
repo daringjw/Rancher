@@ -65,7 +65,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/paizhao"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -92,13 +92,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="种类："/>
+                    android:text="种类"/>
 
                 <TextView
                     android:id="@+id/tvType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="150dp"
                     android:visibility="gone"
                     android:textColor="#000"
                     android:text="羊"/>
@@ -135,7 +135,7 @@
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="150dp"
                     android:textColor="#000"
                     android:text="山羊"/>
 

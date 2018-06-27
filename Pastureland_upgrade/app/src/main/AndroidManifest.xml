@@ -375,6 +375,14 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name=".ui.locui.DonkeyLocActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+
+
+
+        <activity
             android:name=".ui.activity.DonkeyListActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>

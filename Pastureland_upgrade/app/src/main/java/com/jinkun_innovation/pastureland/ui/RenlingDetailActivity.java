@@ -157,6 +157,12 @@ public class RenlingDetailActivity extends Activity {
                                 } else if (variety.equals("701")) {
                                     //骆驼
                                     tvVariety.setText("品种名称：骆驼");
+
+                                } else if (variety.equals("801")) {
+
+                                    //驴子
+                                    tvVariety.setText("品种名称：驴");
+
                                 }
 
                                 String livestockDetails = lives.livestockDetails;

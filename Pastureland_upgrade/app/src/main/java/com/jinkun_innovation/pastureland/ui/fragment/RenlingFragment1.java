@@ -29,7 +29,7 @@ import com.jinkun_innovation.pastureland.bean.RenLing;
 import com.jinkun_innovation.pastureland.bean.SelectLivestock;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.PublishClaimActivity;
-import com.jinkun_innovation.pastureland.ui.RenlingDetailActivity;
+import com.jinkun_innovation.pastureland.ui.YangDetailActivity;
 import com.jinkun_innovation.pastureland.ui.activity.PayConfirmActivity;
 import com.jinkun_innovation.pastureland.utilcode.constant.TimeConstants;
 import com.jinkun_innovation.pastureland.utilcode.util.TimeUtils;
@@ -298,7 +298,7 @@ public class RenlingFragment1 extends Fragment {
                                             public void onItemClick(View view, int position) {
 
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                                 startActivity(intent);
 
@@ -357,7 +357,7 @@ public class RenlingFragment1 extends Fragment {
                                             public void onItemClick(View view, int position) {
 
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                                 startActivity(intent);
 
@@ -449,7 +449,7 @@ public class RenlingFragment1 extends Fragment {
                                                 Log.d(TAG1, position + "被点击了");
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
 
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getImgUrl", livestockListBean.getImgUrl());
                                                 intent.putExtra("getLivestockName", livestockListBean.getLivestockName());
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
@@ -514,7 +514,7 @@ public class RenlingFragment1 extends Fragment {
                                                 Log.d(TAG1, position + "被点击了");
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
 
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getImgUrl", livestockListBean.getImgUrl());
                                                 intent.putExtra("getLivestockName", livestockListBean.getLivestockName());
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
@@ -578,7 +578,7 @@ public class RenlingFragment1 extends Fragment {
                                                 Log.d(TAG1, position + "被点击了");
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
 
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getImgUrl", livestockListBean.getImgUrl());
                                                 intent.putExtra("getLivestockName", livestockListBean.getLivestockName());
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
@@ -662,7 +662,7 @@ public class RenlingFragment1 extends Fragment {
                                             public void onItemClick(View view, int position) {
 
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                                 startActivity(intent);
 
@@ -725,7 +725,7 @@ public class RenlingFragment1 extends Fragment {
                                             public void onItemClick(View view, int position) {
 
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                                 startActivity(intent);
 
@@ -786,7 +786,7 @@ public class RenlingFragment1 extends Fragment {
                                             public void onItemClick(View view, int position) {
 
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                                 startActivity(intent);
 
@@ -858,7 +858,7 @@ public class RenlingFragment1 extends Fragment {
                                     Log.d(TAG1, position + "被点击了");
                                     RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
 
-                                    Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                    Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                     intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                     intent.putExtra("getImgUrl", livestockListBean.getImgUrl());
                                     intent.putExtra("getLivestockName", livestockListBean.getLivestockName());
@@ -936,7 +936,7 @@ public class RenlingFragment1 extends Fragment {
 
                                                 Log.d(TAG1, data + "被点击了");
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(data);
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                                 startActivity(intent);
 
@@ -1001,7 +1001,7 @@ public class RenlingFragment1 extends Fragment {
 
                                                 Log.d(TAG1, data + "被点击了");
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(data);
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                                 startActivity(intent);
 
@@ -1061,7 +1061,7 @@ public class RenlingFragment1 extends Fragment {
 
                                                 Log.d(TAG1, data + "被点击了");
                                                 RenLing.LivestockListBean livestockListBean = mLivestockList.get(data);
-                                                Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                 intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                                 startActivity(intent);
 
@@ -1236,7 +1236,7 @@ public class RenlingFragment1 extends Fragment {
                                                                                 public void onItemClick(View view, int position) {
 
                                                                                     RenLing.LivestockListBean livestockListBean = mLivestockList.get(position);
-                                                                                    Intent intent = new Intent(getActivity(), RenlingDetailActivity.class);
+                                                                                    Intent intent = new Intent(getActivity(), YangDetailActivity.class);
                                                                                     intent.putExtra("getDeviceNo", livestockListBean.getDeviceNo());
                                                                                     startActivity(intent);
 

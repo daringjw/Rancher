@@ -395,8 +395,6 @@ public class PublishClaimActivity extends AppCompatActivity {
     int variety3;
 
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -690,6 +688,20 @@ public class PublishClaimActivity extends AppCompatActivity {
                                 tvType.setVisibility(View.VISIBLE);
                                 tvVariety.setVisibility(View.VISIBLE);
 
+                                String imgUrl = selectLivestock.getLivestock().getImgUrl();
+                                imgUrl = Constants.BASE_URL + imgUrl;
+                                OkGo.<File>get(imgUrl)
+                                        .tag(this)
+                                        .execute(new FileCallback() {
+                                            @Override
+                                            public void onSuccess(Response<File> response) {
+
+                                                String path = response.body().getAbsolutePath();
+                                                mIvTakePhoto.setImageURI(Uri.parse(path));
+
+                                            }
+                                        });
+
 
                                 String variety = selectLivestock.getLivestock().getVariety();
                                 if (variety.equals("100")) {
@@ -767,38 +779,38 @@ public class PublishClaimActivity extends AppCompatActivity {
                 if (mType1.equals("羊")) {
 
                     type = 1;
-                    variety2 =100;
+                    variety2 = 100;
 
                 } else if (mType1.equals("牛")) {
 
                     type = 2;
-                    variety2=201;
+                    variety2 = 201;
 
                 } else if (mType1.equals("马")) {
 
                     type = 3;
-                    variety2=301;
+                    variety2 = 301;
 
                 } else if (mType1.equals("猪")) {
 
                     type = 4;
-                    variety2=401;
+                    variety2 = 401;
                 } else if (mType1.equals("鸡")) {
 
                     type = 5;
-                    variety2=501;
+                    variety2 = 501;
                 } else if (mType1.equals("鹿")) {
 
                     type = 6;
-                    variety2=601;
+                    variety2 = 601;
                 } else if (mType1.equals("骆驼")) {
 
                     type = 7;
-                    variety2=701;
-                }else if (mType1.equals("驴")){
+                    variety2 = 701;
+                } else if (mType1.equals("驴")) {
 
-                    type =8;
-                    variety2=801;
+                    type = 8;
+                    variety2 = 801;
                 }
 
 
