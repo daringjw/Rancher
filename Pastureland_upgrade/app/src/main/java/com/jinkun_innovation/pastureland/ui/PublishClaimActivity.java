@@ -341,6 +341,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                 mInteger = mList.get(position);
 
+                Log.d(TAG1, "mInteger=" + mInteger);
 
                 switch (mInteger) {
 
@@ -392,7 +393,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
     int type2;
     int variety2;
-    int variety3;
+    int variety3 = 100;
 
 
     @Override
@@ -689,7 +690,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                 tvVariety.setVisibility(View.VISIBLE);
 
                                 String imgUrl = selectLivestock.getLivestock().getImgUrl();
-                                mImgUrl =imgUrl;
+                                mImgUrl = imgUrl;
                                 imgUrl = Constants.BASE_URL + imgUrl;
                                 OkGo.<File>get(imgUrl)
                                         .tag(this)
@@ -819,6 +820,20 @@ public class PublishClaimActivity extends AppCompatActivity {
                 Log.d(TAG1, "mWeightAm=" + mWeightAm + ",mAgeAm=" + mAgeAm);
 //
 
+                if (type2 == 1) {
+                    variety3 = 100;
+                } else if (type2 == 2) {
+                    variety3 = 201;
+                } else if (type2 == 3) {
+                    variety3 = 301;
+                } else if (type2 == 4) {
+                    variety3 = 401;
+                } else if (type2 == 7) {
+                    variety3 = 701;
+                } else if (type2 == 8) {
+                    variety3 = 801;
+                }
+
                 if (mWeightAm == 0 || mAgeAm == 0) {
 
                     ToastUtils.showShort("年龄和重量都不能为0");
@@ -834,6 +849,10 @@ public class PublishClaimActivity extends AppCompatActivity {
                             && type != 1) {
 
                         ToastUtils.showShort("0001/0002是羊，品种不能选择其他品种");
+
+                    } else if (TextUtils.isEmpty(mImgUrl)) {
+
+                        ToastUtils.showShort("亲，请先拍照");
 
                     } else {
 
@@ -935,6 +954,12 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                                         } else if (s.contains("牲畜信息为空或者没有这个品种,发布不成功")) {
 
+                                            if (mIsbn.startsWith("0003") && type == 1) {
+
+//                                                ToastUtils.showShort("0003是大牲畜，品种不能选择羊");
+//                                                type2 = type + 1;
+
+                                            }
 
                                             new SweetAlertDialog(PublishClaimActivity.this, SweetAlertDialog.WARNING_TYPE)
                                                     .setTitleText("未登记牲畜,是否直接发布认领?")
@@ -954,6 +979,8 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                             sweetAlertDialog.cancel();
 
 
+                                                            Log.d(TAG1, "type2=" + type2 + ",variety3=" + variety3);
+
                                                             OkGo.<String>post(Constants.RELEASE)
                                                                     .tag(this)
                                                                     .params("token", mLoginSuccess.getToken())
@@ -961,7 +988,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                                     .params("deviceNO", mIsbn)
                                                                     .params("ranchID", mLoginSuccess.getRanchID())
                                                                     .params("livestockType", type2)
-                                                                    .params("variety", mInteger == 0 ? 100 : mInteger)
+                                                                    .params("variety", variety3)
                                                                     .params("weight", mWeightAm)
                                                                     .params("age", mAgeAm)
                                                                     .params("imgUrl", mImgUrl)

@@ -388,10 +388,6 @@
             android:screenOrientation="portrait"/>
 
 
-
-
-
-
         <activity
             android:name=".ui.FindPwdActivity"
             android:launchMode="singleInstance"
