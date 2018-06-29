@@ -689,6 +689,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                 tvVariety.setVisibility(View.VISIBLE);
 
                                 String imgUrl = selectLivestock.getLivestock().getImgUrl();
+                                mImgUrl =imgUrl;
                                 imgUrl = Constants.BASE_URL + imgUrl;
                                 OkGo.<File>get(imgUrl)
                                         .tag(this)
@@ -843,7 +844,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                 .params("deviceNO", mIsbn)
                                 .params("ranchID", mLoginSuccess.getRanchID())
                                 .params("livestockType", type2)
-                                .params("variety", mInteger == 0 ? 100 : mInteger)
+                                .params("variety", variety3)
                                 .params("weight", mWeightAm)
                                 .params("age", mAgeAm)
                                 .params("imgUrl", mImgUrl)

@@ -94,6 +94,7 @@ public class ModifyPhoneActivity extends Activity {
                     finish();
 
                 } else {
+
                     ToastUtils.showShort("请输入中国大陆号码");
                     tvTips.setText("请输入中国大陆号码");
                     tvTips.setTextColor(Color.RED);
