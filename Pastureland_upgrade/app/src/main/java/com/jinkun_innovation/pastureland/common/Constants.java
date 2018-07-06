@@ -8,10 +8,14 @@ package com.jinkun_innovation.pastureland.common;
 public class Constants {
 
 
-    public static final String IP = "182.92.3.109";
+//    public static final String IP = "182.92.3.109";
+//    public static final String PORT = ":10100";
+
+    public static final String IP = "116.95.255.211";
     public static final String PORT = ":10100";
 
-//    public static final String IP = "116.95.255.211";
+    //服务器项目部署:218.240.149.148
+//    public static final String IP = "218.240.149.148" ;
 //    public static final String PORT = ":10100";
 
 

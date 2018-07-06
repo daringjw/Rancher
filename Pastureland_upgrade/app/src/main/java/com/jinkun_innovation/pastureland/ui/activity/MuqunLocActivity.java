@@ -170,16 +170,15 @@ public class MuqunLocActivity extends Activity {
                                 public void onClick(View view) {
 
                                     if (expansion) {
+
                                         expansion = false;
                                         btnExpansion.setText("展开");
-
                                         mRecyclerView.setVisibility(View.GONE);
 
                                     } else {
 
                                         expansion = true;
                                         btnExpansion.setText("收起");
-
                                         mRecyclerView.setVisibility(View.VISIBLE);
 
 
@@ -278,6 +277,8 @@ public class MuqunLocActivity extends Activity {
             latitudeBaidu = datas.get(position).getLatitudeBaidu();
             longtitudeBaidu = datas.get(position).getLongtitudeBaidu();
 
+
+
             //定义Maker坐标点
             if (!TextUtils.isEmpty(latitudeBaidu) && !TextUtils.isEmpty(longtitudeBaidu)) {
 
@@ -323,6 +324,7 @@ public class MuqunLocActivity extends Activity {
                     mButton = new Button(getApplicationContext());
                     mButton.setBackgroundColor(Color.WHITE);
                     mButton.setTextColor(Color.BLACK);
+
 
 
                     mButton.setText("牲畜类型：羊\n" + "牲畜品种：乌珠穆泣黑头羊\n" +
@@ -392,8 +394,9 @@ public class MuqunLocActivity extends Activity {
                 tvId = view.findViewById(R.id.tvId);
                 ivIcon = view.findViewById(R.id.ivIcon);
 
-
             }
+
+
         }
 
 

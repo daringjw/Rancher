@@ -387,6 +387,13 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".ui.locui.NiuLocActivity2"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+
+
 
         <activity
             android:name=".ui.FindPwdActivity"

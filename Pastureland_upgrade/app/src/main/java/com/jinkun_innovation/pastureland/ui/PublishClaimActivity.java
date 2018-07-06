@@ -392,7 +392,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
 
     int type2;
-    int variety2;
+
     int variety3 = 100;
 
 
@@ -673,6 +673,8 @@ public class PublishClaimActivity extends AppCompatActivity {
                         Gson gson1 = new Gson();
                         LiveStock selectLivestock = gson1.fromJson(result, LiveStock.class);
                         String msg = selectLivestock.getMsg();
+
+                        Log.d(TAG1,"msg="+msg);
                         if (TextUtils.isEmpty(msg)) {
 
                             return;
@@ -778,61 +780,142 @@ public class PublishClaimActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if (mType1.equals("羊")) {
-
-                    type = 1;
-                    variety2 = 100;
-
-                } else if (mType1.equals("牛")) {
-
-                    type = 2;
-                    variety2 = 201;
-
-                } else if (mType1.equals("马")) {
-
-                    type = 3;
-                    variety2 = 301;
-
-                } else if (mType1.equals("猪")) {
-
-                    type = 4;
-                    variety2 = 401;
-                } else if (mType1.equals("鸡")) {
-
-                    type = 5;
-                    variety2 = 501;
-                } else if (mType1.equals("鹿")) {
-
-                    type = 6;
-                    variety2 = 601;
-                } else if (mType1.equals("骆驼")) {
-
-                    type = 7;
-                    variety2 = 701;
-                } else if (mType1.equals("驴")) {
-
-                    type = 8;
-                    variety2 = 801;
-                }
-
-
                 Log.d(TAG1, "mImgUrl1==" + mImgUrl);
                 Log.d(TAG1, "mWeightAm=" + mWeightAm + ",mAgeAm=" + mAgeAm);
 //
 
-                if (type2 == 1) {
-                    variety3 = 100;
-                } else if (type2 == 2) {
-                    variety3 = 201;
-                } else if (type2 == 3) {
-                    variety3 = 301;
-                } else if (type2 == 4) {
-                    variety3 = 401;
-                } else if (type2 == 7) {
-                    variety3 = 701;
-                } else if (type2 == 8) {
-                    variety3 = 801;
-                }
+                //查看发布情况selectLivestock.do
+                OkGo.<String>get(Constants.LIVESTOCK)
+                        .tag(this)
+                        .params("token", mLoginSuccess.getToken())
+                        .params("username", mUsername)
+                        .params("deviceNO", mIsbn)
+                        .params("ranchID", mLoginSuccess.getRanchID())
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                String result = response.body().toString();
+                                Log.d(TAG1, "result=" + result);
+                                Gson gson1 = new Gson();
+                                LiveStock selectLivestock = gson1.fromJson(result, LiveStock.class);
+                                String msg = selectLivestock.getMsg();
+
+                                Log.d(TAG1,"msg="+msg);
+                                if (TextUtils.isEmpty(msg)) {
+
+                                    if (type2 == 1) {
+                                        variety3 = mInteger;
+                                    } else if (type2 == 2) {
+                                        variety3 = 201;
+
+                                    } else if (type2 == 3) {
+                                        variety3 = 301;
+                                    } else if (type2 == 4) {
+                                        variety3 = 401;
+                                    } else if (type2 == 7) {
+                                        variety3 = 701;
+                                    } else if (type2 == 8) {
+                                        variety3 = 801;
+                                    }
+
+                                } else {
+
+                                    if (msg.contains("成功")) {
+
+                                        mSpinner1.setVisibility(View.GONE);
+                                        mSpinner2.setVisibility(View.GONE);
+
+                                        TextView tvType = findViewById(R.id.tvType);
+                                        TextView tvVariety = findViewById(R.id.tvVariety);
+                                        tvType.setVisibility(View.VISIBLE);
+                                        tvVariety.setVisibility(View.VISIBLE);
+
+                                        String imgUrl = selectLivestock.getLivestock().getImgUrl();
+                                        mImgUrl = imgUrl;
+                                        imgUrl = Constants.BASE_URL + imgUrl;
+                                        OkGo.<File>get(imgUrl)
+                                                .tag(this)
+                                                .execute(new FileCallback() {
+                                                    @Override
+                                                    public void onSuccess(Response<File> response) {
+
+                                                        String path = response.body().getAbsolutePath();
+                                                        mIvTakePhoto.setImageURI(Uri.parse(path));
+
+                                                    }
+                                                });
+
+
+                                        String variety = selectLivestock.getLivestock().getVariety();
+                                        if (variety.equals("100")) {
+
+                                            tvType.setText("羊");
+                                            tvVariety.setText("乌珠穆泣黑头羊");
+                                            type2 = 1;
+                                            variety3 = 100;
+
+                                        } else if (variety.equals("101")) {
+
+                                            tvType.setText("羊");
+                                            tvVariety.setText("山羊");
+                                            type2 = 1;
+                                            variety3 = 101;
+
+                                        } else if (variety.equals("201")) {
+
+                                            tvType.setText("牛");
+                                            tvVariety.setText("西门塔尔牛");
+                                            type2 = 2;
+                                            variety3 = 201;
+
+                                        } else if (variety.equals("301")) {
+
+                                            tvType.setText("马");
+                                            tvVariety.setText("蒙古马");
+                                            type2 = 3;
+                                            variety3 = 301;
+
+                                        } else if (variety.equals("401")) {
+
+                                            tvType.setText("猪");
+                                            tvVariety.setText("草原黑毛猪");
+
+                                            type2 = 4;
+                                            variety3 = 401;
+
+
+                                        } else if (variety.equals("701")) {
+
+                                            tvType.setText("骆驼");
+                                            tvVariety.setText("骆驼");
+
+                                            type2 = 7;
+                                            variety3 = 701;
+
+
+                                        } else if (variety.equals("801")) {
+
+                                            tvType.setText("驴");
+                                            tvVariety.setText("驴");
+
+                                            type2 = 8;
+                                            variety3 = 801;
+
+
+                                        }
+
+
+                                    }
+                                }
+
+
+                            }
+                        });
+
+
+
+
 
                 if (mWeightAm == 0 || mAgeAm == 0) {
 
@@ -841,12 +924,12 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                 } else {
 
-                    if (mIsbn.startsWith("0003") && type == 1) {
+                    if (mIsbn.startsWith("0003") && type2 == 1) {
 
                         ToastUtils.showShort("0003是大牲畜，品种不能选择羊");
 
                     } else if ((mIsbn.startsWith("0001") || mIsbn.startsWith("0002"))
-                            && type != 1) {
+                            && type2 != 1) {
 
                         ToastUtils.showShort("0001/0002是羊，品种不能选择其他品种");
 

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,10 @@ public class NiuLocActivity extends Activity {
     boolean expansion = true;
     private Button mButton;
     private OverlayOptions mOption;
+
+    //46.0884474351,122.0445554437
+    double lat1= 46.0884474351 ;
+    double lon2 = 122.0445554437;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,8 +142,10 @@ public class NiuLocActivity extends Activity {
 
                             } else {
 
-                                mLocation.setLatitude(22.5366038785);
-                                mLocation.setLongitude(113.9381825394);
+                                //46.0884474351,122.0445554437
+
+                                mLocation.setLatitude(lat1);
+                                mLocation.setLongitude(lon2);
                             }
 
 
@@ -171,16 +178,13 @@ public class NiuLocActivity extends Activity {
                                     if (expansion) {
                                         expansion = false;
                                         btnExpansion.setText("展开");
-
                                         mRecyclerView.setVisibility(View.GONE);
 
                                     } else {
 
                                         expansion = true;
                                         btnExpansion.setText("收起");
-
                                         mRecyclerView.setVisibility(View.VISIBLE);
-
 
                                     }
 
@@ -288,14 +292,14 @@ public class NiuLocActivity extends Activity {
 
                 } catch (Exception e) {
 
-                    point = new LatLng(39.963175, 116.400244);
+                    point = new LatLng(lat1, lon2);
 
                 }
 
 
             } else {
 
-                point = new LatLng(39.963175, 116.400244);
+                point = new LatLng(lat1, lon2);
 
             }
 
@@ -334,25 +338,36 @@ public class NiuLocActivity extends Activity {
 //                    button.setBackgroundResource(R.drawable.popup);
 
 //定义用于显示该InfoWindow的坐标点
-                    if (!TextUtils.isEmpty(latitudeBaidu)) {
+                    if (!TextUtils.isEmpty(datas.get(position).getLatitudeBaidu())) {
 
                         try{
-                            pt = new LatLng(Double.parseDouble(latitudeBaidu),
-                                    Double.parseDouble(longtitudeBaidu));
+
+                            pt = new LatLng(Double.parseDouble(datas.get(position).getLatitudeBaidu()),
+                                    Double.parseDouble(datas.get(position).getLongtitudeBaidu()));
+
+
                         }catch (Exception e){
-                            pt = new LatLng(39.86923, 116.397428);
+
+                            pt = new LatLng(lat1, lon2);
+
                         }
 
 
                     } else {
-                        pt = new LatLng(39.86923, 116.397428);
+
+                        pt = new LatLng(lat1, lon2);
+
                     }
 
+                    double latitude = pt.latitude;
+                    Log.d(TAG1,"latitude="+latitude);
+                    Log.d(TAG1,"longitude="+pt.longitude);
 
-//创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
+
+                    //创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
                     mInfoWindow = new InfoWindow(mButton, pt, -47);
 
-//显示InfoWindow
+                    //显示InfoWindow
                     mBaiduMap.showInfoWindow(mInfoWindow);
 
 
