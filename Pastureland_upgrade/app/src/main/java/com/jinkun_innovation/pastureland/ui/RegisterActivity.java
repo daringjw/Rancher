@@ -549,25 +549,33 @@ public class RegisterActivity extends Activity {
 
                                     List<Integer> mVariety = selectVariety.getVariety();
 
+                                    if (mVariety==null){
 
-                                    for (int i = 0; i < mVariety.size(); i++) {
+                                        ToastUtils.showShort("抱歉，后台没有数据");
 
-                                        Log.d(TAG1, mVariety.get(i) + "");
+                                    }else {
 
+                                        for (int i = 0; i < mVariety.size(); i++) {
+
+                                            Log.d(TAG1, mVariety.get(i) + "");
+
+                                        }
+
+
+                                        Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
+
+                                        if (mVariety != null) {
+                                            //  建立Adapter绑定数据源
+                                            MyAdapter _MyAdapter = new MyAdapter
+                                                    (getApplicationContext(), mVariety);
+
+                                            //绑定Adapter
+                                            spinner2.setAdapter(_MyAdapter);
+                                        }
 
                                     }
 
 
-                                    Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
-
-                                    if (mVariety != null) {
-                                        //  建立Adapter绑定数据源
-                                        MyAdapter _MyAdapter = new MyAdapter
-                                                (getApplicationContext(), mVariety);
-
-                                        //绑定Adapter
-                                        spinner2.setAdapter(_MyAdapter);
-                                    }
 
 
                                 }
