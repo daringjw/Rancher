@@ -339,8 +339,9 @@ public class MuqunLocActivity extends Activity {
                     if (!TextUtils.isEmpty(latitudeBaidu)) {
 
                         try {
-                            pt = new LatLng(Double.parseDouble(latitudeBaidu),
-                                    Double.parseDouble(longtitudeBaidu));
+                            pt = new LatLng(Double.parseDouble(datas.get(position).getLatitudeBaidu()),
+                                    Double.parseDouble(datas.get(position).getLongtitudeBaidu()));
+
                         } catch (Exception e) {
                             pt = new LatLng(39.86923, 116.397428);
                         }
