@@ -167,7 +167,16 @@
                     android:layout_weight="1"
                     android:text="重量  "/>
 
+                <TextView
+                    android:id="@+id/tvWeight"
+                    android:text="5"
+                    android:visibility="gone"
+                    android:layout_weight="1"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"/>
+
                 <com.jinkun_innovation.pastureland.ui.view.AmountView
+                    android:visibility="visible"
                     android:id="@+id/avWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
@@ -203,6 +212,15 @@
                     android:layout_weight="1"
                     android:text="年龄  "/>
 
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tvAge"
+                    android:text="5"
+                    android:layout_weight="1"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"/>
+
+
                 <com.jinkun_innovation.pastureland.ui.view.AmountViewAge
                     android:id="@+id/avAge"
                     android:layout_width="wrap_content"
@@ -210,6 +228,7 @@
                     android:layout_centerInParent="true"
                     android:layout_gravity="right"
                     android:layout_marginRight="15dp"
+                    android:visibility="visible"
                     android:layout_weight="1"
                     app:btnTextSize="14sp"
                     app:btnWidth="36dp"

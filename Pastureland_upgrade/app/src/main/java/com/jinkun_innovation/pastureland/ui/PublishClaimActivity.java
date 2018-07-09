@@ -37,6 +37,7 @@ import com.jinkun_innovation.pastureland.bean.SelectVariety;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.view.AmountView;
 import com.jinkun_innovation.pastureland.ui.view.AmountViewAge;
+import com.jinkun_innovation.pastureland.utilcode.constant.TimeConstants;
 import com.jinkun_innovation.pastureland.utilcode.util.FileUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.ImageUtils;
 import com.jinkun_innovation.pastureland.utilcode.util.LogUtils;
@@ -340,7 +341,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                 TextView tvVariety = convertView.findViewById(R.id.tvVariety);
 
                 mInteger = mList.get(position);
-
+                variety4 = mInteger;
                 Log.d(TAG1, "mInteger=" + mInteger);
 
                 switch (mInteger) {
@@ -392,8 +393,9 @@ public class PublishClaimActivity extends AppCompatActivity {
 
 
     int type2;
-
+    int type4;
     int variety3 = 100;
+    int variety4 = 100;
 
 
     @Override
@@ -561,10 +563,16 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                 if (pos == 4) {
                     type2 = 7;
+                    type4 = 7;
+
                 } else if (pos == 5) {
                     type2 = 8;
+                    type4 = 8;
+
                 } else {
                     type2 = pos + 1;
+                    type4 = pos + 1;
+
                 }
 
                 //根据type1 访问接口
@@ -674,7 +682,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                         LiveStock selectLivestock = gson1.fromJson(result, LiveStock.class);
                         String msg = selectLivestock.getMsg();
 
-                        Log.d(TAG1,"msg="+msg);
+                        Log.d(TAG1, "msg=" + msg);
                         if (TextUtils.isEmpty(msg)) {
 
                             return;
@@ -685,11 +693,28 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                                 mSpinner1.setVisibility(View.GONE);
                                 mSpinner2.setVisibility(View.GONE);
+                                avWeight.setVisibility(View.GONE);
+                                avAge.setVisibility(View.GONE);
 
                                 TextView tvType = findViewById(R.id.tvType);
                                 TextView tvVariety = findViewById(R.id.tvVariety);
                                 tvType.setVisibility(View.VISIBLE);
                                 tvVariety.setVisibility(View.VISIBLE);
+
+                                TextView tvWeight = findViewById(R.id.tvWeight);
+                                TextView tvAge = findViewById(R.id.tvAge);
+                                tvWeight.setVisibility(View.VISIBLE);
+                                tvAge.setVisibility(View.VISIBLE);
+
+                                tvWeight.setText(selectLivestock.getLivestock().getWeight());
+
+                                String createTime = selectLivestock.getLivestock().getCreateTime();
+                                long timeSpanByNow = TimeUtils.getTimeSpanByNow(createTime, TimeConstants.DAY) + 2;
+                                Log.d(TAG1, timeSpanByNow + "天=timeSpanByNow");
+                                int age = (int) timeSpanByNow / 30;
+                                Log.d(TAG1, age + "个月");
+                                tvAge.setText(age + "");
+
 
                                 String imgUrl = selectLivestock.getLivestock().getImgUrl();
                                 mImgUrl = imgUrl;
@@ -711,7 +736,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                 if (variety.equals("100")) {
 
                                     tvType.setText("羊");
-                                    tvVariety.setText("乌珠穆泣黑头羊");
+                                    tvVariety.setText("乌珠穆沁黑头羊");
                                     type2 = 1;
                                     variety3 = 100;
 
@@ -801,7 +826,10 @@ public class PublishClaimActivity extends AppCompatActivity {
                                 LiveStock selectLivestock = gson1.fromJson(result, LiveStock.class);
                                 String msg = selectLivestock.getMsg();
 
-                                Log.d(TAG1,"msg="+msg);
+//                                mWeightAm   mAgeAm ;
+
+
+                                Log.d(TAG1, "msg=" + msg);
                                 if (TextUtils.isEmpty(msg)) {
 
                                     if (type2 == 1) {
@@ -846,12 +874,24 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                     }
                                                 });
 
+                                        String weight = selectLivestock.getLivestock().getWeight();
+                                        weight = weight.substring(0, 1);
+                                        mWeightAm = Integer.parseInt(weight);
+
+                                        String createTime = selectLivestock.getLivestock().getCreateTime();
+                                        long timeSpanByNow = TimeUtils.getTimeSpanByNow(createTime, TimeConstants.DAY) + 2;
+                                        Log.d(TAG1, timeSpanByNow + "天=timeSpanByNow");
+                                        int age = (int) timeSpanByNow / 30;
+
+                                        mAgeAm = age;
+
+                                        Log.e(TAG1, "mWeightAm1=" + mWeightAm + "mAgeAm1=" + mAgeAm);
 
                                         String variety = selectLivestock.getLivestock().getVariety();
                                         if (variety.equals("100")) {
 
                                             tvType.setText("羊");
-                                            tvVariety.setText("乌珠穆泣黑头羊");
+                                            tvVariety.setText("乌珠穆沁黑头羊");
                                             type2 = 1;
                                             variety3 = 100;
 
@@ -914,9 +954,6 @@ public class PublishClaimActivity extends AppCompatActivity {
                         });
 
 
-
-
-
                 if (mWeightAm == 0 || mAgeAm == 0) {
 
                     ToastUtils.showShort("年龄和重量都不能为0");
@@ -938,6 +975,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                         ToastUtils.showShort("亲，请先拍照");
 
                     } else {
+
 
                         OkGo.<String>post(Constants.RELEASE)
                                 .tag(this)
@@ -982,54 +1020,201 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                                         } else if (s.contains("已经发布过了")) {
 
-                                            OkGo.<String>post(Constants.IS_CLAIMED)
+
+                                            OkGo.<String>get(Constants.LIVESTOCK)
                                                     .tag(this)
                                                     .params("token", mLoginSuccess.getToken())
                                                     .params("username", mUsername)
                                                     .params("deviceNO", mIsbn)
                                                     .params("ranchID", mLoginSuccess.getRanchID())
-                                                    .params("livestockType", type2)
-                                                    .params("variety", variety3)
-                                                    .params("weight", mWeightAm)
-                                                    .params("age", mAgeAm)
-                                                    .params("imgUrl", mImgUrl)
                                                     .execute(new StringCallback() {
                                                         @Override
                                                         public void onSuccess(Response<String> response) {
 
-                                                            String s1 = response.body().toString();
-                                                            Log.d(TAG1, "s1=" + s1);
+                                                            String result = response.body().toString();
+                                                            Log.d(TAG1, "result=" + result);
+                                                            Gson gson1 = new Gson();
+                                                            LiveStock selectLivestock = gson1.fromJson(result, LiveStock.class);
+                                                            String msg = selectLivestock.getMsg();
 
-                                                            if (s1.contains("已被认领不可重新发布")) {
+//                                mWeightAm   mAgeAm ;
 
-                                                                new SweetAlertDialog(PublishClaimActivity.this,
-                                                                        SweetAlertDialog.WARNING_TYPE)
-                                                                        .setTitleText("已经被认领")
-                                                                        .setContentText("已被认领不可重新发布")
-                                                                        .setConfirmText("确定")
-                                                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                                            @Override
-                                                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                                                ToastUtils.showShort("已被认领不可重新发布");
+
+                                                            OkGo.<String>post(Constants.IS_CLAIMED)
+                                                                    .tag(this)
+                                                                    .params("token", mLoginSuccess.getToken())
+                                                                    .params("username", mUsername)
+                                                                    .params("deviceNO", mIsbn)
+                                                                    .params("ranchID", mLoginSuccess.getRanchID())
+                                                                    .params("livestockType", type2)
+                                                                    .params("variety", variety3)
+                                                                    .params("weight", mWeightAm)
+                                                                    .params("age", mAgeAm)
+                                                                    .params("imgUrl", mImgUrl)
+                                                                    .execute(new StringCallback() {
+                                                                        @Override
+                                                                        public void onSuccess(Response<String> response) {
+
+                                                                            String s1 = response.body().toString();
+                                                                            Log.d(TAG1, "s1=" + s1);
+
+                                                                            if (s1.contains("已被认领不可重新发布")) {
+
+                                                                                new SweetAlertDialog(PublishClaimActivity.this,
+                                                                                        SweetAlertDialog.WARNING_TYPE)
+                                                                                        .setTitleText("已经被认领")
+                                                                                        .setContentText("已被认领不可重新发布")
+                                                                                        .setConfirmText("确定")
+                                                                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                                                            @Override
+                                                                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                                                ToastUtils.showShort("已被认领不可重新发布");
+                                                                                                setResult(RESULT_OK);
+                                                                                                finish();
+                                                                                            }
+                                                                                        })
+
+                                                                                        .show();
+
+
+                                                                            } else if (s1.contains("接收信息有空值")) {
+
+                                                                                ToastUtils.showShort("接收信息有空值,请拍照");
+
+                                                                            } else if (s1.contains("重新发布认领表成功")) {
+
+                                                                                ToastUtils.showShort("重新发布认领成功");
                                                                                 setResult(RESULT_OK);
                                                                                 finish();
+
                                                                             }
-                                                                        })
 
-                                                                        .show();
+                                                                        }
+                                                                    });
 
 
-                                                            } else if (s1.contains("接收信息有空值")) {
+                                                            Log.d(TAG1, "msg=" + msg);
+                                                            if (TextUtils.isEmpty(msg)) {
 
-                                                                ToastUtils.showShort("接收信息有空值,请拍照");
+                                                                if (type2 == 1) {
+                                                                    variety3 = mInteger;
+                                                                } else if (type2 == 2) {
+                                                                    variety3 = 201;
 
-                                                            } else if (s1.contains("重新发布认领表成功")) {
+                                                                } else if (type2 == 3) {
+                                                                    variety3 = 301;
+                                                                } else if (type2 == 4) {
+                                                                    variety3 = 401;
+                                                                } else if (type2 == 7) {
+                                                                    variety3 = 701;
+                                                                } else if (type2 == 8) {
+                                                                    variety3 = 801;
+                                                                }
 
-                                                                ToastUtils.showShort("重新发布认领成功");
-                                                                setResult(RESULT_OK);
-                                                                finish();
+                                                            } else {
 
+                                                                if (msg.contains("成功")) {
+
+                                                                    String weight = selectLivestock.getLivestock().getWeight();
+                                                                    weight = weight.substring(0, 1);
+                                                                    mWeightAm = Integer.parseInt(weight);
+
+                                                                    String createTime = selectLivestock.getLivestock().getCreateTime();
+                                                                    long timeSpanByNow = TimeUtils.getTimeSpanByNow(createTime, TimeConstants.DAY) + 2;
+                                                                    Log.d(TAG1, timeSpanByNow + "天=timeSpanByNow");
+                                                                    int age = (int) timeSpanByNow / 30;
+
+                                                                    mAgeAm = age;
+
+                                                                    Log.e(TAG1, "mWeightAm1=" + mWeightAm + "，mAgeAm1=" + mAgeAm);
+
+
+                                                                    mSpinner1.setVisibility(View.GONE);
+                                                                    mSpinner2.setVisibility(View.GONE);
+
+                                                                    TextView tvType = findViewById(R.id.tvType);
+                                                                    TextView tvVariety = findViewById(R.id.tvVariety);
+                                                                    tvType.setVisibility(View.VISIBLE);
+                                                                    tvVariety.setVisibility(View.VISIBLE);
+
+                                                                    String imgUrl = selectLivestock.getLivestock().getImgUrl();
+                                                                    mImgUrl = imgUrl;
+                                                                    imgUrl = Constants.BASE_URL + imgUrl;
+                                                                    OkGo.<File>get(imgUrl)
+                                                                            .tag(this)
+                                                                            .execute(new FileCallback() {
+                                                                                @Override
+                                                                                public void onSuccess(Response<File> response) {
+
+                                                                                    String path = response.body().getAbsolutePath();
+                                                                                    mIvTakePhoto.setImageURI(Uri.parse(path));
+
+                                                                                }
+                                                                            });
+
+
+                                                                    String variety = selectLivestock.getLivestock().getVariety();
+                                                                    if (variety.equals("100")) {
+
+                                                                        tvType.setText("羊");
+                                                                        tvVariety.setText("乌珠穆沁黑头羊");
+                                                                        type2 = 1;
+                                                                        variety3 = 100;
+
+                                                                    } else if (variety.equals("101")) {
+
+                                                                        tvType.setText("羊");
+                                                                        tvVariety.setText("山羊");
+                                                                        type2 = 1;
+                                                                        variety3 = 101;
+
+                                                                    } else if (variety.equals("201")) {
+
+                                                                        tvType.setText("牛");
+                                                                        tvVariety.setText("西门塔尔牛");
+                                                                        type2 = 2;
+                                                                        variety3 = 201;
+
+                                                                    } else if (variety.equals("301")) {
+
+                                                                        tvType.setText("马");
+                                                                        tvVariety.setText("蒙古马");
+                                                                        type2 = 3;
+                                                                        variety3 = 301;
+
+                                                                    } else if (variety.equals("401")) {
+
+                                                                        tvType.setText("猪");
+                                                                        tvVariety.setText("草原黑毛猪");
+
+                                                                        type2 = 4;
+                                                                        variety3 = 401;
+
+
+                                                                    } else if (variety.equals("701")) {
+
+                                                                        tvType.setText("骆驼");
+                                                                        tvVariety.setText("骆驼");
+
+                                                                        type2 = 7;
+                                                                        variety3 = 701;
+
+
+                                                                    } else if (variety.equals("801")) {
+
+                                                                        tvType.setText("驴");
+                                                                        tvVariety.setText("驴");
+
+                                                                        type2 = 8;
+                                                                        variety3 = 801;
+
+
+                                                                    }
+
+
+                                                                }
                                                             }
+
 
                                                         }
                                                     });
@@ -1062,7 +1247,9 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                             sweetAlertDialog.cancel();
 
 
+                                                            Log.d(TAG1, "type4=" + type4 + ",variety4=" + variety4);
                                                             Log.d(TAG1, "type2=" + type2 + ",variety3=" + variety3);
+
 
                                                             OkGo.<String>post(Constants.RELEASE)
                                                                     .tag(this)

@@ -164,7 +164,9 @@ public class NiuListActivity extends AppCompatActivity {
 
                                     if (mylist.size() == 0) {
 
+
                                         ToastUtils.showShort("没有更多数据了");
+
 
                                     } else {
                                         for (int i = 0; i < mylist.size(); i++) {
