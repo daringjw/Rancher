@@ -101,6 +101,9 @@ public class PublishClaimActivity extends AppCompatActivity {
     private static final int REQUEST_CAPTURE = 2;  //拍照
     private ImageView mIvTakePhoto;
     private String mImgUrl = "";
+    private String mImgUrl2 = "";
+
+
     private String mIsbn;
     private int mLivestockType;
     private List<Integer> mVariety;
@@ -171,6 +174,9 @@ public class PublishClaimActivity extends AppCompatActivity {
                                             int j = mImgUrl.indexOf("j");
                                             mImgUrl = mImgUrl.substring(j - 1, mImgUrl.length());
                                             Log.d(TAG1, mImgUrl);
+                                            mImgUrl2 = mImgUrl;
+
+
 
                                             if (pDialog != null) {
                                                 pDialog.cancel();
@@ -1050,7 +1056,7 @@ public class PublishClaimActivity extends AppCompatActivity {
                                                                     .params("variety", variety3)
                                                                     .params("weight", mWeightAm)
                                                                     .params("age", mAgeAm)
-                                                                    .params("imgUrl", mImgUrl)
+                                                                    .params("imgUrl", mImgUrl2)
                                                                     .execute(new StringCallback() {
                                                                         @Override
                                                                         public void onSuccess(Response<String> response) {
