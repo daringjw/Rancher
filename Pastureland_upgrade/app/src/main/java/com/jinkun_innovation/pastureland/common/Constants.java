@@ -12,15 +12,14 @@ public class Constants {
 //    public static final String PORT = ":10100";
 
     // 账号 15024832451    12345678
-    //
-//    public static final String IP = "116.95.255.211";
-//    public static final String PORT = ":10100";
-
+    //15024832451 密码12345678
+    public static final String IP = "116.95.255.211";
+    public static final String PORT = ":10100";
 
 
     //  17610893073    18126177726
-    public static final String IP = "218.240.149.148" ;
-    public static final String PORT = ":10100";
+//    public static final String IP = "218.240.149.148" ;
+//    public static final String PORT = ":10100";
 
 
     //测试服务器

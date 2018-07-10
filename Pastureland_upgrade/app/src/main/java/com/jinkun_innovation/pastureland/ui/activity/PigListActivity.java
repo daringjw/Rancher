@@ -22,7 +22,7 @@ import com.jinkun_innovation.pastureland.bean.LoginSuccess;
 import com.jinkun_innovation.pastureland.bean.QueryByYang;
 import com.jinkun_innovation.pastureland.common.Constants;
 import com.jinkun_innovation.pastureland.ui.YangDetailActivity;
-import com.jinkun_innovation.pastureland.ui.locui.PigLocActivity;
+import com.jinkun_innovation.pastureland.ui.locui.PigLocActivity2;
 import com.jinkun_innovation.pastureland.utilcode.util.ToastUtils;
 import com.jinkun_innovation.pastureland.utils.PrefUtils;
 import com.lzy.okgo.OkGo;
@@ -232,7 +232,7 @@ public class PigListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), PigLocActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PigLocActivity2.class);
                 startActivity(intent);
 
             }

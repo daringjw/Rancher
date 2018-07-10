@@ -1,4 +1,4 @@
-package com.jinkun_innovation.pastureland.ui.activity;
+package com.jinkun_innovation.pastureland.ui.locui;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -41,9 +41,9 @@ import java.util.List;
  * Created by Guan on 2018/5/4.
  */
 
-public class MuqunLocActivity extends Activity {
+public class DonkeyLocActivity2 extends Activity {
 
-    private static final String TAG1 = MuqunLocActivity.class.getSimpleName();
+    private static final String TAG1 = DonkeyLocActivity2.class.getSimpleName();
 
     private MapView mMapView = null;
     BaiduMap mBaiduMap;
@@ -67,7 +67,6 @@ public class MuqunLocActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_muqun_loc);
 
@@ -98,7 +97,7 @@ public class MuqunLocActivity extends Activity {
 
         OkGo.<String>get(Constants.queryLivestockList)
                 .tag(this)
-                .params("livestockType", 1)
+                .params("livestockType", 8)
                 .params("ranchID", mLoginSuccess.getRanchID())
                 .params("current", 0)
                 .params("pagesize", 99999)
@@ -268,7 +267,7 @@ public class MuqunLocActivity extends Activity {
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-            viewHolder.ivIcon.setImageResource(R.mipmap.loc_yang);
+            viewHolder.ivIcon.setImageResource(R.mipmap.donkey_loc);
             String deviceNo = datas.get(position).getDeviceNo();
             deviceNo = deviceNo.substring(deviceNo.length() - 6, deviceNo.length());
             viewHolder.tvId.setText(deviceNo);
@@ -276,7 +275,6 @@ public class MuqunLocActivity extends Activity {
 
             latitudeBaidu = datas.get(position).getLatitudeBaidu();
             longtitudeBaidu = datas.get(position).getLongtitudeBaidu();
-
 
             //定义Maker坐标点
             if (!TextUtils.isEmpty(latitudeBaidu) && !TextUtils.isEmpty(longtitudeBaidu)) {
@@ -325,7 +323,7 @@ public class MuqunLocActivity extends Activity {
                     mButton.setTextColor(Color.BLACK);
 
 
-                    mButton.setText("牲畜类型：羊\n" + "牲畜品种：乌珠穆泣黑头羊\n" +
+                    mButton.setText("牲畜类型：驴\n" + "牲畜品种：驴\n" +
                             "   设备编号：" + datas.get(position).getDeviceNo() + "   \n"
                             + "   上传时间：" + datas.get(position).recordTime + "   \n" +
                             "   牲畜位置：" + datas.get(position).getAddress() + "   ");
@@ -421,6 +419,7 @@ public class MuqunLocActivity extends Activity {
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mMapView.onPause();
+
     }
 
 

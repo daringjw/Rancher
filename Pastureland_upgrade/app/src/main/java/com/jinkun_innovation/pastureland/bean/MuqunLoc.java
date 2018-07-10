@@ -67,8 +67,11 @@ public class MuqunLoc {
          * id : 46
          * isClaimed : 0
          * bindStatus : 1
+         *
+         * recordTime
          */
 
+        public  String  recordTime;
         private String deviceType;
         private String phase;
         private String address;

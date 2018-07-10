@@ -135,7 +135,6 @@
             android:screenOrientation="portrait"/>
 
 
-
         <activity
             android:name=".ui.PrivateActivity"
             android:launchMode="singleInstance"
@@ -380,8 +379,6 @@
             android:screenOrientation="portrait"/>
 
 
-
-
         <activity
             android:name=".ui.activity.DonkeyListActivity"
             android:launchMode="singleInstance"
@@ -391,6 +388,27 @@
             android:name=".ui.locui.NiuLocActivity2"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.locui.CamelLocActivity2"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.locui.DonkeyLocActivity2"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.locui.MaLocActivity2"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+ <activity
+            android:name=".ui.locui.PigLocActivity2"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
 
 
 
@@ -409,8 +427,6 @@
             android:name=".ui.activity.ClaimMsgActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
-
-
 
 
         <activity

@@ -331,7 +331,7 @@ public class NiuLocActivity extends Activity {
 
                     mButton.setText("牲畜类型：牛\n" + "牲畜品种：西门塔尔牛\n" +
                             "   设备编号：" + datas.get(position).getDeviceNo() + "   \n"
-                            + "   上传时间：" + datas.get(position).getUpdateTime() + "   \n" +
+                            + "   上传时间：" + datas.get(position).recordTime + "   \n" +
                             "   牲畜位置：" + datas.get(position).getAddress() + "   ");
 
 
