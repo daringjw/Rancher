@@ -36,6 +36,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,6 +57,9 @@ public class NiuLocActivity extends Activity {
     String mUsername;
 
     List<MuqunLoc.LivestockVarietyListBean> livestockVarietyList;
+    List<MuqunLoc.LivestockVarietyListBean> effectList;
+
+
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     MyAdapter mAdapter;
@@ -66,7 +70,7 @@ public class NiuLocActivity extends Activity {
     private OverlayOptions mOption;
 
     //46.0884474351,122.0445554437
-    double lat1= 46.0884474351 ;
+    double lat1 = 46.0884474351;
     double lon2 = 122.0445554437;
 
     @Override
@@ -120,15 +124,49 @@ public class NiuLocActivity extends Activity {
                         if (msg.contains("按类型获取牲畜成功")) {
 
                             livestockVarietyList = muqunLoc.getLivestockVarietyList();
-                            mAdapter = new MyAdapter(livestockVarietyList);
+
+                            effectList = new ArrayList<MuqunLoc.LivestockVarietyListBean>();
+
+                            for (MuqunLoc.LivestockVarietyListBean guo : livestockVarietyList) {
+
+                                String latitudeBaidu = guo.getLatitudeBaidu();
+                                String longtitudeBaidu = guo.getLongtitudeBaidu();
+
+                                Log.d(TAG1, "latitudeBaidu=" + latitudeBaidu);
+
+                                if (TextUtils.isEmpty(latitudeBaidu)) {
+
+                                } else {
+                                    if (latitudeBaidu.equals("null")) {
+
+                                    } else {
+                                        //不为空
+                                        effectList.add(guo);
+
+                                    }
+                                }
+
+
+                            }
+
+
+                            mAdapter = new MyAdapter(effectList);
                             mRecyclerView.setAdapter(mAdapter);
 
                             // 开启定位图层
                             mBaiduMap.setMyLocationEnabled(true);
 
                             mLocation = new BDLocation();
-                            String latitudeBaidu = livestockVarietyList.get(0).getLatitudeBaidu();
-                            String longtitudeBaidu = livestockVarietyList.get(0).getLongtitudeBaidu();
+
+                            if (effectList.size() > 0) {
+                                latitudeBaidu = effectList.get(0).getLatitudeBaidu();
+                                longtitudeBaidu = effectList.get(0).getLongtitudeBaidu();
+                            } else {
+                                latitudeBaidu = "22.5366038785" ;
+                                longtitudeBaidu ="113.9381825394";
+                            }
+
+
                             if (!TextUtils.isEmpty(latitudeBaidu)) {
                                 try {
 
@@ -337,16 +375,42 @@ public class NiuLocActivity extends Activity {
 
 //                    button.setBackgroundResource(R.drawable.popup);
 
+                    mLocation.setLatitude(Double.parseDouble(datas.get(position).getLatitudeBaidu()));
+                    mLocation.setLongitude(Double.parseDouble(datas.get(position).getLongtitudeBaidu()));
+
+                    // 构造定位数据
+                    MyLocationData locData = new MyLocationData.Builder()
+                            .accuracy(mLocation.getRadius())
+                            // 此处设置开发者获取到的方向信息，顺时针0-360
+//                .direction(100)
+                            .latitude(mLocation.getLatitude())
+                            .longitude(mLocation.getLongitude()).build();
+
+// 设置定位数据
+                    mBaiduMap.setMyLocationData(locData);
+
+// 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
+
+                    mCurrentMarker = BitmapDescriptorFactory
+                            .fromResource(R.mipmap.icon_location_3);
+
+
+                    MyLocationConfiguration config = new MyLocationConfiguration(
+                            MyLocationConfiguration.LocationMode.FOLLOWING,
+                            true, mCurrentMarker);
+                    mBaiduMap.setMyLocationConfiguration(config);
+
+
 //定义用于显示该InfoWindow的坐标点
                     if (!TextUtils.isEmpty(datas.get(position).getLatitudeBaidu())) {
 
-                        try{
+                        try {
 
                             pt = new LatLng(Double.parseDouble(datas.get(position).getLatitudeBaidu()),
                                     Double.parseDouble(datas.get(position).getLongtitudeBaidu()));
 
 
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                             pt = new LatLng(lat1, lon2);
 
@@ -360,8 +424,8 @@ public class NiuLocActivity extends Activity {
                     }
 
                     double latitude = pt.latitude;
-                    Log.d(TAG1,"latitude="+latitude);
-                    Log.d(TAG1,"longitude="+pt.longitude);
+                    Log.d(TAG1, "latitude=" + latitude);
+                    Log.d(TAG1, "longitude=" + pt.longitude);
 
 
                     //创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量

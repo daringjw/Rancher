@@ -162,9 +162,11 @@ public class LianJiangPasturelandActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
+
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, REQUEST_CAPTURE);
+
 
     }
 

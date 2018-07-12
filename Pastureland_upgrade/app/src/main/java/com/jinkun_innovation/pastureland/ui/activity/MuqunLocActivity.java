@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +57,8 @@ public class MuqunLocActivity extends Activity {
     String mUsername;
 
     List<MuqunLoc.LivestockVarietyListBean> livestockVarietyList;
+    List<MuqunLoc.LivestockVarietyListBean> effectList;
+
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     MyAdapter mAdapter;
@@ -115,15 +119,48 @@ public class MuqunLocActivity extends Activity {
                         if (msg.contains("按类型获取牲畜成功")) {
 
                             livestockVarietyList = muqunLoc.getLivestockVarietyList();
-                            mAdapter = new MyAdapter(livestockVarietyList);
+                            effectList = new ArrayList<MuqunLoc.LivestockVarietyListBean>();
+
+                            for (MuqunLoc.LivestockVarietyListBean guo : livestockVarietyList) {
+
+                                String latitudeBaidu = guo.getLatitudeBaidu();
+                                String longtitudeBaidu = guo.getLongtitudeBaidu();
+
+                                Log.d(TAG1, "latitudeBaidu=" + latitudeBaidu);
+
+                                if (TextUtils.isEmpty(latitudeBaidu)) {
+
+                                } else {
+                                    if (latitudeBaidu.equals("null")) {
+
+                                    } else {
+                                        //不为空
+                                        effectList.add(guo);
+
+                                    }
+                                }
+
+
+                            }
+
+
+                            mAdapter = new MyAdapter(effectList);
                             mRecyclerView.setAdapter(mAdapter);
 
                             // 开启定位图层
                             mBaiduMap.setMyLocationEnabled(true);
 
                             mLocation = new BDLocation();
-                            String latitudeBaidu = livestockVarietyList.get(0).getLatitudeBaidu();
-                            String longtitudeBaidu = livestockVarietyList.get(0).getLongtitudeBaidu();
+
+                            if (effectList.size() > 0) {
+                                latitudeBaidu = effectList.get(0).getLatitudeBaidu();
+                                longtitudeBaidu = effectList.get(0).getLongtitudeBaidu();
+                            } else {
+                                latitudeBaidu = "22.5366038785" ;
+                                longtitudeBaidu ="113.9381825394";
+                            }
+
+
                             if (!TextUtils.isEmpty(latitudeBaidu)) {
 
                                 try {
@@ -330,6 +367,31 @@ public class MuqunLocActivity extends Activity {
                             + "   上传时间：" + datas.get(position).recordTime + "   \n" +
                             "   牲畜位置：" + datas.get(position).getAddress() + "   ");
 
+
+                    mLocation.setLatitude(Double.parseDouble(datas.get(position).getLatitudeBaidu()));
+                    mLocation.setLongitude(Double.parseDouble(datas.get(position).getLongtitudeBaidu()));
+
+                    // 构造定位数据
+                    MyLocationData locData = new MyLocationData.Builder()
+                            .accuracy(mLocation.getRadius())
+                            // 此处设置开发者获取到的方向信息，顺时针0-360
+//                .direction(100)
+                            .latitude(mLocation.getLatitude())
+                            .longitude(mLocation.getLongitude()).build();
+
+// 设置定位数据
+                    mBaiduMap.setMyLocationData(locData);
+
+// 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
+
+                    mCurrentMarker = BitmapDescriptorFactory
+                            .fromResource(R.mipmap.icon_location_3);
+
+
+                    MyLocationConfiguration config = new MyLocationConfiguration(
+                            MyLocationConfiguration.LocationMode.FOLLOWING,
+                            true, mCurrentMarker);
+                    mBaiduMap.setMyLocationConfiguration(config);
 
 //                    button.setBackgroundResource(R.drawable.popup);
 

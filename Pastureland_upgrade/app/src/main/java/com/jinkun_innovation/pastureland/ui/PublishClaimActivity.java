@@ -1022,7 +1022,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                                         } else if (s.contains("接收信息有空值")) {
 
-                                            ToastUtils.showShort("接收信息有空值,请拍照");
+                                            ToastUtils.showShort("请重新拍照");
 
                                         } else if (s.contains("已经发布过了")) {
 
@@ -1085,7 +1085,7 @@ public class PublishClaimActivity extends AppCompatActivity {
 
                                                                             } else if (s1.contains("接收信息有空值")) {
 
-                                                                                ToastUtils.showShort("接收信息有空值,请拍照");
+                                                                                ToastUtils.showShort("请重新拍照");
 
                                                                             } else if (s1.contains("重新发布认领表成功")) {
 
